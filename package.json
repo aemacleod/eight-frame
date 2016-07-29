@@ -1,0 +1,89 @@
+{
+    "author": "Allan MacLeod",
+    "dependencies": {
+        "pebble-clay": "^1.0.1"
+    },
+    "keywords": [],
+    "name": "eight-frame",
+    "pebble": {
+        "capabilities": [
+            "location",
+            "configurable",
+            "health"
+        ],
+        "displayName": "Eight-frame",
+        "enableMultiJS": true,
+        "messageKeys": [
+            "TEMPERATURE",
+            "CONDITIONS",
+            "MIN",
+            "MAX",
+            "WIND_SPEED",
+            "WIND_DIRECTION",
+            "PRECIP_PROBABILITY",
+            "PRECIP_MAX",
+            "TEXT_COLOR_ONE",
+            "BACKGROUND_COLOR_ONE",
+            "TEXT_COLOR_TWO",
+            "BACKGROUND_COLOR_TWO",
+            "TEXT_COLOR_THREE",
+            "BACKGROUND_COLOR_THREE",
+            "TEXT_COLOR_FOUR",
+            "BACKGROUND_COLOR_FOUR",
+            "TEXT_COLOR_FIVE",
+            "BACKGROUND_COLOR_FIVE",
+            "TEXT_COLOR_SIX",
+            "BACKGROUND_COLOR_SIX",
+            "TEXT_COLOR_SEVEN",
+            "BACKGROUND_COLOR_SEVEN",
+            "TEXT_COLOR_EIGHT",
+            "BACKGROUND_COLOR_EIGHT",
+            "TIME_TEXT_COLOR",
+            "TIME_BACKGROUND_COLOR",
+            "COMPLICATION_ONE",
+            "COMPLICATION_TWO",
+            "COMPLICATION_THREE",
+            "COMPLICATION_FOUR",
+            "COMPLICATION_FIVE",
+            "COMPLICATION_SIX",
+            "COMPLICATION_SEVEN",
+            "COMPLICATION_EIGHT",
+            "API_KEY_FORECAST"
+        ],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "characterRegex": "[0-9:]",
+                    "file": "fonts/Ubuntu Bold",
+                    "name": "FONT_UBUNTU_BOLD_44",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "file": "fonts/Ubuntu Regular",
+                    "name": "FONT_UBUNTU_REGULAR_20",
+                    "targetPlatforms": null,
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[AIRWSaGPCJp]",
+                    "file": "fonts/Weather Icons",
+                    "name": "WEATHER_ICONS_24",
+                    "targetPlatforms": null,
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "514380ee-43e0-4c68-b3e6-f463f73fccac",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
