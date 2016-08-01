@@ -22,10 +22,13 @@ Pebble.addEventListener('webviewclosed', function(e) {
     console.log(JSON.stringify(e));
   });
 
-  // Retrieve and store Forecast.io API key
+  // Retrieve and store Dark Sky API key and units
   var messageKeys = require('message_keys');
-  var ApiKeyForecast = dict[messageKeys.API_KEY_FORECAST];
-  localStorage.setItem('StoredApiKeyForecast', ApiKeyForecast);
+  var ApiKeyDarkSky = dict[messageKeys.API_KEY_DARK_SKY];
+  localStorage.setItem('StoredApiKeyDarkSky', ApiKeyDarkSky);
+  var UnitsDarkSky = dict[messageKeys.UNITS_DARK_SKY];
+  console.log('Units requested are ' + UnitsDarkSky);
+  localStorage.setItem('StoredUnitsDarkSky', UnitsDarkSky);
 });
 
 
@@ -40,13 +43,14 @@ var xhrRequest = function (url, type, callback) {
 
 
 function locationSuccess(pos) {
-  // Access API Key
-  var ApiKeyForecast = localStorage.getItem('StoredApiKeyForecast');
-  console.log('API key accessed is ' + ApiKeyForecast);
+  // Access API Key and units
+  var ApiKeyDarkSky = localStorage.getItem('StoredApiKeyDarkSky');
+  var UnitsDarkSky = localStorage.getItem('StoredUnitsDarkSky');
 
   // Construct URL for weather 
-  var url = 'https://api.forecast.io/forecast/' + ApiKeyForecast +
-      '/' + pos.coords.latitude + ',' + pos.coords.longitude + '?exclude=minutely,hourly,alerts,flags';
+  var url = 'https://api.forecast.io/forecast/' + ApiKeyDarkSky +
+      '/' + pos.coords.latitude + ',' + pos.coords.longitude + '?units=' + UnitsDarkSky +
+      '&exclude=minutely,hourly,alerts,flags';
   console.log('URL entered is ' + url);
 
   // Request weather data
@@ -56,15 +60,120 @@ function locationSuccess(pos) {
       var json = JSON.parse(responseText);
 
       // Assemble weather items into variables
-      var temperature = json.currently.temperature;
+      var temperature = Math.round(json.currently.temperature) + '°';
       var conditions = json.currently.icon;
-      var min = json.daily.data[0].temperatureMin;
-      var max = json.daily.data[0].temperatureMax;
-      var windSpeed = json.currently.windSpeed;
-      var windDirection = (json.currently.windBearing)*100;
-      var precipProbability = (json.daily.data[0].precipProbability)*100;
-      var precipMax = (json.daily.data[0].precipIntensityMax)*1000;
+      var weatherIcon;
+      switch (conditions) {
+        case 'clear-day':
+          weatherIcon = 'A';
+          break;
+        case 'clear-night':
+          weatherIcon = 'I';
+          break;
+        case 'rain':
+          weatherIcon = 'R';
+          break;
+        case 'snow':
+          weatherIcon = 'W';
+          break;
+        case 'sleet':
+          weatherIcon = 'S';
+          break;
+        case 'wind':
+          weatherIcon = 'a';
+          break;
+        case 'fog':
+          weatherIcon = 'G';
+          break;
+        case 'cloudy':
+          weatherIcon = 'P';
+          break;
+        case 'partly-cloudy-day':
+          weatherIcon = 'C';
+          break;
+        case 'partly-cloudy-night':
+          weatherIcon = 'J';
+          break;
+        default:
+          weatherIcon = 'p';
+          break;
+      }
+      var maxMinBasalt = Math.round(json.daily.data[0].temperatureMin) + ' / ' +
+          Math.round(json.daily.data[0].temperatureMax);
+      var maxMinChalk = Math.round(json.daily.data[0].temperatureMin) + '/' +
+          Math.round(json.daily.data[0].temperatureMax);
 
+      var windSpeed = Math.round(json.currently.windSpeed);
+      var windBearingNumber = (json.currently.windBearing)*100;
+      var windBearingAbbreviation;
+      if (0 <= windBearingNumber <= 1125) {
+        windBearingAbbreviation = 'n';
+      } else if (1125 < windBearingNumber <= 3375) {
+        windBearingAbbreviation = 'nne';
+      } else if (3375 < windBearingNumber <= 5625) {
+        windBearingAbbreviation = 'ne';
+      } else if (5625 < windBearingNumber <= 7875) {
+        windBearingAbbreviation = 'ene';
+      } else if (7875 < windBearingNumber <= 10125) {
+        windBearingAbbreviation = 'e';
+      } else if (10125 < windBearingNumber <= 12375) {
+        windBearingAbbreviation = 'ese';
+      } else if (12375 < windBearingNumber <= 14625) {
+        windBearingAbbreviation = 'se';
+      } else if (14625 < windBearingNumber <= 16875) {
+        windBearingAbbreviation = 'sse';
+      } else if (16875 < windBearingNumber <= 19125) {
+        windBearingAbbreviation = 's';
+      } else if (19125 < windBearingNumber <= 21375) {
+        windBearingAbbreviation = 'ssw';
+      } else if (21375 < windBearingNumber <= 23625) {
+        windBearingAbbreviation = 'sw';
+      } else if (23625 < windBearingNumber <= 25875) {
+        windBearingAbbreviation = 'wsw';
+      } else if (25875 < windBearingNumber <= 28125) {
+        windBearingAbbreviation = 'w';
+      } else if (28125 < windBearingNumber <= 30375) {
+        windBearingAbbreviation = 'wnw';
+      } else if (30375 < windBearingNumber <= 32625) {
+        windBearingAbbreviation = 'nw';
+      } else if (32625 < windBearingNumber <= 34875) {
+        windBearingAbbreviation = 'nnw';
+      } else if (34875 < windBearingNumber <= 36000) {
+        windBearingAbbreviation = 'n';
+      } else {
+        windBearingAbbreviation = '?';
+      }
+      var windGauge = windSpeed + windBearingAbbreviation;
+
+      var precipProbability = Math.round((json.daily.data[0].precipProbability)*100);
+      var precipMax = (json.daily.data[0].precipIntensityMax)*1000;
+      var precipIntensity;
+      if (UnitsDarkSky == 'us') {
+        if (0 < precipMax <= 5) {
+          precipIntensity = '.';
+        } else if (5 < precipMax <= 35) {
+          precipIntensity = '!';
+        } else if (35 < precipMax <= 110) {
+          precipIntensity = '!!';
+        } else if (110 < precipMax) {
+          precipIntensity = '!!!';
+        } else {
+          precipIntensity = '?';
+        }
+      } else {
+        if (0 < precipMax <= 127) {
+          precipIntensity = '.';
+        } else if (127 < precipMax <= 889) {
+          precipIntensity = '!';
+        } else if (889 < precipMax <= 2794) {
+          precipIntensity = '!!';
+        } else if (2794 < precipMax) {
+          precipIntensity = '!!!';
+        } else {
+          precipIntensity = '?';
+        }
+      }
+      var precipGauge = precipProbability + precipIntensity;
 
 
 // OpenWeatherMap code, commented out until time to add multiple weather options
@@ -88,15 +197,13 @@ function locationSuccess(pos) {
       // Assemble dictionary using keys
       var dictionary = {
           'TEMPERATURE': temperature,
-          'CONDITIONS': conditions,
-          'MIN': min,
-          'MAX': max,
-          'WIND_SPEED': windSpeed,
-          'WIND_DIRECTION': windDirection,
-          'PRECIP_PROBABILITY': precipProbability,
-          'PRECIP_MAX': precipMax
+          'WEATHER_ICON': weatherIcon,
+          'MAX_MIN_BASALT': maxMinBasalt,
+          'MAX_MIN_CHALK': maxMinChalk,
+          'WIND_GAUGE': windGauge,
+          'PRECIP_GAUGE': precipGauge,
       };
-      
+
      // Send to Pebble
      Pebble.sendAppMessage(dictionary,
         function(e) {
@@ -129,7 +236,7 @@ function getWeather() {
 Pebble.addEventListener('ready', 
   function(e) {
     console.log('PebbleKit JS ready!');
-    
+
     // Get the initial weather
     getWeather();
   }

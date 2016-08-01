@@ -15,13 +15,11 @@
         "enableMultiJS": true,
         "messageKeys": [
             "TEMPERATURE",
-            "CONDITIONS",
-            "MIN",
-            "MAX",
-            "WIND_SPEED",
-            "WIND_DIRECTION",
-            "PRECIP_PROBABILITY",
-            "PRECIP_MAX",
+            "WEATHER_ICON",
+            "MAX_MIN_BASALT",
+            "MAX_MIN_CHALK",
+            "WIND_GAUGE",
+            "PRECIP_GAUGE",
             "TEXT_COLOR_ONE",
             "BACKGROUND_COLOR_ONE",
             "TEXT_COLOR_TWO",
@@ -48,7 +46,8 @@
             "COMPLICATION_SIX",
             "COMPLICATION_SEVEN",
             "COMPLICATION_EIGHT",
-            "API_KEY_FORECAST"
+            "API_KEY_DARK_SKY",
+            "UNITS_DARK_SKY"
         ],
         "projectType": "native",
         "resources": {

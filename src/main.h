@@ -103,18 +103,10 @@ uint32_t key_complication8 = 25;
 int complication8_int;
 
 uint32_t key_temperature = 26;
-int temperature_int;
 uint32_t key_max_min = 27;
-int max_int;
-int min_int;
 uint32_t key_weather_icon = 28;
 uint32_t key_wind = 29;
-int wind_speed_int;
-char *wind_bearing;
 uint32_t key_rain = 30;
-
-uint32_t key_api_key_forecast = 31;
-
 
 /* Buffers for time, date, and battery level. Eventually plan to implement custom date
 formatting.*/
@@ -128,25 +120,11 @@ temperature, daily min/max temperature, current conditions (with a buffer contai
 in a dingbat font for the actual display on the watch face), a wind complication that
 shows wind bearing and speed in mph, and a complication showing daily rain chance and daily
 max intensity.*/
-static char temperature_write_buffer[4];
-static char temperature_read_buffer[4];
-static char max_min_write_buffer[10];
-static char max_min_read_buffer[10];
-static char conditions_buffer[24];
+static char temperature_buffer[8];
+static char max_min_buffer[10];
 static char weather_icon_buffer[2];
-static char wind_write_buffer[8];
-static char wind_read_buffer[8];
-static char rain_write_buffer[6];
-static char rain_read_buffer[6];
+static char wind_buffer[8];
+static char precip_buffer[8];
 
 /* Create buffers for fitness data. Currently, only today's steps are implemented.*/
 static char s_step_buffer[8];
-
-
-
-// void text_setting_apply(uint32_t key, int32_t tuple_value, int holder, GColor color, TextLayer layer) {
-//   persist_write_int(key, tuple_value);
-//   holder = persist_read_int(key);
-//   color = GColorFromHEX(holder);
-//   text_layer_set_text_color(layer, color);
-// }

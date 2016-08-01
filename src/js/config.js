@@ -2,7 +2,7 @@ module.exports = [
   {
     "type": "heading",
     "size": 1,
-    "defaultValue": "Playfair Eight Settings"
+    "defaultValue": "Eight-frame Settings"
   },
   {
     "type": "text",
@@ -91,7 +91,7 @@ module.exports = [
            "value": "6" 
          },
          { 
-           "label": "Rain chance and severity",
+           "label": "Precipitation chance and severity",
            "value": "7" 
          },
          { 
@@ -160,7 +160,7 @@ module.exports = [
            "value": "6" 
          },
          { 
-           "label": "Rain chance and severity",
+           "label": "Precipitation chance and severity",
            "value": "7" 
          },
          { 
@@ -229,7 +229,7 @@ module.exports = [
            "value": "6" 
          },
          { 
-           "label": "Rain chance and severity",
+           "label": "Precipitation chance and severity",
            "value": "7" 
          },
          { 
@@ -298,7 +298,7 @@ module.exports = [
            "value": "6" 
          },
          { 
-           "label": "Rain chance and severity",
+           "label": "Precipitation chance and severity",
            "value": "7" 
          },
          { 
@@ -367,7 +367,7 @@ module.exports = [
            "value": "6" 
          },
          { 
-           "label": "Rain chance and severity",
+           "label": "Precipitation chance and severity",
            "value": "7" 
          },
          { 
@@ -436,7 +436,7 @@ module.exports = [
            "value": "6" 
          },
          { 
-           "label": "Rain chance and severity",
+           "label": "Precipitation chance and severity",
            "value": "7" 
          },
          { 
@@ -505,7 +505,7 @@ module.exports = [
            "value": "6" 
          },
          { 
-           "label": "Rain chance and severity",
+           "label": "Precipitation chance and severity",
            "value": "7" 
          },
          { 
@@ -574,7 +574,7 @@ module.exports = [
            "value": "6" 
          },
          { 
-           "label": "Rain chance and severity",
+           "label": "Precipitation chance and severity",
            "value": "7" 
          },
          { 
@@ -595,8 +595,33 @@ module.exports = [
       },
       {
         "type": "input",
-        "messageKey": "API_KEY_FORECAST",
+        "messageKey": "API_KEY_DARK_SKY",
         "label": "Forecast.io API Key",
+      },
+      {
+        "type": "select",
+        "messageKey": "UNITS_DARK_SKY",
+        "label": "Weather units:",
+        "defaultValue": "si",
+        "description": "Details available <A HREF='https://developer.forecast.io/docs/v2#options'>here</A>.",
+        "options": [
+          {
+            "label": "Metric",
+            "value": "si"
+          },
+          {
+            "label": "Imperial",
+            "value": "us"
+          },
+          {
+            "label": "Canadian",
+            "value": "ca"
+          },
+          {
+            "label": "UK",
+            "value": "uk2"
+          }
+        ],
       }
     ]
   },

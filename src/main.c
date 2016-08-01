@@ -1,20 +1,20 @@
 #include <pebble.h>
 #include <main.h>
 
-/*Playfair Eight is a Pebble watch face designed to work with APLite, Basalt, and Chalk
-platforms. The watch is divided up into nine layers: a time layer, and eight complication
-layers that the user can set.*/
+/*Playfair Eight is a Pebble watch face designed to work with APLite (not yet fully tested),
+Basalt, and Chalk platforms. The watch is divided up into nine layers: a time layer, and
+eight complication layers that the user can set.*/
 
 // Information received from AppMessage
 void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 
-/*This AppMessage callback function has two major sections. The first section saves settings
+/*This AppMessage callback function has two sections. The first section saves settings
 data sent from the Clay-generated configuration page in the Pebble app to persistent storage,
 reads the values from storage, and then applies them to the watch face. Each complication has
 text color, background color, and complication options.
 
-The second section retrieves weather data from Forecast.io and formats it into various buffers
-which are then available for display on the watch face.*/
+The second section retrieves weather complication information from Dark Sky, writes it to
+storage, and then reads into buffers for display on the watch face.*/
 
   // Read tuples containing settings data
   Tuple *time_text_tuple = dict_find(iterator, MESSAGE_KEY_TIME_TEXT_COLOR);
@@ -81,7 +81,8 @@ icon font to display the current conditions.*/
   if (background1_tuple) {persist_write_int(key_background1, background1_tuple->value->int32);
                           background1_int = persist_read_int(key_background1);
                           background1 = GColorFromHEX(background1_int);
-                          text_layer_set_background_color(s_complication_layer_one, background1);
+                          text_layer_set_background_color(s_complication_layer_one,
+                                                          background1);
                          }
   if (complication1_tuple) {
     persist_write_int(key_complication1, atoi(complication1_tuple->value->cstring));
@@ -100,11 +101,11 @@ icon font to display the current conditions.*/
       break;
       case 3:
       text_layer_set_font(s_complication_layer_one, s_complication_font);
-      text_layer_set_text(s_complication_layer_one, temperature_read_buffer);
+      text_layer_set_text(s_complication_layer_one, temperature_buffer);
       break;
       case 4:
       text_layer_set_font(s_complication_layer_one, s_complication_font);
-      text_layer_set_text(s_complication_layer_one, max_min_read_buffer);
+      text_layer_set_text(s_complication_layer_one, max_min_buffer);
       break;
       case 5:
       text_layer_set_font(s_complication_layer_one, s_icon_font);
@@ -112,11 +113,11 @@ icon font to display the current conditions.*/
       break;
       case 6:
       text_layer_set_font(s_complication_layer_one, s_complication_font);
-      text_layer_set_text(s_complication_layer_one, wind_read_buffer);
+      text_layer_set_text(s_complication_layer_one, wind_buffer);
       break;
       case 7:
       text_layer_set_font(s_complication_layer_one, s_complication_font);
-      text_layer_set_text(s_complication_layer_one, rain_read_buffer);
+      text_layer_set_text(s_complication_layer_one, precip_buffer);
       break;
       case 8:
       text_layer_set_font(s_complication_layer_one, s_complication_font);
@@ -134,7 +135,8 @@ icon font to display the current conditions.*/
   if (background2_tuple) {persist_write_int(key_background2, background2_tuple->value->int32);
                           background2_int = persist_read_int(key_background2);
                           background2 = GColorFromHEX(background2_int);
-                          text_layer_set_background_color(s_complication_layer_two, background2);
+                          text_layer_set_background_color(s_complication_layer_two,
+                                                          background2);
                          }
   if (complication2_tuple) {
     persist_write_int(key_complication2, atoi(complication2_tuple->value->cstring));
@@ -153,11 +155,11 @@ icon font to display the current conditions.*/
       break;
       case 3:
       text_layer_set_font(s_complication_layer_two, s_complication_font);
-      text_layer_set_text(s_complication_layer_two, temperature_read_buffer);
+      text_layer_set_text(s_complication_layer_two, temperature_buffer);
       break;
       case 4:
       text_layer_set_font(s_complication_layer_two, s_complication_font);
-      text_layer_set_text(s_complication_layer_two, max_min_read_buffer);
+      text_layer_set_text(s_complication_layer_two, max_min_buffer);
       break;
       case 5:
       text_layer_set_font(s_complication_layer_two, s_icon_font);
@@ -165,11 +167,11 @@ icon font to display the current conditions.*/
       break;
       case 6:
       text_layer_set_font(s_complication_layer_two, s_complication_font);
-      text_layer_set_text(s_complication_layer_two, wind_read_buffer);
+      text_layer_set_text(s_complication_layer_two, wind_buffer);
       break;
       case 7:
       text_layer_set_font(s_complication_layer_two, s_complication_font);
-      text_layer_set_text(s_complication_layer_two, rain_read_buffer);
+      text_layer_set_text(s_complication_layer_two, precip_buffer);
       break;
       case 8:
       text_layer_set_font(s_complication_layer_two, s_complication_font);
@@ -187,7 +189,8 @@ icon font to display the current conditions.*/
   if (background3_tuple) {persist_write_int(key_background3, background3_tuple->value->int32);
                           background3_int = persist_read_int(key_background3);
                           background3 = GColorFromHEX(background3_int);
-                          text_layer_set_background_color(s_complication_layer_three, background3);
+                          text_layer_set_background_color(s_complication_layer_three,
+                                                          background3);
                          }
   if (complication3_tuple) {
     persist_write_int(key_complication3, atoi(complication3_tuple->value->cstring));
@@ -206,11 +209,11 @@ icon font to display the current conditions.*/
       break;
       case 3:
       text_layer_set_font(s_complication_layer_three, s_complication_font);
-      text_layer_set_text(s_complication_layer_three, temperature_read_buffer);
+      text_layer_set_text(s_complication_layer_three, temperature_buffer);
       break;
       case 4:
       text_layer_set_font(s_complication_layer_three, s_complication_font);
-      text_layer_set_text(s_complication_layer_three, max_min_read_buffer);
+      text_layer_set_text(s_complication_layer_three, max_min_buffer);
       break;
       case 5:
       text_layer_set_font(s_complication_layer_three, s_icon_font);
@@ -218,11 +221,11 @@ icon font to display the current conditions.*/
       break;
       case 6:
       text_layer_set_font(s_complication_layer_three, s_complication_font);
-      text_layer_set_text(s_complication_layer_three, wind_read_buffer);
+      text_layer_set_text(s_complication_layer_three, wind_buffer);
       break;
       case 7:
       text_layer_set_font(s_complication_layer_three, s_complication_font);
-      text_layer_set_text(s_complication_layer_three, rain_read_buffer);
+      text_layer_set_text(s_complication_layer_three, precip_buffer);
       break;
       case 8:
       text_layer_set_font(s_complication_layer_three, s_complication_font);
@@ -230,8 +233,8 @@ icon font to display the current conditions.*/
       break;
     }
   }
-  
-  
+
+
   if (text4_tuple) {persist_write_int(key_text4, text4_tuple->value->int32);
                     text4_int = persist_read_int(key_text4);
                     text4 = GColorFromHEX(text4_int);
@@ -240,7 +243,8 @@ icon font to display the current conditions.*/
   if (background4_tuple) {persist_write_int(key_background4, background4_tuple->value->int32);
                           background4_int = persist_read_int(key_background4);
                           background4 = GColorFromHEX(background4_int);
-                          text_layer_set_background_color(s_complication_layer_four, background4);
+                          text_layer_set_background_color(s_complication_layer_four,
+                                                          background4);
                          }
   if (complication4_tuple) {
     persist_write_int(key_complication4, atoi(complication4_tuple->value->cstring));
@@ -259,11 +263,11 @@ icon font to display the current conditions.*/
       break;
       case 3:
       text_layer_set_font(s_complication_layer_four, s_complication_font);
-      text_layer_set_text(s_complication_layer_four, temperature_read_buffer);
+      text_layer_set_text(s_complication_layer_four, temperature_buffer);
       break;
       case 4:
       text_layer_set_font(s_complication_layer_four, s_complication_font);
-      text_layer_set_text(s_complication_layer_four, max_min_read_buffer);
+      text_layer_set_text(s_complication_layer_four, max_min_buffer);
       break;
       case 5:
       text_layer_set_font(s_complication_layer_four, s_icon_font);
@@ -271,11 +275,11 @@ icon font to display the current conditions.*/
       break;
       case 6:
       text_layer_set_font(s_complication_layer_four, s_complication_font);
-      text_layer_set_text(s_complication_layer_four, wind_read_buffer);
+      text_layer_set_text(s_complication_layer_four, wind_buffer);
       break;
       case 7:
       text_layer_set_font(s_complication_layer_four, s_complication_font);
-      text_layer_set_text(s_complication_layer_four, rain_read_buffer);
+      text_layer_set_text(s_complication_layer_four, precip_buffer);
       break;
       case 8:
       text_layer_set_font(s_complication_layer_four, s_complication_font);
@@ -284,7 +288,7 @@ icon font to display the current conditions.*/
     }
   }
 
-  
+
   if (text5_tuple) {persist_write_int(key_text5, text5_tuple->value->int32);
                     text5_int = persist_read_int(key_text5);
                     text5 = GColorFromHEX(text5_int);
@@ -293,7 +297,8 @@ icon font to display the current conditions.*/
   if (background5_tuple) {persist_write_int(key_background5, background5_tuple->value->int32);
                           background5_int = persist_read_int(key_background5);
                           background5 = GColorFromHEX(background5_int);
-                          text_layer_set_background_color(s_complication_layer_five, background5);
+                          text_layer_set_background_color(s_complication_layer_five,
+                                                          background5);
                          }
     if (complication5_tuple) {
     persist_write_int(key_complication5, atoi(complication5_tuple->value->cstring));
@@ -312,11 +317,11 @@ icon font to display the current conditions.*/
       break;
       case 3:
       text_layer_set_font(s_complication_layer_five, s_complication_font);
-      text_layer_set_text(s_complication_layer_five, temperature_read_buffer);
+      text_layer_set_text(s_complication_layer_five, temperature_buffer);
       break;
       case 4:
       text_layer_set_font(s_complication_layer_five, s_complication_font);
-      text_layer_set_text(s_complication_layer_five, max_min_read_buffer);
+      text_layer_set_text(s_complication_layer_five, max_min_buffer);
       break;
       case 5:
       text_layer_set_font(s_complication_layer_five, s_icon_font);
@@ -324,11 +329,11 @@ icon font to display the current conditions.*/
       break;
       case 6:
       text_layer_set_font(s_complication_layer_five, s_complication_font);
-      text_layer_set_text(s_complication_layer_five, wind_read_buffer);
+      text_layer_set_text(s_complication_layer_five, wind_buffer);
       break;
       case 7:
       text_layer_set_font(s_complication_layer_five, s_complication_font);
-      text_layer_set_text(s_complication_layer_five, rain_read_buffer);
+      text_layer_set_text(s_complication_layer_five, precip_buffer);
       break;
       case 8:
       text_layer_set_font(s_complication_layer_five, s_complication_font);
@@ -337,7 +342,7 @@ icon font to display the current conditions.*/
     }
   }
 
-  
+
   if (text6_tuple) {persist_write_int(key_text6, text6_tuple->value->int32);
                     text6_int = persist_read_int(key_text6);
                     text6 = GColorFromHEX(text6_int);
@@ -346,7 +351,8 @@ icon font to display the current conditions.*/
   if (background6_tuple) {persist_write_int(key_background6, background6_tuple->value->int32);
                           background6_int = persist_read_int(key_background6);
                           background6 = GColorFromHEX(background6_int);
-                          text_layer_set_background_color(s_complication_layer_six, background6);
+                          text_layer_set_background_color(s_complication_layer_six,
+                                                          background6);
                          }
     if (complication6_tuple) {
     persist_write_int(key_complication6, atoi(complication6_tuple->value->cstring));
@@ -365,11 +371,11 @@ icon font to display the current conditions.*/
       break;
       case 3:
       text_layer_set_font(s_complication_layer_six, s_complication_font);
-      text_layer_set_text(s_complication_layer_six, temperature_read_buffer);
+      text_layer_set_text(s_complication_layer_six, temperature_buffer);
       break;
       case 4:
       text_layer_set_font(s_complication_layer_six, s_complication_font);
-      text_layer_set_text(s_complication_layer_six, max_min_read_buffer);
+      text_layer_set_text(s_complication_layer_six, max_min_buffer);
       break;
       case 5:
       text_layer_set_font(s_complication_layer_six, s_icon_font);
@@ -377,11 +383,11 @@ icon font to display the current conditions.*/
       break;
       case 6:
       text_layer_set_font(s_complication_layer_six, s_complication_font);
-      text_layer_set_text(s_complication_layer_six, wind_read_buffer);
+      text_layer_set_text(s_complication_layer_six, wind_buffer);
       break;
       case 7:
       text_layer_set_font(s_complication_layer_six, s_complication_font);
-      text_layer_set_text(s_complication_layer_six, rain_read_buffer);
+      text_layer_set_text(s_complication_layer_six, precip_buffer);
       break;
       case 8:
       text_layer_set_font(s_complication_layer_six, s_complication_font);
@@ -390,7 +396,7 @@ icon font to display the current conditions.*/
     }
   }
 
-  
+
   if (text7_tuple) {persist_write_int(key_text7, text7_tuple->value->int32);
                     text7_int = persist_read_int(key_text7);
                     text7 = GColorFromHEX(text7_int);
@@ -399,7 +405,8 @@ icon font to display the current conditions.*/
   if (background7_tuple) {persist_write_int(key_background7, background7_tuple->value->int32);
                           background7_int = persist_read_int(key_background7);
                           background7 = GColorFromHEX(background7_int);
-                          text_layer_set_background_color(s_complication_layer_seven, background7);
+                          text_layer_set_background_color(s_complication_layer_seven,
+                                                          background7);
                          }
   if (complication7_tuple) {
     persist_write_int(key_complication7, atoi(complication7_tuple->value->cstring));
@@ -418,11 +425,11 @@ icon font to display the current conditions.*/
       break;
       case 3:
       text_layer_set_font(s_complication_layer_seven, s_complication_font);
-      text_layer_set_text(s_complication_layer_seven, temperature_read_buffer);
+      text_layer_set_text(s_complication_layer_seven, temperature_buffer);
       break;
       case 4:
       text_layer_set_font(s_complication_layer_seven, s_complication_font);
-      text_layer_set_text(s_complication_layer_seven, max_min_read_buffer);
+      text_layer_set_text(s_complication_layer_seven, max_min_buffer);
       break;
       case 5:
       text_layer_set_font(s_complication_layer_seven, s_icon_font);
@@ -430,11 +437,11 @@ icon font to display the current conditions.*/
       break;
       case 6:
       text_layer_set_font(s_complication_layer_seven, s_complication_font);
-      text_layer_set_text(s_complication_layer_seven, wind_read_buffer);
+      text_layer_set_text(s_complication_layer_seven, wind_buffer);
       break;
       case 7:
       text_layer_set_font(s_complication_layer_seven, s_complication_font);
-      text_layer_set_text(s_complication_layer_seven, rain_read_buffer);
+      text_layer_set_text(s_complication_layer_seven, precip_buffer);
       break;
       case 8:
       text_layer_set_font(s_complication_layer_seven, s_complication_font);
@@ -443,7 +450,7 @@ icon font to display the current conditions.*/
     }
   }
 
-  
+
   if (text8_tuple) {persist_write_int(key_text8, text8_tuple->value->int32);
                     text8_int = persist_read_int(key_text8);
                     text8 = GColorFromHEX(text8_int);
@@ -452,7 +459,8 @@ icon font to display the current conditions.*/
   if (background8_tuple) {persist_write_int(key_background8, background8_tuple->value->int32);
                           background8_int = persist_read_int(key_background8);
                           background8 = GColorFromHEX(background8_int);
-                          text_layer_set_background_color(s_complication_layer_eight, background8);
+                          text_layer_set_background_color(s_complication_layer_eight,
+                                                          background8);
                          }
   if (complication8_tuple) {
     persist_write_int(key_complication8, atoi(complication8_tuple->value->cstring));
@@ -471,11 +479,11 @@ icon font to display the current conditions.*/
       break;
       case 3:
       text_layer_set_font(s_complication_layer_eight, s_complication_font);
-      text_layer_set_text(s_complication_layer_eight, temperature_read_buffer);
+      text_layer_set_text(s_complication_layer_eight, temperature_buffer);
       break;
       case 4:
       text_layer_set_font(s_complication_layer_eight, s_complication_font);
-      text_layer_set_text(s_complication_layer_eight, max_min_read_buffer);
+      text_layer_set_text(s_complication_layer_eight, max_min_buffer);
       break;
       case 5:
       text_layer_set_font(s_complication_layer_eight, s_icon_font);
@@ -483,11 +491,11 @@ icon font to display the current conditions.*/
       break;
       case 6:
       text_layer_set_font(s_complication_layer_eight, s_complication_font);
-      text_layer_set_text(s_complication_layer_eight, wind_read_buffer);
+      text_layer_set_text(s_complication_layer_eight, wind_buffer);
       break;
       case 7:
       text_layer_set_font(s_complication_layer_eight, s_complication_font);
-      text_layer_set_text(s_complication_layer_eight, rain_read_buffer);
+      text_layer_set_text(s_complication_layer_eight, precip_buffer);
       break;
       case 8:
       text_layer_set_font(s_complication_layer_eight, s_complication_font);
@@ -497,159 +505,38 @@ icon font to display the current conditions.*/
   }
 
 
-
-  // Display weather data sent from app.js
-  // Read tuples for weather data
+  // Read and store weather data sent from app.js
   Tuple *temp_tuple = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
-  Tuple *conditions_tuple = dict_find(iterator, MESSAGE_KEY_CONDITIONS);
-  Tuple *max_tuple = dict_find(iterator, MESSAGE_KEY_MAX);
-  Tuple *min_tuple = dict_find(iterator, MESSAGE_KEY_MIN);
-  Tuple *wind_speed_tuple = dict_find(iterator, MESSAGE_KEY_WIND_SPEED);
-  Tuple *wind_direction_tuple = dict_find(iterator, MESSAGE_KEY_WIND_DIRECTION);
-  Tuple *rain_chance_tuple = dict_find(iterator, MESSAGE_KEY_PRECIP_PROBABILITY);
-  Tuple *rain_max_tuple = dict_find(iterator, MESSAGE_KEY_PRECIP_MAX);
+  Tuple *max_min_basalt_tuple = dict_find(iterator, MESSAGE_KEY_MAX_MIN_BASALT);
+  Tuple *max_min_chalk_tuple = dict_find(iterator, MESSAGE_KEY_MAX_MIN_CHALK);
+  Tuple *weather_icon_tuple = dict_find(iterator, MESSAGE_KEY_WEATHER_ICON);
+  Tuple *wind_gauge_tuple = dict_find(iterator, MESSAGE_KEY_WIND_GAUGE);
+  Tuple *precip_gauge_tuple = dict_find(iterator, MESSAGE_KEY_PRECIP_GAUGE);
 
-  /*Write temperature data to persistent storage, read it into a buffer. Two different buffers
-  are used because when only one buffer is used, the lag time between fetching weather data
-  and displaying it on the watch face makes the complication behave erratically and sometimes
-  crashes the watch face.*/
   if (temp_tuple) {
-    temperature_int = (int)temp_tuple->value->int32;
-    snprintf(temperature_write_buffer, sizeof(temperature_write_buffer),
-             "%dF", temperature_int);
-    persist_write_string(key_temperature, temperature_write_buffer);
-    persist_read_string(key_temperature, temperature_read_buffer,
-                        sizeof(temperature_read_buffer));
+    persist_write_string(key_temperature, temp_tuple->value->cstring);
+    persist_read_string(key_temperature, temperature_buffer, sizeof(temperature_buffer));
                   }
 
-  /*Write max and min temperature values into a write buffer, then write into a read buffer
-  for display on watch face.*/
-  if (max_tuple && min_tuple) {
-    max_int = (int)max_tuple->value->int32;
-    min_int = (int)min_tuple->value->int32;
-    snprintf(max_min_write_buffer, sizeof(max_min_write_buffer),
-             PBL_IF_RECT_ELSE("%d / %d","%d/%d"), max_int, min_int);
-    persist_write_string(key_max_min, max_min_write_buffer);
-    persist_read_string(key_max_min, max_min_read_buffer, sizeof(max_min_read_buffer));
+  if (max_min_basalt_tuple && max_min_chalk_tuple) {
+    persist_write_string(key_max_min, PBL_IF_RECT_ELSE(max_min_basalt_tuple->value->cstring,
+                                                      max_min_chalk_tuple->value->cstring));
+    persist_read_string(key_max_min, max_min_buffer, sizeof(max_min_buffer));
   }
 
-  /*Place conditions data into a buffer, compare buffer with a list of available conditions.
-  Then, in a separate buffer, add the appropriate weather icon and write to persistent
-  storage. Icons are provided by Weather Icon dingbat font*/
-  if (conditions_tuple) {snprintf(conditions_buffer, sizeof(conditions_buffer),
-                                  "%s", conditions_tuple->value->cstring);
-  if (strcmp(conditions_buffer, "clear-day") == 0) {
-    persist_write_string(key_weather_icon, "A");
-  } else if (strcmp(conditions_buffer, "clear-night") == 0) {
-    persist_write_string(key_weather_icon, "I");
-  } else if (strcmp(conditions_buffer, "rain") == 0) {
-    persist_write_string(key_weather_icon, "R");
-  } else if (strcmp(conditions_buffer, "snow") == 0) {
-    persist_write_string(key_weather_icon, "W");
-  } else if (strcmp(conditions_buffer, "sleet") == 0) {
-    persist_write_string(key_weather_icon, "S");
-  } else if (strcmp(conditions_buffer, "wind") == 0) {
-    persist_write_string(key_weather_icon, "a");
-  } else if (strcmp(conditions_buffer, "fog") == 0) {
-    persist_write_string(key_weather_icon, "G");
-  } else if (strcmp(conditions_buffer, "cloudy") == 0) {
-    persist_write_string(key_weather_icon, "P");
-  } else if (strcmp(conditions_buffer, "partly-cloudy-day") == 0) {
-    persist_write_string(key_weather_icon, "C");
-  } else if (strcmp(conditions_buffer, "partly-cloudy-night") == 0) {
-    persist_write_string(key_weather_icon, "J");
-  } else {
-    persist_write_string(key_weather_icon, "p");
+  if (weather_icon_tuple) {
+    persist_write_string(key_weather_icon, weather_icon_tuple->value->cstring);
+    persist_read_string(key_weather_icon, weather_icon_buffer, sizeof(weather_icon_buffer));
   }
-                         persist_read_string(key_weather_icon, weather_icon_buffer,
-                                             sizeof(weather_icon_buffer));
-                        }
 
-
-  /*Put wind speed into a buffer, append wind bearing to wind buffer, then write to persistent
-  storage.*/
-  if (wind_speed_tuple) {
-    wind_speed_int = (int)wind_speed_tuple->value->int32;
-
-  if (0 <= (int)wind_direction_tuple->value->int32 && 
-      (int)wind_direction_tuple->value->int32 <= 1125) {
-    wind_bearing = "n";
-  } else if (1125 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 3375) {
-    wind_bearing = "nne";
-  } else if (3375 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 5625) {
-    wind_bearing = "ne";
-  } else if (5625 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 7875) {
-    wind_bearing = "ene";
-  } else if (7875 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 10125) {
-    wind_bearing = "e";
-  } else if (10125 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 12375) {
-    wind_bearing = "ese";
-  } else if (12375 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 14675) {
-    wind_bearing = "se";
-  } else if (14675 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 16875) {
-    wind_bearing = "sse";
-  } else if (16875 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 19125) {
-    wind_bearing = "s";
-  } else if (19125 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 21375) {
-    wind_bearing = "sse";
-  } else if (21375 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 23625) {
-    wind_bearing = "sw";
-  } else if (23625 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 25875) {
-    wind_bearing = "wsw";
-  } else if (25875 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 28125) {
-    wind_bearing = "w";
-  } else if (28125 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 30375) {
-    wind_bearing = "wnw";
-  } else if (30375 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 32625) {
-    wind_bearing = "nw";
-  } else if (32625 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 <= 34875) {
-    wind_bearing = "nnw";
-  } else if (34875 < (int)wind_direction_tuple->value->int32 &&
-      (int)wind_direction_tuple->value->int32 < 36000) {
-    wind_bearing = "n";
+  if (wind_gauge_tuple) {
+    persist_write_string(key_wind, wind_gauge_tuple->value->cstring);
+    persist_read_string(key_wind, wind_buffer, sizeof(wind_buffer));
   }
-    snprintf(wind_write_buffer, sizeof(wind_write_buffer),
-             PBL_IF_RECT_ELSE("%d %s", "%d%s"), wind_speed_int, wind_bearing);
-    persist_write_string(key_wind, wind_write_buffer);
-    persist_read_string(key_wind, wind_read_buffer, sizeof(wind_read_buffer));
-                        }
 
-  // Put rain chance into a buffer, append severity, write to persistent storage, read
-  if (rain_chance_tuple) {
-    snprintf(rain_write_buffer, sizeof(rain_write_buffer), "%d",
-             (int)rain_chance_tuple->value->int32);
-    if (0 <= (float)rain_max_tuple->value->int32 &&
-             (float)rain_max_tuple->value->int32 < 5) {
-      strcat(rain_write_buffer, ".");
-  } else if
-      (5 <= (float)rain_max_tuple->value->int32 &&
-       (float)rain_max_tuple->value->int32 < 35) {
-      strcat(rain_write_buffer, "!");
-  } else if
-      (35 <= (float)rain_max_tuple->value->int32 &&
-       (float)rain_max_tuple->value->int32 < 110) {
-      strcat(rain_write_buffer, "!!");
-  } else if
-      (110 <= (float)rain_max_tuple->value->int32) {
-      strcat(rain_write_buffer, "!!!");
-  }
-    persist_write_string(key_rain, rain_write_buffer);
-    persist_read_string(key_rain, rain_read_buffer, sizeof(rain_read_buffer));
+  if (precip_gauge_tuple) {
+    persist_write_string(key_rain, precip_gauge_tuple->value->cstring);
+    persist_read_string(key_rain, precip_buffer, sizeof(precip_buffer));
   }
 }
 
@@ -691,9 +578,7 @@ static void update_time() {
   text_layer_set_text(s_time_layer, s_time_buffer);
 
   // Write today's date into a buffer
-  strftime(s_date_buffer, sizeof(s_date_buffer),
-           PBL_IF_RECT_ELSE(("%b %d"),("%b %d")),
-           tick_time);
+  strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%b %d","%b%d"), tick_time);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
@@ -718,7 +603,6 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 static void bluetooth_callback(bool connected) {
   // Hide icon when connected, vibrate on disconnect
   layer_set_hidden(text_layer_get_layer(s_bluetooth_layer), connected);
-//   layer_set_hidden(bitmap_layer_get_layer(s_bluetooth_layer), connected);
   if(!connected) {
     // Issue a vibrating alert
     vibes_double_pulse();
@@ -1072,24 +956,23 @@ static void main_window_load(Window *window) {
 
   // Read persistent storage for weather items
   if (persist_exists(key_temperature)) {
-  persist_read_string(key_temperature, temperature_read_buffer,
-                      sizeof(temperature_read_buffer));
+    persist_read_string(key_temperature, temperature_buffer,
+                      sizeof(temperature_buffer));
   }
   if (persist_exists(key_max_min)) {
-    persist_read_string(key_max_min, max_min_read_buffer,
-                        sizeof(max_min_read_buffer));
+    persist_read_string(key_max_min, max_min_buffer,
+                        sizeof(max_min_buffer));
   }
   if (persist_exists(key_weather_icon)) {
     persist_read_string(key_weather_icon, weather_icon_buffer,
                         sizeof(weather_icon_buffer));
   }
   if (persist_exists(key_wind)) {
-    persist_read_string(key_wind, wind_read_buffer, sizeof(wind_read_buffer));
+    persist_read_string(key_wind, wind_buffer, sizeof(wind_buffer));
   }
   if (persist_exists(key_rain)) {
-    persist_read_string(key_rain, rain_read_buffer, sizeof(rain_read_buffer));
+    persist_read_string(key_rain, precip_buffer, sizeof(precip_buffer));
   }
-
 
 
 
@@ -1119,7 +1002,7 @@ static void main_window_load(Window *window) {
   text_layer_set_background_color(s_bluetooth_layer, GColorClear);
   text_layer_set_text_alignment(s_bluetooth_layer, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_bluetooth_layer));
-  
+
 
   // Show the correct state of the BT connection from the start
   bluetooth_callback(connection_service_peek_pebble_app_connection());
@@ -1142,15 +1025,15 @@ static void main_window_load(Window *window) {
                               } else if (complication1_int == 2) {
     text_layer_set_text(s_complication_layer_one, s_battery_buffer);
                               } else if (complication1_int == 3) {
-    text_layer_set_text(s_complication_layer_one, temperature_read_buffer);
+    text_layer_set_text(s_complication_layer_one, temperature_buffer);
                               } else if (complication1_int == 4) {
-    text_layer_set_text(s_complication_layer_one, max_min_read_buffer);
+    text_layer_set_text(s_complication_layer_one, max_min_buffer);
                               } else if (complication1_int == 5) {
     text_layer_set_text(s_complication_layer_one, weather_icon_buffer);
                               } else if (complication1_int == 6) {
-    text_layer_set_text(s_complication_layer_one, wind_read_buffer);
+    text_layer_set_text(s_complication_layer_one, wind_buffer);
                               } else if (complication1_int == 7) {
-    text_layer_set_text(s_complication_layer_one, rain_read_buffer);
+    text_layer_set_text(s_complication_layer_one, precip_buffer);
                               } else if (complication1_int == 8) {
     text_layer_set_text(s_complication_layer_one, s_step_buffer);
                               } else {
@@ -1179,15 +1062,15 @@ static void main_window_load(Window *window) {
                               } else if (complication2_int == 2) {
     text_layer_set_text(s_complication_layer_two, s_battery_buffer);
                               } else if (complication2_int == 3) {
-    text_layer_set_text(s_complication_layer_two, temperature_read_buffer);
+    text_layer_set_text(s_complication_layer_two, temperature_buffer);
                               } else if (complication2_int == 4) {
-    text_layer_set_text(s_complication_layer_two, max_min_read_buffer);
+    text_layer_set_text(s_complication_layer_two, max_min_buffer);
                               } else if (complication2_int == 5) {
     text_layer_set_text(s_complication_layer_two, weather_icon_buffer);
                               } else if (complication2_int == 6) {
-    text_layer_set_text(s_complication_layer_two, wind_read_buffer);
+    text_layer_set_text(s_complication_layer_two, wind_buffer);
                               } else if (complication2_int == 7) {
-    text_layer_set_text(s_complication_layer_two, rain_read_buffer);
+    text_layer_set_text(s_complication_layer_two, precip_buffer);
                               } else if (complication2_int == 8) {
     text_layer_set_text(s_complication_layer_two, s_step_buffer);
                               } else {
@@ -1216,15 +1099,15 @@ static void main_window_load(Window *window) {
                               } else if (complication3_int == 2) {
     text_layer_set_text(s_complication_layer_three, s_battery_buffer);
                               } else if (complication3_int == 3) {
-    text_layer_set_text(s_complication_layer_three, temperature_read_buffer);
+    text_layer_set_text(s_complication_layer_three, temperature_buffer);
                               } else if (complication3_int == 4) {
-    text_layer_set_text(s_complication_layer_three, max_min_read_buffer);
+    text_layer_set_text(s_complication_layer_three, max_min_buffer);
                               } else if (complication3_int == 5) {
     text_layer_set_text(s_complication_layer_three, weather_icon_buffer);
                               } else if (complication3_int == 6) {
-    text_layer_set_text(s_complication_layer_three, wind_read_buffer);
+    text_layer_set_text(s_complication_layer_three, wind_buffer);
                               } else if (complication3_int == 7) {
-    text_layer_set_text(s_complication_layer_three, rain_read_buffer);
+    text_layer_set_text(s_complication_layer_three, precip_buffer);
                               } else if (complication3_int == 8) {
     text_layer_set_text(s_complication_layer_three, s_step_buffer);
                               } else {
@@ -1253,15 +1136,15 @@ static void main_window_load(Window *window) {
                               } else if (complication4_int == 2) {
     text_layer_set_text(s_complication_layer_four, s_battery_buffer);
                               } else if (complication4_int == 3) {
-    text_layer_set_text(s_complication_layer_four, temperature_read_buffer);
+    text_layer_set_text(s_complication_layer_four, temperature_buffer);
                               } else if (complication4_int == 4) {
-    text_layer_set_text(s_complication_layer_four, max_min_read_buffer);
+    text_layer_set_text(s_complication_layer_four, max_min_buffer);
                               } else if (complication4_int == 5) {
     text_layer_set_text(s_complication_layer_four, weather_icon_buffer);
                               } else if (complication4_int == 6) {
-    text_layer_set_text(s_complication_layer_four, wind_read_buffer);
+    text_layer_set_text(s_complication_layer_four, wind_buffer);
                               } else if (complication4_int == 7) {
-    text_layer_set_text(s_complication_layer_four, rain_read_buffer);
+    text_layer_set_text(s_complication_layer_four, precip_buffer);
                               } else if (complication4_int == 8) {
     text_layer_set_text(s_complication_layer_four, s_step_buffer);
                               } else {
@@ -1290,15 +1173,15 @@ static void main_window_load(Window *window) {
                               } else if (complication5_int == 2) {
     text_layer_set_text(s_complication_layer_five, s_battery_buffer);
                               } else if (complication5_int == 3) {
-    text_layer_set_text(s_complication_layer_five, temperature_read_buffer);
+    text_layer_set_text(s_complication_layer_five, temperature_buffer);
                               } else if (complication5_int == 4) {
-    text_layer_set_text(s_complication_layer_five, max_min_read_buffer);
+    text_layer_set_text(s_complication_layer_five, max_min_buffer);
                               } else if (complication5_int == 5) {
     text_layer_set_text(s_complication_layer_five, weather_icon_buffer);
                               } else if (complication5_int == 6) {
-    text_layer_set_text(s_complication_layer_five, wind_read_buffer);
+    text_layer_set_text(s_complication_layer_five, wind_buffer);
                               } else if (complication5_int == 7) {
-    text_layer_set_text(s_complication_layer_five, rain_read_buffer);
+    text_layer_set_text(s_complication_layer_five, precip_buffer);
                               } else if (complication5_int == 8) {
     text_layer_set_text(s_complication_layer_five, s_step_buffer);
                               } else {
@@ -1327,15 +1210,15 @@ static void main_window_load(Window *window) {
                               } else if (complication6_int == 2) {
     text_layer_set_text(s_complication_layer_six, s_battery_buffer);
                               } else if (complication6_int == 3) {
-    text_layer_set_text(s_complication_layer_six, temperature_read_buffer);
+    text_layer_set_text(s_complication_layer_six, temperature_buffer);
                               } else if (complication6_int == 4) {
-    text_layer_set_text(s_complication_layer_six, max_min_read_buffer);
+    text_layer_set_text(s_complication_layer_six, max_min_buffer);
                               } else if (complication6_int == 5) {
     text_layer_set_text(s_complication_layer_six, weather_icon_buffer);
                               } else if (complication6_int == 6) {
-    text_layer_set_text(s_complication_layer_six, wind_read_buffer);
+    text_layer_set_text(s_complication_layer_six, wind_buffer);
                               } else if (complication6_int == 7) {
-    text_layer_set_text(s_complication_layer_six, rain_read_buffer);
+    text_layer_set_text(s_complication_layer_six, precip_buffer);
                               } else if (complication6_int == 8) {
     text_layer_set_text(s_complication_layer_six, s_step_buffer);
                               } else {
@@ -1364,15 +1247,15 @@ static void main_window_load(Window *window) {
                               } else if (complication7_int == 2) {
     text_layer_set_text(s_complication_layer_seven, s_battery_buffer);
                               } else if (complication7_int == 3) {
-    text_layer_set_text(s_complication_layer_seven, temperature_read_buffer);
+    text_layer_set_text(s_complication_layer_seven, temperature_buffer);
                               } else if (complication7_int == 4) {
-    text_layer_set_text(s_complication_layer_seven, max_min_read_buffer);
+    text_layer_set_text(s_complication_layer_seven, max_min_buffer);
                               } else if (complication7_int == 5) {
     text_layer_set_text(s_complication_layer_seven, weather_icon_buffer);
                               } else if (complication7_int == 6) {
-    text_layer_set_text(s_complication_layer_seven, wind_read_buffer);
+    text_layer_set_text(s_complication_layer_seven, wind_buffer);
                               } else if (complication7_int == 7) {
-    text_layer_set_text(s_complication_layer_seven, rain_read_buffer);
+    text_layer_set_text(s_complication_layer_seven, precip_buffer);
                               } else if (complication7_int == 8) {
     text_layer_set_text(s_complication_layer_seven, s_step_buffer);
                               } else {
@@ -1401,15 +1284,15 @@ static void main_window_load(Window *window) {
                               } else if (complication8_int == 2) {
     text_layer_set_text(s_complication_layer_eight, s_battery_buffer);
                               } else if (complication8_int == 3) {
-    text_layer_set_text(s_complication_layer_eight, temperature_read_buffer);
+    text_layer_set_text(s_complication_layer_eight, temperature_buffer);
                               } else if (complication8_int == 4) {
-    text_layer_set_text(s_complication_layer_eight, max_min_read_buffer);
+    text_layer_set_text(s_complication_layer_eight, max_min_buffer);
                               } else if (complication8_int == 5) {
     text_layer_set_text(s_complication_layer_eight, weather_icon_buffer);
                               } else if (complication8_int == 6) {
-    text_layer_set_text(s_complication_layer_eight, wind_read_buffer);
+    text_layer_set_text(s_complication_layer_eight, wind_buffer);
                               } else if (complication8_int == 7) {
-    text_layer_set_text(s_complication_layer_eight, rain_read_buffer);
+    text_layer_set_text(s_complication_layer_eight, precip_buffer);
                               } else if (complication8_int == 8) {
     text_layer_set_text(s_complication_layer_eight, s_step_buffer);
                               } else {
