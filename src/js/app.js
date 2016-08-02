@@ -98,10 +98,10 @@ function locationSuccess(pos) {
           weatherIcon = 'p';
           break;
       }
-      var maxMinBasalt = Math.round(json.daily.data[0].temperatureMin) + ' / ' +
-          Math.round(json.daily.data[0].temperatureMax);
-      var maxMinChalk = Math.round(json.daily.data[0].temperatureMin) + '/' +
-          Math.round(json.daily.data[0].temperatureMax);
+      var maxMinBasalt = Math.round(json.daily.data[0].temperatureMax) + ' / ' +
+          Math.round(json.daily.data[0].temperatureMin);
+      var maxMinChalk = Math.round(json.daily.data[0].temperatureMax) + '/' +
+          Math.round(json.daily.data[0].temperatureMin);
 
       var windSpeed = Math.round(json.currently.windSpeed);
       var windBearingNumber = (json.currently.windBearing)*100;
