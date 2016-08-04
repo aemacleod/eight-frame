@@ -98,47 +98,45 @@ function locationSuccess(pos) {
           weatherIcon = 'p';
           break;
       }
-      var maxMinBasalt = Math.round(json.daily.data[0].temperatureMax) + ' / ' +
-          Math.round(json.daily.data[0].temperatureMin);
-      var maxMinChalk = Math.round(json.daily.data[0].temperatureMax) + '/' +
+      var maxMin = Math.round(json.daily.data[0].temperatureMax) + '/' +
           Math.round(json.daily.data[0].temperatureMin);
 
       var windSpeed = Math.round(json.currently.windSpeed);
       var windBearingNumber = (json.currently.windBearing)*100;
       var windBearingAbbreviation;
-      if (0 <= windBearingNumber <= 1125) {
+      if (0 <= windBearingNumber && windBearingNumber <= 1125) {
         windBearingAbbreviation = 'n';
-      } else if (1125 < windBearingNumber <= 3375) {
+      } else if (1125 < windBearingNumber && windBearingNumber <= 3375) {
         windBearingAbbreviation = 'nne';
-      } else if (3375 < windBearingNumber <= 5625) {
+      } else if (3375 < windBearingNumber && windBearingNumber <= 5625) {
         windBearingAbbreviation = 'ne';
-      } else if (5625 < windBearingNumber <= 7875) {
+      } else if (5625 < windBearingNumber && windBearingNumber <= 7875) {
         windBearingAbbreviation = 'ene';
-      } else if (7875 < windBearingNumber <= 10125) {
+      } else if (7875 < windBearingNumber && windBearingNumber <= 10125) {
         windBearingAbbreviation = 'e';
-      } else if (10125 < windBearingNumber <= 12375) {
+      } else if (10125 < windBearingNumber && windBearingNumber <= 12375) {
         windBearingAbbreviation = 'ese';
-      } else if (12375 < windBearingNumber <= 14625) {
+      } else if (12375 < windBearingNumber && windBearingNumber <= 14625) {
         windBearingAbbreviation = 'se';
-      } else if (14625 < windBearingNumber <= 16875) {
+      } else if (14625 < windBearingNumber && windBearingNumber <= 16875) {
         windBearingAbbreviation = 'sse';
-      } else if (16875 < windBearingNumber <= 19125) {
+      } else if (16875 < windBearingNumber && windBearingNumber <= 19125) {
         windBearingAbbreviation = 's';
-      } else if (19125 < windBearingNumber <= 21375) {
+      } else if (19125 < windBearingNumber && windBearingNumber <= 21375) {
         windBearingAbbreviation = 'ssw';
-      } else if (21375 < windBearingNumber <= 23625) {
+      } else if (21375 < windBearingNumber && windBearingNumber <= 23625) {
         windBearingAbbreviation = 'sw';
-      } else if (23625 < windBearingNumber <= 25875) {
+      } else if (23625 < windBearingNumber && windBearingNumber <= 25875) {
         windBearingAbbreviation = 'wsw';
-      } else if (25875 < windBearingNumber <= 28125) {
+      } else if (25875 < windBearingNumber && windBearingNumber <= 28125) {
         windBearingAbbreviation = 'w';
-      } else if (28125 < windBearingNumber <= 30375) {
+      } else if (28125 < windBearingNumber && windBearingNumber <= 30375) {
         windBearingAbbreviation = 'wnw';
-      } else if (30375 < windBearingNumber <= 32625) {
+      } else if (30375 < windBearingNumber && windBearingNumber <= 32625) {
         windBearingAbbreviation = 'nw';
-      } else if (32625 < windBearingNumber <= 34875) {
+      } else if (32625 < windBearingNumber && windBearingNumber <= 34875) {
         windBearingAbbreviation = 'nnw';
-      } else if (34875 < windBearingNumber <= 36000) {
+      } else if (34875 < windBearingNumber && windBearingNumber <= 36000) {
         windBearingAbbreviation = 'n';
       } else {
         windBearingAbbreviation = '?';
@@ -198,8 +196,7 @@ function locationSuccess(pos) {
       var dictionary = {
           'TEMPERATURE': temperature,
           'WEATHER_ICON': weatherIcon,
-          'MAX_MIN_BASALT': maxMinBasalt,
-          'MAX_MIN_CHALK': maxMinChalk,
+          'MAX_MIN': maxMin,
           'WIND_GAUGE': windGauge,
           'PRECIP_GAUGE': precipGauge,
       };

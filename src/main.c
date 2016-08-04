@@ -1,9 +1,10 @@
 #include <pebble.h>
 #include <main.h>
+#include <math.h>
 
-/*Playfair Eight is a Pebble watch face designed to work with APLite (not yet fully tested),
-Basalt, and Chalk platforms. The watch is divided up into nine layers: a time layer, and
-eight complication layers that the user can set.*/
+/*Playfair Eight is a Pebble watch face designed to work with APLite, Basalt, and Chalk
+platforms. The watch is divided up into nine layers: a time layer, and eight complication
+layers that the user can set.*/
 
 // Information received from AppMessage
 void inbox_received_callback(DictionaryIterator *iterator, void *context) {
@@ -11,10 +12,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 /*This AppMessage callback function has two sections. The first section saves settings
 data sent from the Clay-generated configuration page in the Pebble app to persistent storage,
 reads the values from storage, and then applies them to the watch face. Each complication has
-text color, background color, and complication options.
+settings for text color, background color, and complication.
 
 The second section retrieves weather complication information from Dark Sky, writes it to
-storage, and then reads into buffers for display on the watch face.*/
+storage, and then reads it into buffers for display on the watch face.*/
 
   // Read tuples containing settings data
   Tuple *time_text_tuple = dict_find(iterator, MESSAGE_KEY_TIME_TEXT_COLOR);
@@ -123,6 +124,13 @@ icon font to display the current conditions.*/
       text_layer_set_font(s_complication_layer_one, s_complication_font);
       text_layer_set_text(s_complication_layer_one, s_step_buffer);
       break;
+      case 9:
+      text_layer_set_font(s_complication_layer_one, s_complication_font);
+      text_layer_set_text(s_complication_layer_one, distance_walked_buffer);
+      break;
+      case 10:
+      text_layer_set_font(s_complication_layer_one, s_complication_font);
+      text_layer_set_text(s_complication_layer_one, calories_active_buffer);
     }
   }
 
@@ -177,6 +185,13 @@ icon font to display the current conditions.*/
       text_layer_set_font(s_complication_layer_two, s_complication_font);
       text_layer_set_text(s_complication_layer_two, s_step_buffer);
       break;
+      case 9:
+      text_layer_set_font(s_complication_layer_two, s_complication_font);
+      text_layer_set_text(s_complication_layer_two, distance_walked_buffer);
+      break;
+      case 10:
+      text_layer_set_font(s_complication_layer_two, s_complication_font);
+      text_layer_set_text(s_complication_layer_two, calories_active_buffer);
     }
   }
 
@@ -231,6 +246,13 @@ icon font to display the current conditions.*/
       text_layer_set_font(s_complication_layer_three, s_complication_font);
       text_layer_set_text(s_complication_layer_three, s_step_buffer);
       break;
+      case 9:
+      text_layer_set_font(s_complication_layer_three, s_complication_font);
+      text_layer_set_text(s_complication_layer_three, distance_walked_buffer);
+      break;
+      case 10:
+      text_layer_set_font(s_complication_layer_three, s_complication_font);
+      text_layer_set_text(s_complication_layer_three, calories_active_buffer);
     }
   }
 
@@ -285,6 +307,13 @@ icon font to display the current conditions.*/
       text_layer_set_font(s_complication_layer_four, s_complication_font);
       text_layer_set_text(s_complication_layer_four, s_step_buffer);
       break;
+      case 9:
+      text_layer_set_font(s_complication_layer_four, s_complication_font);
+      text_layer_set_text(s_complication_layer_four, distance_walked_buffer);
+      break;
+      case 10:
+      text_layer_set_font(s_complication_layer_four, s_complication_font);
+      text_layer_set_text(s_complication_layer_four, calories_active_buffer);
     }
   }
 
@@ -339,6 +368,13 @@ icon font to display the current conditions.*/
       text_layer_set_font(s_complication_layer_five, s_complication_font);
       text_layer_set_text(s_complication_layer_five, s_step_buffer);
       break;
+      case 9:
+      text_layer_set_font(s_complication_layer_five, s_complication_font);
+      text_layer_set_text(s_complication_layer_five, distance_walked_buffer);
+      break;
+      case 10:
+      text_layer_set_font(s_complication_layer_five, s_complication_font);
+      text_layer_set_text(s_complication_layer_five, calories_active_buffer);
     }
   }
 
@@ -393,6 +429,13 @@ icon font to display the current conditions.*/
       text_layer_set_font(s_complication_layer_six, s_complication_font);
       text_layer_set_text(s_complication_layer_six, s_step_buffer);
       break;
+      case 9:
+      text_layer_set_font(s_complication_layer_six, s_complication_font);
+      text_layer_set_text(s_complication_layer_six, distance_walked_buffer);
+      break;
+      case 10:
+      text_layer_set_font(s_complication_layer_six, s_complication_font);
+      text_layer_set_text(s_complication_layer_six, calories_active_buffer);
     }
   }
 
@@ -447,6 +490,13 @@ icon font to display the current conditions.*/
       text_layer_set_font(s_complication_layer_seven, s_complication_font);
       text_layer_set_text(s_complication_layer_seven, s_step_buffer);
       break;
+      case 9:
+      text_layer_set_font(s_complication_layer_seven, s_complication_font);
+      text_layer_set_text(s_complication_layer_seven, distance_walked_buffer);
+      break;
+      case 10:
+      text_layer_set_font(s_complication_layer_seven, s_complication_font);
+      text_layer_set_text(s_complication_layer_seven, calories_active_buffer);
     }
   }
 
@@ -501,14 +551,20 @@ icon font to display the current conditions.*/
       text_layer_set_font(s_complication_layer_eight, s_complication_font);
       text_layer_set_text(s_complication_layer_eight, s_step_buffer);
       break;
+      case 9:
+      text_layer_set_font(s_complication_layer_eight, s_complication_font);
+      text_layer_set_text(s_complication_layer_eight, distance_walked_buffer);
+      break;
+      case 10:
+      text_layer_set_font(s_complication_layer_eight, s_complication_font);
+      text_layer_set_text(s_complication_layer_eight, calories_active_buffer);
     }
   }
 
 
   // Read and store weather data sent from app.js
   Tuple *temp_tuple = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
-  Tuple *max_min_basalt_tuple = dict_find(iterator, MESSAGE_KEY_MAX_MIN_BASALT);
-  Tuple *max_min_chalk_tuple = dict_find(iterator, MESSAGE_KEY_MAX_MIN_CHALK);
+  Tuple *max_min_tuple = dict_find(iterator, MESSAGE_KEY_MAX_MIN);
   Tuple *weather_icon_tuple = dict_find(iterator, MESSAGE_KEY_WEATHER_ICON);
   Tuple *wind_gauge_tuple = dict_find(iterator, MESSAGE_KEY_WIND_GAUGE);
   Tuple *precip_gauge_tuple = dict_find(iterator, MESSAGE_KEY_PRECIP_GAUGE);
@@ -516,11 +572,10 @@ icon font to display the current conditions.*/
   if (temp_tuple) {
     persist_write_string(key_temperature, temp_tuple->value->cstring);
     persist_read_string(key_temperature, temperature_buffer, sizeof(temperature_buffer));
-                  }
+  }
 
-  if (max_min_basalt_tuple && max_min_chalk_tuple) {
-    persist_write_string(key_max_min, PBL_IF_RECT_ELSE(max_min_basalt_tuple->value->cstring,
-                                                      max_min_chalk_tuple->value->cstring));
+  if (max_min_tuple) {
+    persist_write_string(key_max_min, max_min_tuple->value->cstring);
     persist_read_string(key_max_min, max_min_buffer, sizeof(max_min_buffer));
   }
 
@@ -554,9 +609,8 @@ static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
 }
 
 
-// Display battery level or charging status
+// Write battery level into a buffer
 static void battery_callback(BatteryChargeState state) {
-  // Get battery level, write to buffer as a numeric value
   s_battery_level = state.charge_percent;
   if (state.is_charging) {
     snprintf(s_battery_buffer, sizeof(s_battery_buffer), "...");
@@ -611,7 +665,7 @@ static void bluetooth_callback(bool connected) {
 
 
 
-// Display current step count
+// Write today's step count into a buffer
 static void display_steps() {
   HealthMetric steps = HealthMetricStepCount;
   time_t start = time_start_of_today();
@@ -622,14 +676,64 @@ static void display_steps() {
     start, end);
 
   if(steps_mask & HealthServiceAccessibilityMaskAvailable) {
-    // Data is available!
-    APP_LOG(APP_LOG_LEVEL_INFO, "Steps today: %d", 
-            (int)health_service_sum_today(steps));
     snprintf(s_step_buffer, sizeof(s_step_buffer), "%d",
              (int)health_service_sum_today(steps));
   } else {
     // No data recorded yet today
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Health data unavailable!");
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Steps data unavailable!");
+  }
+}
+
+// Write distance walked today into a buffer
+static void display_distance_walked() {
+  // Get today's value and measurement system
+  const HealthMetric meters = HealthMetricWalkedDistanceMeters;
+  const HealthValue distance = health_service_sum_today(meters);
+  MeasurementSystem system = health_service_get_measurement_system_for_display(meters);
+
+  // Create timestamps for midnight (the start time) and now (the end time)
+  time_t start = time_start_of_today();
+  time_t end = time(NULL);
+
+  // Check step data is availables
+  HealthServiceAccessibilityMask distance_mask = health_service_metric_accessible(meters, start, end);
+
+  if (distance_mask & HealthServiceAccessibilityMaskAvailable) {
+    // Format into a buffer based on user's measurement system
+    switch(system) {
+      case MeasurementSystemMetric:
+      snprintf(distance_walked_buffer, sizeof(distance_walked_buffer), PBL_IF_RECT_ELSE(
+        "%d.%d km", "%d.%dkm"), (int)floor(distance/1000), (int)(floor(distance%1000)/100));
+      break;
+      case MeasurementSystemImperial: {
+        // Convert metric data to imperial
+        snprintf(distance_walked_buffer, sizeof(distance_walked_buffer), PBL_IF_RECT_ELSE(
+          "%d.%d mi","%d.%dmi"), (int)(floor(distance/1609.34)),
+                 (int)(floor(distance%1609)/161));
+      } break;
+      case MeasurementSystemUnknown:
+      default:
+      APP_LOG(APP_LOG_LEVEL_INFO, "MeasurementSystem unknown or does not apply");
+    }
+  } else {
+    // No data recorded yet today
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Distance walked unavailable!");
+  }
+}
+
+// Write calories burned today into a buffer
+static void display_active_calories_burned() {
+  HealthMetric calories = HealthMetricActiveKCalories;
+  time_t start = time_start_of_today();
+  time_t end = time(NULL);
+  HealthServiceAccessibilityMask calories_mask = health_service_metric_accessible(
+    calories, start, end);
+
+  if(calories_mask & HealthServiceAccessibilityMaskAvailable) {
+    snprintf(calories_active_buffer, sizeof(calories_active_buffer), PBL_IF_RECT_ELSE(
+      "%dCal", "%dk"), (int)health_service_sum_today(calories));
+  } else {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Active calories unavailable!");
   }
 }
 
@@ -641,12 +745,16 @@ static void health_handler(HealthEventType event, void *context) {
     APP_LOG(APP_LOG_LEVEL_INFO, 
             "New HealthService HealthEventSignificantUpdate event");
     display_steps();
+    display_distance_walked();
+    display_active_calories_burned();
     break;
 
     case HealthEventMovementUpdate:
     APP_LOG(APP_LOG_LEVEL_INFO, 
             "New HealthService HealthEventMovementUpdate event");
     display_steps();
+    display_distance_walked();
+    display_active_calories_burned();
     break;
 
     case HealthEventSleepUpdate:
@@ -673,281 +781,229 @@ static void main_window_load(Window *window) {
   s_icon_font = fonts_load_custom_font(resource_get_handle(
     RESOURCE_ID_WEATHER_ICONS_24));
 
-  // Load settings data, set defaults where no data present, apply to watch face
+  /* Retrieve settings data, set defaults if none, convert int values to GColor values*/
   if (persist_exists(key_time_text)) {
-  // Read persisted value, convert to GColor for display
   time_text_int = persist_read_int(key_time_text);
   time_text = GColorFromHEX(time_text_int);
   } else {
-  // Set a default value, convert to GColor for display
   time_text_int = 0x000000;
   persist_write_int(key_time_text, time_text_int);
   time_text = GColorFromHEX(time_text_int);
   }
 
   if (persist_exists(key_time_background)) {
-  // Read persisted value, convert to GColor for display
   time_background_int = persist_read_int(key_time_background);
   time_background = GColorFromHEX(time_background_int);
   } else {
-  // Set a default value, convert to GColor for display
   time_background_int = 0xFFFFFF;
   persist_write_int(key_time_background, time_background_int);
   time_background = GColorFromHEX(time_background_int);
   }
-  
-  
+
+
   if (persist_exists(key_text1)) {
-  // Read persisted value, convert to GColor for display
   text1_int = persist_read_int(key_text1);
   text1 = GColorFromHEX(text1_int);
   } else {
-  // Set a default value, convert to GColor for display
   text1_int = 0x000000;
   persist_write_int(key_text1, text1_int);
   text1 = GColorFromHEX(text1_int);
   }
 
   if (persist_exists(key_background1)) {
-  // Read persisted value, convert to GColor for display
   background1_int = persist_read_int(key_background1);
   background1 = GColorFromHEX(background1_int);
   } else {
-  // Set a default value, convert to GColor for display
   background1_int = 0xFFFFFF;
   persist_write_int(key_background1, background1_int);
   background1 = GColorFromHEX(background1_int);
   }
 
   if (persist_exists(key_complication1)) {
-    // Access persisted value
     complication1_int = persist_read_int(key_complication1);
   } else {
-    // Set a default value
     persist_write_int(key_complication1, 0);
     complication1_int = persist_read_int(key_complication1);
   }
 
 
   if (persist_exists(key_text2)) {
-  // Read persisted value, convert to GColor for display
   text2_int = persist_read_int(key_text2);
   text2 = GColorFromHEX(text2_int);
   } else {
-  // Set a default value, convert to GColor for display
   text2_int = 0x000000;
   persist_write_int(key_text2, text2_int);
   text2 = GColorFromHEX(text2_int);
   }
 
   if (persist_exists(key_background2)) {
-  // Read persisted value, convert to GColor for display
   background2_int = persist_read_int(key_background2);
   background2 = GColorFromHEX(background2_int);
   } else {
-  // Set a default value, convert to GColor for display
   background2_int = 0xFFFFFF;
   persist_write_int(key_background2, background2_int);
   background2 = GColorFromHEX(background2_int);
   }
 
   if (persist_exists(key_complication2)) {
-    // Access persisted value
     complication2_int = persist_read_int(key_complication2);
   } else {
-    // Set a default value
     persist_write_int(key_complication2, 0);
     complication2_int = persist_read_int(key_complication2);
   }
 
 
   if (persist_exists(key_text3)) {
-  // Read persisted value, convert to GColor for display
   text3_int = persist_read_int(key_text3);
   text3 = GColorFromHEX(text3_int);
   } else {
-  // Set a default value, convert to GColor for display
   text3_int = 0x000000;
   persist_write_int(key_text3, text3_int);
   text3 = GColorFromHEX(text3_int);
   }
 
   if (persist_exists(key_background3)) {
-  // Read persisted value, convert to GColor for display
   background3_int = persist_read_int(key_background3);
   background3 = GColorFromHEX(background3_int);
   } else {
-  // Set a default value, convert to GColor for display
   background3_int = 0xFFFFFF;
   persist_write_int(key_background3, background3_int);
   background3 = GColorFromHEX(background3_int);
   }
 
   if (persist_exists(key_complication3)) {
-    // Access persisted value
     complication3_int = persist_read_int(key_complication3);
   } else {
-    // Set a default value
     persist_write_int(key_complication3, 0);
     complication3_int = persist_read_int(key_complication3);
   }
 
 
   if (persist_exists(key_text4)) {
-  // Read persisted value, convert to GColor for display
   text4_int = persist_read_int(key_text4);
   text4 = GColorFromHEX(text4_int);
   } else {
-  // Set a default value, convert to GColor for display
   text4_int = 0x000000;
   persist_write_int(key_text4, text4_int);
   text4 = GColorFromHEX(text4_int);
   }
 
   if (persist_exists(key_background4)) {
-  // Read persisted value, convert to GColor for display
   background4_int = persist_read_int(key_background4);
   background4 = GColorFromHEX(background4_int);
   } else {
-  // Set a default value, convert to GColor for display
   background4_int = 0xFFFFFF;
   persist_write_int(key_background4, background4_int);
   background4 = GColorFromHEX(background4_int);
   }
 
   if (persist_exists(key_complication4)) {
-    // Access persisted value
     complication4_int = persist_read_int(key_complication4);
   } else {
-    // Set a default value
     persist_write_int(key_complication4, 0);
     complication4_int = persist_read_int(key_complication4);
   }
 
 
   if (persist_exists(key_text5)) {
-  // Read persisted value, convert to GColor for display
   text5_int = persist_read_int(key_text5);
   text5 = GColorFromHEX(text5_int);
   } else {
-  // Set a default value, convert to GColor for display
   text5_int = 0x000000;
   persist_write_int(key_text5, text5_int);
   text5 = GColorFromHEX(text5_int);
   }
 
   if (persist_exists(key_background5)) {
-  // Read persisted value, convert to GColor for display
   background5_int = persist_read_int(key_background5);
   background5 = GColorFromHEX(background5_int);
   } else {
-  // Set a default value, convert to GColor for display
   background5_int = 0xFFFFFF;
   persist_write_int(key_background5, background5_int);
   background5 = GColorFromHEX(background5_int);
   }
 
   if (persist_exists(key_complication5)) {
-    // Access persisted value
     complication5_int = persist_read_int(key_complication5);
   } else {
-    // Set a default value
     persist_write_int(key_complication5, 0);
     complication5_int = persist_read_int(key_complication5);
   }
 
 
   if (persist_exists(key_text6)) {
-  // Read persisted value, convert to GColor for display
   text6_int = persist_read_int(key_text6);
   text6 = GColorFromHEX(text6_int);
   } else {
-  // Set a default value, convert to GColor for display
   text6_int = 0x000000;
   persist_write_int(key_text6, text6_int);
   text6 = GColorFromHEX(text6_int);
   }
 
   if (persist_exists(key_background6)) {
-  // Read persisted value, convert to GColor for display
   background6_int = persist_read_int(key_background6);
   background6 = GColorFromHEX(background6_int);
   } else {
-  // Set a default value, convert to GColor for display
   background6_int = 0xFFFFFF;
   persist_write_int(key_background6, background6_int);
   background6 = GColorFromHEX(background6_int);
   }
 
   if (persist_exists(key_complication6)) {
-    // Access persisted value
     complication6_int = persist_read_int(key_complication6);
   } else {
-    // Set a default value
     persist_write_int(key_complication6, 0);
     complication6_int = persist_read_int(key_complication6);
   }
 
 
   if (persist_exists(key_text7)) {
-  // Read persisted value, convert to GColor for display
   text7_int = persist_read_int(key_text7);
   text7 = GColorFromHEX(text7_int);
   } else {
-  // Set a default value, convert to GColor for display
   text7_int = 0x000000;
   persist_write_int(key_text7, text7_int);
   text7 = GColorFromHEX(text7_int);
   }
 
   if (persist_exists(key_background7)) {
-  // Read persisted value, convert to GColor for display
   background7_int = persist_read_int(key_background7);
   background7 = GColorFromHEX(background7_int);
   } else {
-  // Set a default value, convert to GColor for display
   background7_int = 0xFFFFFF;
   persist_write_int(key_background7, background7_int);
   background7 = GColorFromHEX(background7_int);
   }
 
   if (persist_exists(key_complication7)) {
-    // Access persisted value
     complication7_int = persist_read_int(key_complication7);
   } else {
-    // Set a default value
     persist_write_int(key_complication7, 0);
     complication7_int = persist_read_int(key_complication7);
   }
 
 
   if (persist_exists(key_text8)) {
-  // Read persisted value, convert to GColor for display
   text8_int = persist_read_int(key_text8);
   text8 = GColorFromHEX(text8_int);
   } else {
-  // Set a default value, convert to GColor for display
   text8_int = 0x000000;
   persist_write_int(key_text8, text8_int);
   text8 = GColorFromHEX(text8_int);
   }
 
   if (persist_exists(key_background8)) {
-  // Read persisted value, convert to GColor for display
   background8_int = persist_read_int(key_background8);
   background8 = GColorFromHEX(background8_int);
   } else {
-  // Set a default value, convert to GColor for display
   background8_int = 0xFFFFFF;
   persist_write_int(key_background8, background8_int);
   background8 = GColorFromHEX(background8_int);
   }
 
   if (persist_exists(key_complication8)) {
-    // Access persisted value
     complication8_int = persist_read_int(key_complication8);
   } else {
-    // Set a default value
     persist_write_int(key_complication8, 0);
     complication8_int = persist_read_int(key_complication8);
   }
@@ -975,10 +1031,8 @@ static void main_window_load(Window *window) {
   }
 
 
-
-  // Create and set up time layer
-  // On rectangular watches, this is in the upper half with one row above it
-  // On round watches, it will be top and center
+  /* Create and set up time layer. On rectangular watches, it is in the upper half with one
+  row above it, and on round watches, it is top and center.*/
   s_time_layer = text_layer_create(
       GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*0), ((bounds.size.w/3)*0)),
             PBL_IF_RECT_ELSE(((bounds.size.h/6)*1), ((bounds.size.h/6)*0)+8),
@@ -990,8 +1044,8 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
 
-  // Create layer to display Bluetooth connection status as a text letter 'x'
-  // This will appear to the left of the time layer
+  /* Create text layer to display Bluetooth disconnection alert with an 'x.' The alert will appear
+  to the left of the time layer.*/
   s_bluetooth_layer = text_layer_create(
     GRect(PBL_IF_RECT_ELSE(((bounds.size.w)*0)-2, (bounds.size.w)/12)+7,
           PBL_IF_RECT_ELSE((bounds.size.h)/4, (bounds.size.h)/6),
@@ -1003,14 +1057,12 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_bluetooth_layer, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_bluetooth_layer));
 
-
   // Show the correct state of the BT connection from the start
   bluetooth_callback(connection_service_peek_pebble_app_connection());
 
 
-  // Create and set layer one
-  // On rectangular watches, this will be top left above the time
-  // On round watches, it is on the left above the midpoint line
+  /* Create and set complication layer one. On rectangular watches, it is above and to the left
+  of the time, and on round watches, it is on the left above the midpoint line.*/
   s_complication_layer_one = text_layer_create(
     GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*0), ((bounds.size.w/3)*0)),
           PBL_IF_RECT_ELSE(((bounds.size.h/6)*0), ((bounds.size.h/6)*2)),
@@ -1020,23 +1072,38 @@ static void main_window_load(Window *window) {
                               } else {
     text_layer_set_font(s_complication_layer_one, s_complication_font);
   }
-  if (complication1_int == 1) {
+  switch (complication1_int) {
+    case 1:
     text_layer_set_text(s_complication_layer_one, s_date_buffer);
-                              } else if (complication1_int == 2) {
+    break;
+    case 2:
     text_layer_set_text(s_complication_layer_one, s_battery_buffer);
-                              } else if (complication1_int == 3) {
+    break;
+    case 3:
     text_layer_set_text(s_complication_layer_one, temperature_buffer);
-                              } else if (complication1_int == 4) {
+    break;
+    case 4:
     text_layer_set_text(s_complication_layer_one, max_min_buffer);
-                              } else if (complication1_int == 5) {
+    break;
+    case 5:
     text_layer_set_text(s_complication_layer_one, weather_icon_buffer);
-                              } else if (complication1_int == 6) {
+    break;
+    case 6:
     text_layer_set_text(s_complication_layer_one, wind_buffer);
-                              } else if (complication1_int == 7) {
+    break;
+    case 7:
     text_layer_set_text(s_complication_layer_one, precip_buffer);
-                              } else if (complication1_int == 8) {
+    break;
+    case 8:
     text_layer_set_text(s_complication_layer_one, s_step_buffer);
-                              } else {
+    break;
+    case 9:
+    text_layer_set_text(s_complication_layer_one, distance_walked_buffer);
+    break;
+    case 10:
+    text_layer_set_text(s_complication_layer_one, calories_active_buffer);
+    break;
+    default:
     text_layer_set_text(s_complication_layer_one, "");
   }
   text_layer_set_text_color(s_complication_layer_one, text1);
@@ -1045,9 +1112,8 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_one));
 
 
-  // Create and set up complication layer two
-  // On rectangular watches, this will be top right above the time
-  // On round watches, it is in the middle above the midpoint line
+  /* Create and set up complication layer two. On rectangular watches, it is above and to the
+  right above the time, and on round watches, it is in the middle above the midpoint line.*/
   s_complication_layer_two = text_layer_create(
     GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*1), ((bounds.size.w/3)*1)),
           PBL_IF_RECT_ELSE(((bounds.size.h/6)*0), ((bounds.size.h/6)*2)),
@@ -1057,23 +1123,38 @@ static void main_window_load(Window *window) {
                               } else {
     text_layer_set_font(s_complication_layer_two, s_complication_font);
   }
-  if (complication2_int == 1) {
+  switch (complication2_int) {
+    case 1:
     text_layer_set_text(s_complication_layer_two, s_date_buffer);
-                              } else if (complication2_int == 2) {
+    break;
+    case 2:
     text_layer_set_text(s_complication_layer_two, s_battery_buffer);
-                              } else if (complication2_int == 3) {
+    break;
+    case 3:
     text_layer_set_text(s_complication_layer_two, temperature_buffer);
-                              } else if (complication2_int == 4) {
+    break;
+    case 4:
     text_layer_set_text(s_complication_layer_two, max_min_buffer);
-                              } else if (complication2_int == 5) {
+    break;
+    case 5:
     text_layer_set_text(s_complication_layer_two, weather_icon_buffer);
-                              } else if (complication2_int == 6) {
+    break;
+    case 6:
     text_layer_set_text(s_complication_layer_two, wind_buffer);
-                              } else if (complication2_int == 7) {
+    break;
+    case 7:
     text_layer_set_text(s_complication_layer_two, precip_buffer);
-                              } else if (complication2_int == 8) {
+    break;
+    case 8:
     text_layer_set_text(s_complication_layer_two, s_step_buffer);
-                              } else {
+    break;
+    case 9:
+    text_layer_set_text(s_complication_layer_two, distance_walked_buffer);
+    break;
+    case 10:
+    text_layer_set_text(s_complication_layer_two, calories_active_buffer);
+    break;
+    default:
     text_layer_set_text(s_complication_layer_two, "");
   }
   text_layer_set_text_color(s_complication_layer_two, text2);
@@ -1082,9 +1163,8 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_two));
 
 
-  // Create and set up complication layer three
-  // On rectangular watches, this is below the time layer on the left
-  // On round watches, it is on the right above the midpoint line
+  /* Create and set up complication layer three. On rectangular watches, it is below the time
+  layer to the left, and on round watches, it is on the right above the midpoint line.*/
   s_complication_layer_three = text_layer_create(
       GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*0), ((bounds.size.w/3)*2)),
             PBL_IF_RECT_ELSE(((bounds.size.h/6)*3), ((bounds.size.h/6)*2)),
@@ -1094,23 +1174,38 @@ static void main_window_load(Window *window) {
                               } else {
     text_layer_set_font(s_complication_layer_three, s_complication_font);
   }
-  if (complication3_int == 1) {
+  switch (complication3_int) {
+    case 1:
     text_layer_set_text(s_complication_layer_three, s_date_buffer);
-                              } else if (complication3_int == 2) {
+    break;
+    case 2:
     text_layer_set_text(s_complication_layer_three, s_battery_buffer);
-                              } else if (complication3_int == 3) {
+    break;
+    case 3:
     text_layer_set_text(s_complication_layer_three, temperature_buffer);
-                              } else if (complication3_int == 4) {
+    break;
+    case 4:
     text_layer_set_text(s_complication_layer_three, max_min_buffer);
-                              } else if (complication3_int == 5) {
+    break;
+    case 5:
     text_layer_set_text(s_complication_layer_three, weather_icon_buffer);
-                              } else if (complication3_int == 6) {
+    break;
+    case 6:
     text_layer_set_text(s_complication_layer_three, wind_buffer);
-                              } else if (complication3_int == 7) {
+    break;
+    case 7:
     text_layer_set_text(s_complication_layer_three, precip_buffer);
-                              } else if (complication3_int == 8) {
+    break;
+    case 8:
     text_layer_set_text(s_complication_layer_three, s_step_buffer);
-                              } else {
+    break;
+    case 9:
+    text_layer_set_text(s_complication_layer_three, distance_walked_buffer);
+    break;
+    case 10:
+    text_layer_set_text(s_complication_layer_three, calories_active_buffer);
+    break;
+    default:
     text_layer_set_text(s_complication_layer_three, "");
   }
   text_layer_set_text_color(s_complication_layer_three, text3);
@@ -1119,9 +1214,8 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_three));
 
 
-  // Create and set up complication layer four
-  // On rectangular watches, this is on the left below the middle of the watch
-  // On round watches, it is on the left below the midpoint line
+  /* Create and set up complication layer four. On rectangular watches, it is on the left below
+  the middle of the watch, and on round watches, it is on the left below the midpoint line.*/
   s_complication_layer_four = text_layer_create(
       GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*1), ((bounds.size.w/3)*0)),
             PBL_IF_RECT_ELSE(((bounds.size.h/6)*3), ((bounds.size.h/6)*3)),
@@ -1131,23 +1225,38 @@ static void main_window_load(Window *window) {
                               } else {
     text_layer_set_font(s_complication_layer_four, s_complication_font);
   }
-  if (complication4_int == 1) {
+  switch (complication4_int) {
+    case 1:
     text_layer_set_text(s_complication_layer_four, s_date_buffer);
-                              } else if (complication4_int == 2) {
+    break;
+    case 2:
     text_layer_set_text(s_complication_layer_four, s_battery_buffer);
-                              } else if (complication4_int == 3) {
+    break;
+    case 3:
     text_layer_set_text(s_complication_layer_four, temperature_buffer);
-                              } else if (complication4_int == 4) {
+    break;
+    case 4:
     text_layer_set_text(s_complication_layer_four, max_min_buffer);
-                              } else if (complication4_int == 5) {
+    break;
+    case 5:
     text_layer_set_text(s_complication_layer_four, weather_icon_buffer);
-                              } else if (complication4_int == 6) {
+    break;
+    case 6:
     text_layer_set_text(s_complication_layer_four, wind_buffer);
-                              } else if (complication4_int == 7) {
+    break;
+    case 7:
     text_layer_set_text(s_complication_layer_four, precip_buffer);
-                              } else if (complication4_int == 8) {
+    break;
+    case 8:
     text_layer_set_text(s_complication_layer_four, s_step_buffer);
-                              } else {
+    break;
+    case 9:
+    text_layer_set_text(s_complication_layer_four, distance_walked_buffer);
+    break;
+    case 10:
+    text_layer_set_text(s_complication_layer_four, calories_active_buffer);
+    break;
+    default:
     text_layer_set_text(s_complication_layer_four, "");
   }
   text_layer_set_text_color(s_complication_layer_four, text4);
@@ -1156,9 +1265,8 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_four));
 
 
-  // Create and set up complication layer five
-  // On rectangular watches, this is in the middle row, left side, in the bottom half
-  // On round watches, it is in the middle below the midpoint line
+  /* Create and set up complication layer five. On rectangular watches, it is on the middle left
+  side in the bottom half, and on round watches, it is in the middle below the midpoint line.*/
   s_complication_layer_five = text_layer_create(
       GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*0), ((bounds.size.w/3)*1)),
             PBL_IF_RECT_ELSE(((bounds.size.h/6)*4), ((bounds.size.h/6)*3)),
@@ -1168,23 +1276,38 @@ static void main_window_load(Window *window) {
                               } else {
     text_layer_set_font(s_complication_layer_five, s_complication_font);
   }
-  if (complication5_int == 1) {
+  switch (complication5_int) {
+    case 1:
     text_layer_set_text(s_complication_layer_five, s_date_buffer);
-                              } else if (complication5_int == 2) {
+    break;
+    case 2:
     text_layer_set_text(s_complication_layer_five, s_battery_buffer);
-                              } else if (complication5_int == 3) {
+    break;
+    case 3:
     text_layer_set_text(s_complication_layer_five, temperature_buffer);
-                              } else if (complication5_int == 4) {
+    break;
+    case 4:
     text_layer_set_text(s_complication_layer_five, max_min_buffer);
-                              } else if (complication5_int == 5) {
+    break;
+    case 5:
     text_layer_set_text(s_complication_layer_five, weather_icon_buffer);
-                              } else if (complication5_int == 6) {
+    break;
+    case 6:
     text_layer_set_text(s_complication_layer_five, wind_buffer);
-                              } else if (complication5_int == 7) {
+    break;
+    case 7:
     text_layer_set_text(s_complication_layer_five, precip_buffer);
-                              } else if (complication5_int == 8) {
+    break;
+    case 8:
     text_layer_set_text(s_complication_layer_five, s_step_buffer);
-                              } else {
+    break;
+    case 9:
+    text_layer_set_text(s_complication_layer_five, distance_walked_buffer);
+    break;
+    case 10:
+    text_layer_set_text(s_complication_layer_five, calories_active_buffer);
+    break;
+    default:
     text_layer_set_text(s_complication_layer_five, "");
   }
   text_layer_set_text_color(s_complication_layer_five, text5);
@@ -1193,9 +1316,8 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_five));
 
 
-  // Create and set up complication layer six
-  // On rectangular watches, this is in the middle row, right side, in the bottom half
-  // On round watches, it is on the right below the midpoint line
+  /* Create and set up complication layer six. On rectangular watches, it is in the middle right
+  side, in the bottom half, and on round watches, it is on the right below the midpoint line.*/
    s_complication_layer_six = text_layer_create(
       GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*1), ((bounds.size.w/3)*2)),
             PBL_IF_RECT_ELSE(((bounds.size.h/6)*4), ((bounds.size.h/6)*3)),
@@ -1205,23 +1327,38 @@ static void main_window_load(Window *window) {
                               } else {
     text_layer_set_font(s_complication_layer_six, s_complication_font);
   }
-  if (complication6_int == 1) {
+  switch (complication6_int) {
+    case 1:
     text_layer_set_text(s_complication_layer_six, s_date_buffer);
-                              } else if (complication6_int == 2) {
+    break;
+    case 2:
     text_layer_set_text(s_complication_layer_six, s_battery_buffer);
-                              } else if (complication6_int == 3) {
+    break;
+    case 3:
     text_layer_set_text(s_complication_layer_six, temperature_buffer);
-                              } else if (complication6_int == 4) {
+    break;
+    case 4:
     text_layer_set_text(s_complication_layer_six, max_min_buffer);
-                              } else if (complication6_int == 5) {
+    break;
+    case 5:
     text_layer_set_text(s_complication_layer_six, weather_icon_buffer);
-                              } else if (complication6_int == 6) {
+    break;
+    case 6:
     text_layer_set_text(s_complication_layer_six, wind_buffer);
-                              } else if (complication6_int == 7) {
+    break;
+    case 7:
     text_layer_set_text(s_complication_layer_six, precip_buffer);
-                              } else if (complication6_int == 8) {
+    break;
+    case 8:
     text_layer_set_text(s_complication_layer_six, s_step_buffer);
-                              } else {
+    break;
+    case 9:
+    text_layer_set_text(s_complication_layer_six, distance_walked_buffer);
+    break;
+    case 10:
+    text_layer_set_text(s_complication_layer_six, calories_active_buffer);
+    break;
+    default:
     text_layer_set_text(s_complication_layer_six, "");
   }
   text_layer_set_text_color(s_complication_layer_six, text6);
@@ -1230,9 +1367,8 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_six));
 
 
-  // Create and set up complication layer seven
-  // On rectangular watches, this is in the bottom row, left side
-  // On round watches, it is centered, second row from the bottom
+  /* Create and set up complication layer seven. On rectangular watches, it is in the bottom row,
+  left side, and on round watches, it is centered, second row from the bottom.*/
   s_complication_layer_seven = text_layer_create(
       GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*0), ((bounds.size.w/4)*0)),
             PBL_IF_RECT_ELSE(((bounds.size.h/6)*5), ((bounds.size.h/6)*4)),
@@ -1242,23 +1378,38 @@ static void main_window_load(Window *window) {
                               } else {
     text_layer_set_font(s_complication_layer_seven, s_complication_font);
   }
-  if (complication7_int == 1) {
+  switch (complication7_int) {
+    case 1:
     text_layer_set_text(s_complication_layer_seven, s_date_buffer);
-                              } else if (complication7_int == 2) {
+    break;
+    case 2:
     text_layer_set_text(s_complication_layer_seven, s_battery_buffer);
-                              } else if (complication7_int == 3) {
+    break;
+    case 3:
     text_layer_set_text(s_complication_layer_seven, temperature_buffer);
-                              } else if (complication7_int == 4) {
+    break;
+    case 4:
     text_layer_set_text(s_complication_layer_seven, max_min_buffer);
-                              } else if (complication7_int == 5) {
+    break;
+    case 5:
     text_layer_set_text(s_complication_layer_seven, weather_icon_buffer);
-                              } else if (complication7_int == 6) {
+    break;
+    case 6:
     text_layer_set_text(s_complication_layer_seven, wind_buffer);
-                              } else if (complication7_int == 7) {
+    break;
+    case 7:
     text_layer_set_text(s_complication_layer_seven, precip_buffer);
-                              } else if (complication7_int == 8) {
+    break;
+    case 8:
     text_layer_set_text(s_complication_layer_seven, s_step_buffer);
-                              } else {
+    break;
+    case 9:
+    text_layer_set_text(s_complication_layer_seven, distance_walked_buffer);
+    break;
+    case 10:
+    text_layer_set_text(s_complication_layer_seven, calories_active_buffer);
+    break;
+    default:
     text_layer_set_text(s_complication_layer_seven, "");
   }
   text_layer_set_text_color(s_complication_layer_seven, text7);
@@ -1267,9 +1418,8 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_seven));
 
 
-  // Create and set up complication layer eight
-  // On rectangular watches, this is in the bottom row, right side
-  // On round watches, it is centered at the bottom
+  /* Create and set up complication layer eight. On rectangular watches, it is in the bottom row
+  on the right. On round watches, it is centered at the bottom.*/
   s_complication_layer_eight = text_layer_create(
       GRect(PBL_IF_RECT_ELSE(((bounds.size.w/2)*1), ((bounds.size.w/4)*0)),
             PBL_IF_RECT_ELSE(((bounds.size.h/6)*5), ((bounds.size.h/6)*5)),
@@ -1279,23 +1429,38 @@ static void main_window_load(Window *window) {
                               } else {
     text_layer_set_font(s_complication_layer_eight, s_complication_font);
   }
-  if (complication8_int == 1) {
+  switch (complication8_int) {
+    case 1:
     text_layer_set_text(s_complication_layer_eight, s_date_buffer);
-                              } else if (complication8_int == 2) {
+    break;
+    case 2:
     text_layer_set_text(s_complication_layer_eight, s_battery_buffer);
-                              } else if (complication8_int == 3) {
+    break;
+    case 3:
     text_layer_set_text(s_complication_layer_eight, temperature_buffer);
-                              } else if (complication8_int == 4) {
+    break;
+    case 4:
     text_layer_set_text(s_complication_layer_eight, max_min_buffer);
-                              } else if (complication8_int == 5) {
+    break;
+    case 5:
     text_layer_set_text(s_complication_layer_eight, weather_icon_buffer);
-                              } else if (complication8_int == 6) {
+    break;
+    case 6:
     text_layer_set_text(s_complication_layer_eight, wind_buffer);
-                              } else if (complication8_int == 7) {
+    break;
+    case 7:
     text_layer_set_text(s_complication_layer_eight, precip_buffer);
-                              } else if (complication8_int == 8) {
+    break;
+    case 8:
     text_layer_set_text(s_complication_layer_eight, s_step_buffer);
-                              } else {
+    break;
+    case 9:
+    text_layer_set_text(s_complication_layer_eight, distance_walked_buffer);
+    break;
+    case 10:
+    text_layer_set_text(s_complication_layer_eight, calories_active_buffer);
+    break;
+    default:
     text_layer_set_text(s_complication_layer_eight, "");
   }
   text_layer_set_text_color(s_complication_layer_eight, text8);

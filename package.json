@@ -14,12 +14,6 @@
         "displayName": "Eight-frame",
         "enableMultiJS": true,
         "messageKeys": [
-            "TEMPERATURE",
-            "WEATHER_ICON",
-            "MAX_MIN_BASALT",
-            "MAX_MIN_CHALK",
-            "WIND_GAUGE",
-            "PRECIP_GAUGE",
             "TEXT_COLOR_ONE",
             "BACKGROUND_COLOR_ONE",
             "TEXT_COLOR_TWO",
@@ -47,7 +41,12 @@
             "COMPLICATION_SEVEN",
             "COMPLICATION_EIGHT",
             "API_KEY_DARK_SKY",
-            "UNITS_DARK_SKY"
+            "UNITS_DARK_SKY",
+            "TEMPERATURE",
+            "MAX_MIN",
+            "WEATHER_ICON",
+            "WIND_GAUGE",
+            "PRECIP_GAUGE"
         ],
         "projectType": "native",
         "resources": {
@@ -76,6 +75,7 @@
         },
         "sdkVersion": "3",
         "targetPlatforms": [
+            "aplite",
             "basalt",
             "chalk"
         ],
@@ -84,5 +84,5 @@
             "watchface": true
         }
     },
-    "version": "1.1.0"
+    "version": "1.2.0"
 }

@@ -87,16 +87,24 @@ module.exports = [
            "value": "5" 
          },
          { 
-           "label": "Wind speed and bearing",
+           "label": "Wind gauge",
            "value": "6" 
          },
          { 
-           "label": "Precipitation chance and severity",
+           "label": "Precipitation gauge",
            "value": "7" 
          },
          { 
-           "label": "Today's step count",
+           "label": "Step count",
            "value": "8"
+         },
+         {
+           "label": "Distance walked",
+           "value": "9"
+         },
+         {
+           "label": "Active calories burned",
+           "value": "10"
          }
        ]
      }
@@ -156,16 +164,24 @@ module.exports = [
            "value": "5" 
          },
          { 
-           "label": "Wind speed and bearing",
+           "label": "Wind gauge",
            "value": "6" 
          },
          { 
-           "label": "Precipitation chance and severity",
+           "label": "Precipitation gauge",
            "value": "7" 
          },
          { 
-           "label": "Today's step count",
+           "label": "Step count",
            "value": "8"
+         },
+         {
+           "label": "Distance walked",
+           "value": "9"
+         },
+         {
+           "label": "Active calories burned",
+           "value": "10"
          }
        ]
      }
@@ -225,16 +241,24 @@ module.exports = [
            "value": "5" 
          },
          { 
-           "label": "Wind speed and bearing",
+           "label": "Wind gauge",
            "value": "6" 
          },
          { 
-           "label": "Precipitation chance and severity",
+           "label": "Precipitation gauge",
            "value": "7" 
          },
          { 
-           "label": "Today's step count",
+           "label": "Step count",
            "value": "8"
+         },
+         {
+           "label": "Distance walked",
+           "value": "9"
+         },
+         {
+           "label": "Active calories burned",
+           "value": "10"
          }
        ]
      }
@@ -294,16 +318,24 @@ module.exports = [
            "value": "5" 
          },
          { 
-           "label": "Wind speed and bearing",
+           "label": "Wind gauge",
            "value": "6" 
          },
          { 
-           "label": "Precipitation chance and severity",
+           "label": "Precipitation gauge",
            "value": "7" 
          },
          { 
-           "label": "Today's step count",
+           "label": "Step count",
            "value": "8"
+         },
+         {
+           "label": "Distance walked",
+           "value": "9"
+         },
+         {
+           "label": "Active calories burned",
+           "value": "10"
          }
        ]
      }
@@ -363,16 +395,24 @@ module.exports = [
            "value": "5" 
          },
          { 
-           "label": "Wind speed and bearing",
+           "label": "Wind gauge",
            "value": "6" 
          },
          { 
-           "label": "Precipitation chance and severity",
+           "label": "Precipitation gauge",
            "value": "7" 
          },
          { 
-           "label": "Today's step count",
+           "label": "Step count",
            "value": "8"
+         },
+         {
+           "label": "Distance walked",
+           "value": "9"
+         },
+         {
+           "label": "Active calories burned",
+           "value": "10"
          }
        ]
      }
@@ -432,16 +472,24 @@ module.exports = [
            "value": "5" 
          },
          { 
-           "label": "Wind speed and bearing",
+           "label": "Wind gauge",
            "value": "6" 
          },
          { 
-           "label": "Precipitation chance and severity",
+           "label": "Precipitation gauge",
            "value": "7" 
          },
          { 
-           "label": "Today's step count",
+           "label": "Step count",
            "value": "8"
+         },
+         {
+           "label": "Distance walked",
+           "value": "9"
+         },
+         {
+           "label": "Active calories burned",
+           "value": "10"
          }
        ]
      }
@@ -501,16 +549,24 @@ module.exports = [
            "value": "5" 
          },
          { 
-           "label": "Wind speed and bearing",
+           "label": "Wind gauge",
            "value": "6" 
          },
          { 
-           "label": "Precipitation chance and severity",
+           "label": "Precipitation gauge",
            "value": "7" 
          },
          { 
-           "label": "Today's step count",
+           "label": "Step count",
            "value": "8"
+         },
+         {
+           "label": "Distance walked",
+           "value": "9"
+         },
+         {
+           "label": "Active calories burned",
+           "value": "10"
          }
        ]
      }
@@ -570,16 +626,24 @@ module.exports = [
            "value": "5" 
          },
          { 
-           "label": "Wind speed and bearing",
+           "label": "Wind gauge",
            "value": "6" 
          },
          { 
-           "label": "Precipitation chance and severity",
+           "label": "Precipitation gauge",
            "value": "7" 
          },
          { 
-           "label": "Today's step count",
+           "label": "Step count",
            "value": "8"
+         },
+         {
+           "label": "Distance walked",
+           "value": "9"
+         },
+         {
+           "label": "Active calories burned",
+           "value": "10"
          }
        ]
      }

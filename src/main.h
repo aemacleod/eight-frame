@@ -116,15 +116,15 @@ static char s_battery_buffer[8];
 
 
 /* Create buffers for weather data. Currently implemented weather complications are current
-temperature, daily min/max temperature, current conditions (with a buffer containing an icon
-in a dingbat font for the actual display on the watch face), a wind complication that
-shows wind bearing and speed in mph, and a complication showing daily rain chance and daily
-max intensity.*/
+temperature, daily min/max temperature, current conditions, a wind gauge showing wind bearing
+and speed, and precipitation gauge showing precipitation chance and maximum intensity.*/
 static char temperature_buffer[8];
 static char max_min_buffer[10];
 static char weather_icon_buffer[2];
 static char wind_buffer[8];
 static char precip_buffer[8];
 
-/* Create buffers for fitness data. Currently, only today's steps are implemented.*/
+/* Create buffers for fitness data.*/
 static char s_step_buffer[8];
+static char distance_walked_buffer[10];
+static char calories_active_buffer[10];
