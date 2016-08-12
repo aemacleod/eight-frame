@@ -561,6 +561,36 @@ icon font to display the current conditions.*/
     }
   }
 
+  // Retrieve, store, and read date formatting sent from Clay, write date to a buffer
+  Tuple *date_format_tuple = dict_find(iterator, MESSAGE_KEY_DATE_FORMAT);
+  if (date_format_tuple) {
+    persist_write_int(key_date_format, atoi(date_format_tuple->value->cstring));
+    time_t temp = time(NULL);
+    struct tm *tick_time = localtime(&temp);
+    date_format_int = persist_read_int(key_date_format);
+    switch (date_format_int) {
+      case 1:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%a %d","%a%d"), tick_time);
+      break;
+      case 2:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%b %d","%b%d"), tick_time);
+      break;
+      case 3:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%d %a","%d%a"), tick_time);
+      break;
+      case 4:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%d %b","%d%b"), tick_time);
+      break;
+      case 5:
+      strftime(s_date_buffer, sizeof(s_date_buffer), "%a", tick_time);
+      break;
+      case 6:
+      strftime(s_date_buffer, sizeof(s_date_buffer), "%b", tick_time);
+      break;
+      default:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%a %d","%a%d"), tick_time);
+    }
+  }
 
   // Read and store weather data sent from app.js
   Tuple *temp_tuple = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
@@ -631,13 +661,41 @@ static void update_time() {
       "%H:%M" : "%I:%M", tick_time);
   text_layer_set_text(s_time_layer, s_time_buffer);
 
-  // Write today's date into a buffer
-  strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%b %d","%b%d"), tick_time);
+  // Write date to a buffer, formatting it based on stored settings option. If none, set default
+  if (persist_exists(key_date_format)) {
+    date_format_int = persist_read_int(key_date_format);
+    switch (date_format_int) {
+      case 1:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%a %d","%a%d"), tick_time);
+      break;
+      case 2:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%b %d","%b%d"), tick_time);
+      break;
+      case 3:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%d %a","%d%a"), tick_time);
+      break;
+      case 4:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%d %b","%d%b"), tick_time);
+      break;
+      case 5:
+      strftime(s_date_buffer, sizeof(s_date_buffer), "%a", tick_time);
+      break;
+      case 6:
+      strftime(s_date_buffer, sizeof(s_date_buffer), "%b", tick_time);
+      break;
+      default:
+      strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%a %d","%a%d"), tick_time);
+    }
+  } else {
+    persist_write_int(key_date_format, 1);
+    strftime(s_date_buffer, sizeof(s_date_buffer), PBL_IF_RECT_ELSE("%a %d","%a%d"), tick_time);
+  }
+
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   update_time();
-  
+
   // Get weather update every 20 minutes
   if(tick_time->tm_min % 20 == 0) {
   // Begin dictionary
@@ -800,7 +858,6 @@ static void main_window_load(Window *window) {
   time_background = GColorFromHEX(time_background_int);
   }
 
-
   if (persist_exists(key_text1)) {
   text1_int = persist_read_int(key_text1);
   text1 = GColorFromHEX(text1_int);
@@ -825,7 +882,6 @@ static void main_window_load(Window *window) {
     persist_write_int(key_complication1, 0);
     complication1_int = persist_read_int(key_complication1);
   }
-
 
   if (persist_exists(key_text2)) {
   text2_int = persist_read_int(key_text2);
@@ -852,7 +908,6 @@ static void main_window_load(Window *window) {
     complication2_int = persist_read_int(key_complication2);
   }
 
-
   if (persist_exists(key_text3)) {
   text3_int = persist_read_int(key_text3);
   text3 = GColorFromHEX(text3_int);
@@ -877,7 +932,6 @@ static void main_window_load(Window *window) {
     persist_write_int(key_complication3, 0);
     complication3_int = persist_read_int(key_complication3);
   }
-
 
   if (persist_exists(key_text4)) {
   text4_int = persist_read_int(key_text4);
@@ -904,7 +958,6 @@ static void main_window_load(Window *window) {
     complication4_int = persist_read_int(key_complication4);
   }
 
-
   if (persist_exists(key_text5)) {
   text5_int = persist_read_int(key_text5);
   text5 = GColorFromHEX(text5_int);
@@ -929,7 +982,6 @@ static void main_window_load(Window *window) {
     persist_write_int(key_complication5, 0);
     complication5_int = persist_read_int(key_complication5);
   }
-
 
   if (persist_exists(key_text6)) {
   text6_int = persist_read_int(key_text6);
@@ -956,7 +1008,6 @@ static void main_window_load(Window *window) {
     complication6_int = persist_read_int(key_complication6);
   }
 
-
   if (persist_exists(key_text7)) {
   text7_int = persist_read_int(key_text7);
   text7 = GColorFromHEX(text7_int);
@@ -981,7 +1032,6 @@ static void main_window_load(Window *window) {
     persist_write_int(key_complication7, 0);
     complication7_int = persist_read_int(key_complication7);
   }
-
 
   if (persist_exists(key_text8)) {
   text8_int = persist_read_int(key_text8);
@@ -1008,8 +1058,6 @@ static void main_window_load(Window *window) {
     complication8_int = persist_read_int(key_complication8);
   }
 
-
-
   // Read persistent storage for weather items
   if (persist_exists(key_temperature)) {
     persist_read_string(key_temperature, temperature_buffer,
@@ -1029,7 +1077,6 @@ static void main_window_load(Window *window) {
   if (persist_exists(key_rain)) {
     persist_read_string(key_rain, precip_buffer, sizeof(precip_buffer));
   }
-
 
   /* Create and set up time layer. On rectangular watches, it is in the upper half with one
   row above it, and on round watches, it is top and center.*/
@@ -1059,7 +1106,6 @@ static void main_window_load(Window *window) {
 
   // Show the correct state of the BT connection from the start
   bluetooth_callback(connection_service_peek_pebble_app_connection());
-
 
   /* Create and set complication layer one. On rectangular watches, it is above and to the left
   of the time, and on round watches, it is on the left above the midpoint line.*/
@@ -1111,7 +1157,6 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_complication_layer_one, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_one));
 
-
   /* Create and set up complication layer two. On rectangular watches, it is above and to the
   right above the time, and on round watches, it is in the middle above the midpoint line.*/
   s_complication_layer_two = text_layer_create(
@@ -1161,7 +1206,6 @@ static void main_window_load(Window *window) {
   text_layer_set_background_color(s_complication_layer_two, background2);
   text_layer_set_text_alignment(s_complication_layer_two, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_two));
-
 
   /* Create and set up complication layer three. On rectangular watches, it is below the time
   layer to the left, and on round watches, it is on the right above the midpoint line.*/
@@ -1213,7 +1257,6 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_complication_layer_three, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_three));
 
-
   /* Create and set up complication layer four. On rectangular watches, it is on the left below
   the middle of the watch, and on round watches, it is on the left below the midpoint line.*/
   s_complication_layer_four = text_layer_create(
@@ -1263,7 +1306,6 @@ static void main_window_load(Window *window) {
   text_layer_set_background_color(s_complication_layer_four, background4);
   text_layer_set_text_alignment(s_complication_layer_four, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_four));
-
 
   /* Create and set up complication layer five. On rectangular watches, it is on the middle left
   side in the bottom half, and on round watches, it is in the middle below the midpoint line.*/
@@ -1315,7 +1357,6 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_complication_layer_five, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_five));
 
-
   /* Create and set up complication layer six. On rectangular watches, it is in the middle right
   side, in the bottom half, and on round watches, it is on the right below the midpoint line.*/
    s_complication_layer_six = text_layer_create(
@@ -1366,7 +1407,6 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_complication_layer_six, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_six));
 
-
   /* Create and set up complication layer seven. On rectangular watches, it is in the bottom row,
   left side, and on round watches, it is centered, second row from the bottom.*/
   s_complication_layer_seven = text_layer_create(
@@ -1416,7 +1456,6 @@ static void main_window_load(Window *window) {
   text_layer_set_background_color(s_complication_layer_seven, background7);
   text_layer_set_text_alignment(s_complication_layer_seven, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_complication_layer_seven));
-
 
   /* Create and set up complication layer eight. On rectangular watches, it is in the bottom row
   on the right. On round watches, it is centered at the bottom.*/
@@ -1476,7 +1515,6 @@ static void main_window_unload(Window *window) {
   fonts_unload_custom_font(s_complication_font);
   fonts_unload_custom_font(s_icon_font);
 
-
   // Destroy time and complication layers
   text_layer_destroy(s_time_layer);
   text_layer_destroy(s_bluetooth_layer);
@@ -1489,7 +1527,6 @@ static void main_window_unload(Window *window) {
   text_layer_destroy(s_complication_layer_seven);
   text_layer_destroy(s_complication_layer_eight);
 }
-
 
 
 static void init() {

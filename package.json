@@ -46,7 +46,8 @@
             "MAX_MIN",
             "WEATHER_ICON",
             "WIND_GAUGE",
-            "PRECIP_GAUGE"
+            "PRECIP_GAUGE",
+            "DATE_FORMAT"
         ],
         "projectType": "native",
         "resources": {
@@ -84,5 +85,5 @@
             "watchface": true
         }
     },
-    "version": "1.2.0"
+    "version": "1.3.0"
 }

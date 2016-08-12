@@ -20,9 +20,7 @@ static int s_battery_level;
 // static BitmapLayer *s_bluetooth_layer;
 
 
-/* Create keys and variables for persistent storage of settings. Settings currently provided
-are text, background color, and complication. Weather items are stored to prevent empty space
-while the phone fetches new weather data from the internet.*/
+// Create keys and variables for persistent storage of settings
 uint32_t key_time_text = 0;
 int time_text_int;
 GColor time_text;
@@ -108,23 +106,22 @@ uint32_t key_weather_icon = 28;
 uint32_t key_wind = 29;
 uint32_t key_rain = 30;
 
-/* Buffers for time, date, and battery level. Eventually plan to implement custom date
-formatting.*/
+uint32_t key_date_format = 31;
+int date_format_int;
+
+/* Buffers for time, date, and battery level.*/
 static char s_time_buffer[8];
 static char s_date_buffer[11];
 static char s_battery_buffer[8];
 
-
-/* Create buffers for weather data. Currently implemented weather complications are current
-temperature, daily min/max temperature, current conditions, a wind gauge showing wind bearing
-and speed, and precipitation gauge showing precipitation chance and maximum intensity.*/
+// Create buffers for weather data
 static char temperature_buffer[8];
 static char max_min_buffer[10];
 static char weather_icon_buffer[2];
 static char wind_buffer[8];
 static char precip_buffer[8];
 
-/* Create buffers for fitness data.*/
+// Create buffers for fitness data
 static char s_step_buffer[8];
 static char distance_walked_buffer[10];
 static char calories_active_buffer[10];
