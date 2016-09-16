@@ -28,7 +28,7 @@ storage, and then reads it into buffers for display on the watch face.*/
   Tuple *text2_tuple = dict_find(iterator, MESSAGE_KEY_TEXT_COLOR_TWO);
   Tuple *background2_tuple = dict_find(iterator, MESSAGE_KEY_BACKGROUND_COLOR_TWO);
   Tuple *complication2_tuple = dict_find(iterator, MESSAGE_KEY_COMPLICATION_TWO);
-  
+
   Tuple *text3_tuple = dict_find(iterator, MESSAGE_KEY_TEXT_COLOR_THREE);
   Tuple *background3_tuple = dict_find(iterator, MESSAGE_KEY_BACKGROUND_COLOR_THREE);
   Tuple *complication3_tuple = dict_find(iterator, MESSAGE_KEY_COMPLICATION_THREE);
@@ -38,7 +38,7 @@ storage, and then reads it into buffers for display on the watch face.*/
   Tuple *complication4_tuple = dict_find(iterator, MESSAGE_KEY_COMPLICATION_FOUR);
 
   Tuple *text5_tuple = dict_find(iterator, MESSAGE_KEY_TEXT_COLOR_FIVE);
-  Tuple *background5_tuple = dict_find(iterator, MESSAGE_KEY_BACKGROUND_COLOR_FIVE);  
+  Tuple *background5_tuple = dict_find(iterator, MESSAGE_KEY_BACKGROUND_COLOR_FIVE);
   Tuple *complication5_tuple = dict_find(iterator, MESSAGE_KEY_COMPLICATION_FIVE);
 
   Tuple *text6_tuple = dict_find(iterator, MESSAGE_KEY_TEXT_COLOR_SIX);
@@ -71,8 +71,8 @@ icon font to display the current conditions.*/
     window_set_background_color(s_main_window, PBL_IF_RECT_ELSE(
                                 GColorWhite, time_background));
                              }
-  
-  
+
+
   if (text1_tuple) {
     persist_write_int(key_text1, text1_tuple->value->int32);
     text1_int = persist_read_int(key_text1);
@@ -730,7 +730,7 @@ static void display_steps() {
   time_t end = time(NULL);
 
   // Check the metric has data available for today
-  HealthServiceAccessibilityMask steps_mask = health_service_metric_accessible(steps, 
+  HealthServiceAccessibilityMask steps_mask = health_service_metric_accessible(steps,
     start, end);
 
   if(steps_mask & HealthServiceAccessibilityMaskAvailable) {
@@ -800,7 +800,7 @@ static void health_handler(HealthEventType event, void *context) {
   // Which type of event occurred?
   switch(event) {
     case HealthEventSignificantUpdate:
-    APP_LOG(APP_LOG_LEVEL_INFO, 
+    APP_LOG(APP_LOG_LEVEL_INFO,
             "New HealthService HealthEventSignificantUpdate event");
     display_steps();
     display_distance_walked();
@@ -808,15 +808,21 @@ static void health_handler(HealthEventType event, void *context) {
     break;
 
     case HealthEventMovementUpdate:
-    APP_LOG(APP_LOG_LEVEL_INFO, 
+    APP_LOG(APP_LOG_LEVEL_INFO,
             "New HealthService HealthEventMovementUpdate event");
     display_steps();
     display_distance_walked();
     display_active_calories_burned();
     break;
 
+    case HealthEventMetricAlert:
+    break;
+
+    case HealthEventHeartRateUpdate:
+    break;
+
     case HealthEventSleepUpdate:
-    APP_LOG(APP_LOG_LEVEL_INFO, 
+    APP_LOG(APP_LOG_LEVEL_INFO,
             "New HealthService HealthEventSleepUpdate event");
     break;
   }
@@ -1518,11 +1524,11 @@ static void main_window_unload(Window *window) {
   // Destroy time and complication layers
   text_layer_destroy(s_time_layer);
   text_layer_destroy(s_bluetooth_layer);
-  text_layer_destroy(s_complication_layer_one); 
-  text_layer_destroy(s_complication_layer_two); 
-  text_layer_destroy(s_complication_layer_three); 
-  text_layer_destroy(s_complication_layer_four); 
-  text_layer_destroy(s_complication_layer_five); 
+  text_layer_destroy(s_complication_layer_one);
+  text_layer_destroy(s_complication_layer_two);
+  text_layer_destroy(s_complication_layer_three);
+  text_layer_destroy(s_complication_layer_four);
+  text_layer_destroy(s_complication_layer_five);
   text_layer_destroy(s_complication_layer_six);
   text_layer_destroy(s_complication_layer_seven);
   text_layer_destroy(s_complication_layer_eight);
@@ -1572,7 +1578,7 @@ static void init() {
     .pebble_app_connection_handler = bluetooth_callback});
 
   #if defined(PBL_HEALTH)
-  // Attempt to subscribe 
+  // Attempt to subscribe
   if(!health_service_events_subscribe(health_handler, NULL)) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Health not available!");
   }
