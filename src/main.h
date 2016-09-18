@@ -1,24 +1,15 @@
 #include <pebble.h>
 
-/* Create window assets. There are eight text layers for the display of complications
-and a ninth text layer for displaying the time. Any icon assets will be eventually deployed
-as icon fonts.*/
+/* Create window assets. There are eight text layers for the display of
+   complications and a ninth text layer for displaying the time.*/
 static Window *s_main_window;
-static TextLayer *s_time_layer,
-  *s_bluetooth_layer,
-  *s_complication_layer_one,
-  *s_complication_layer_two,
-  *s_complication_layer_three,
-  *s_complication_layer_four,
-  *s_complication_layer_five,
-  *s_complication_layer_six,
-  *s_complication_layer_seven,
-  *s_complication_layer_eight;
+static TextLayer *s_time_layer, *s_bluetooth_layer, *s_complication_layer_one,
+    *s_complication_layer_two, *s_complication_layer_three,
+    *s_complication_layer_four, *s_complication_layer_five,
+    *s_complication_layer_six, *s_complication_layer_seven,
+    *s_complication_layer_eight;
 static GFont s_time_font, s_complication_font, s_icon_font;
 static int s_battery_level;
-// static GBitmap *s_bluetooth_icon;
-// static BitmapLayer *s_bluetooth_layer;
-
 
 // Create keys and variables for persistent storage of settings
 uint32_t key_time_text = 0;
