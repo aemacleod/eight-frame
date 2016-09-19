@@ -105,6 +105,7 @@ int date_format_int;
 static char s_time_buffer[8];
 static char s_date_buffer[11];
 static char s_battery_buffer[8];
+static char s_seconds_buffer[8];
 
 // Create buffers for weather data
 static char temperature_buffer[8];

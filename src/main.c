@@ -146,9 +146,14 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_one, s_complication_font);
       text_layer_set_text(s_complication_layer_one, calories_active_buffer);
+      break;
     case 11:
       text_layer_set_font(s_complication_layer_one, s_complication_font);
       text_layer_set_text(s_complication_layer_one, humidity_buffer);
+      break;
+    case 12:
+      text_layer_set_font(s_complication_layer_one, s_complication_font);
+      text_layer_set_text(s_complication_layer_one, s_seconds_buffer);
     }
   }
 
@@ -214,6 +219,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 11:
       text_layer_set_font(s_complication_layer_two, s_complication_font);
       text_layer_set_text(s_complication_layer_two, humidity_buffer);
+      break;
+    case 12:
+      text_layer_set_font(s_complication_layer_two, s_complication_font);
+      text_layer_set_text(s_complication_layer_two, s_seconds_buffer);
     }
   }
 
@@ -279,6 +288,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 11:
       text_layer_set_font(s_complication_layer_three, s_complication_font);
       text_layer_set_text(s_complication_layer_three, humidity_buffer);
+      break;
+    case 12:
+      text_layer_set_font(s_complication_layer_three, s_complication_font);
+      text_layer_set_text(s_complication_layer_three, s_seconds_buffer);
     }
   }
 
@@ -344,6 +357,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 11:
       text_layer_set_font(s_complication_layer_four, s_complication_font);
       text_layer_set_text(s_complication_layer_four, humidity_buffer);
+      break;
+    case 12:
+      text_layer_set_font(s_complication_layer_four, s_complication_font);
+      text_layer_set_text(s_complication_layer_four, s_seconds_buffer);
     }
   }
 
@@ -409,6 +426,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 11:
       text_layer_set_font(s_complication_layer_five, s_complication_font);
       text_layer_set_text(s_complication_layer_five, humidity_buffer);
+      break;
+    case 12:
+      text_layer_set_font(s_complication_layer_five, s_complication_font);
+      text_layer_set_text(s_complication_layer_five, s_seconds_buffer);
     }
   }
 
@@ -474,6 +495,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 11:
       text_layer_set_font(s_complication_layer_six, s_complication_font);
       text_layer_set_text(s_complication_layer_six, humidity_buffer);
+      break;
+    case 12:
+      text_layer_set_font(s_complication_layer_six, s_complication_font);
+      text_layer_set_text(s_complication_layer_six, s_seconds_buffer);
     }
   }
 
@@ -539,6 +564,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 11:
       text_layer_set_font(s_complication_layer_seven, s_complication_font);
       text_layer_set_text(s_complication_layer_seven, humidity_buffer);
+      break;
+    case 12:
+      text_layer_set_font(s_complication_layer_seven, s_complication_font);
+      text_layer_set_text(s_complication_layer_seven, s_seconds_buffer);
     }
   }
 
@@ -604,6 +633,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 11:
       text_layer_set_font(s_complication_layer_eight, s_complication_font);
       text_layer_set_text(s_complication_layer_eight, humidity_buffer);
+      break;
+    case 12:
+      text_layer_set_font(s_complication_layer_eight, s_complication_font);
+      text_layer_set_text(s_complication_layer_eight, s_seconds_buffer);
     }
   }
 
@@ -720,8 +753,11 @@ static void update_time() {
            clock_is_24h_style() ? "%H:%M" : "%I:%M", tick_time);
   text_layer_set_text(s_time_layer, s_time_buffer);
 
-  // Write date to a buffer, formatting it based on stored settings option. If
-  // none, set default
+  // Write seconds into a buffer for display on the watchface
+  strftime(s_seconds_buffer, sizeof(s_seconds_buffer), ":%S", tick_time);
+
+  /* Write date to a buffer, formatting it based on stored settings option. If
+     none, set default */
   if (persist_exists(key_date_format)) {
     date_format_int = persist_read_int(key_date_format);
     switch (date_format_int) {
@@ -1228,6 +1264,9 @@ static void main_window_load(Window *window) {
   case 11:
     text_layer_set_text(s_complication_layer_one, humidity_buffer);
     break;
+  case 12:
+    text_layer_set_text(s_complication_layer_one, s_seconds_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_one, "");
   }
@@ -1283,6 +1322,9 @@ static void main_window_load(Window *window) {
   case 11:
     text_layer_set_text(s_complication_layer_two, humidity_buffer);
     break;
+  case 12:
+    text_layer_set_text(s_complication_layer_two, s_seconds_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_two, "");
   }
@@ -1337,6 +1379,9 @@ static void main_window_load(Window *window) {
     break;
   case 11:
     text_layer_set_text(s_complication_layer_three, humidity_buffer);
+    break;
+  case 12:
+    text_layer_set_text(s_complication_layer_three, s_seconds_buffer);
     break;
   default:
     text_layer_set_text(s_complication_layer_three, "");
@@ -1395,6 +1440,9 @@ static void main_window_load(Window *window) {
   case 11:
     text_layer_set_text(s_complication_layer_four, humidity_buffer);
     break;
+  case 12:
+    text_layer_set_text(s_complication_layer_four, s_seconds_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_four, "");
   }
@@ -1451,6 +1499,9 @@ static void main_window_load(Window *window) {
     break;
   case 11:
     text_layer_set_text(s_complication_layer_five, humidity_buffer);
+    break;
+  case 12:
+    text_layer_set_text(s_complication_layer_five, s_seconds_buffer);
     break;
   default:
     text_layer_set_text(s_complication_layer_five, "");
@@ -1509,6 +1560,9 @@ static void main_window_load(Window *window) {
   case 11:
     text_layer_set_text(s_complication_layer_six, humidity_buffer);
     break;
+  case 12:
+    text_layer_set_text(s_complication_layer_six, s_seconds_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_six, "");
   }
@@ -1563,6 +1617,9 @@ static void main_window_load(Window *window) {
     break;
   case 11:
     text_layer_set_text(s_complication_layer_seven, humidity_buffer);
+    break;
+  case 12:
+    text_layer_set_text(s_complication_layer_seven, s_seconds_buffer);
     break;
   default:
     text_layer_set_text(s_complication_layer_seven, "");
@@ -1621,6 +1678,9 @@ static void main_window_load(Window *window) {
   case 11:
     text_layer_set_text(s_complication_layer_eight, humidity_buffer);
     break;
+  case 12:
+    text_layer_set_text(s_complication_layer_eight, s_seconds_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_eight, "");
   }
@@ -1669,7 +1729,7 @@ static void init() {
   update_time();
 
   // Register with TickTimerService
-  tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+  tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
 
   // Callbacks for AppMessage
   app_message_register_inbox_received(inbox_received_callback);

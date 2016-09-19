@@ -82,6 +82,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }, {
         "type": "select",
@@ -116,6 +119,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }]
 }, {
@@ -177,6 +183,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }, {
         "type": "select",
@@ -211,6 +220,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }]
 }, {
@@ -272,6 +284,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }, {
         "type": "select",
@@ -306,6 +321,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }]
 }, {
@@ -367,6 +385,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }, {
         "type": "select",
@@ -401,6 +422,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }]
 }, {
@@ -462,6 +486,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }, {
         "type": "select",
@@ -496,6 +523,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }]
 }, {
@@ -557,6 +587,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }, {
         "type": "select",
@@ -591,6 +624,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }]
 }, {
@@ -652,6 +688,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }, {
         "type": "select",
@@ -686,6 +725,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }]
 }, {
@@ -747,6 +789,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }, {
         "type": "select",
@@ -781,6 +826,9 @@ module.exports = [{
         }, {
             "label": "Relative humidity",
             "value": "11"
+        }, {
+            "label": "Seconds",
+            "value": "12"
         }]
     }]
 }, {
