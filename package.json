@@ -43,6 +43,7 @@
             "API_KEY_DARK_SKY",
             "UNITS_DARK_SKY",
             "DATE_FORMAT",
+            "DISCONNECT_VIBRATE_SUPPRESS",
             "TEMPERATURE",
             "MAX_MIN",
             "WEATHER_ICON",

@@ -100,6 +100,7 @@ uint32_t key_humidity = 33;
 
 uint32_t key_date_format = 31;
 int date_format_int;
+uint32_t key_disconnect_vibrate_suppress = 34;
 
 /* Buffers for time, date, and battery level.*/
 static char s_time_buffer[8];

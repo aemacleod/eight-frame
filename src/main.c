@@ -68,6 +68,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   Tuple *complication8_tuple =
       dict_find(iterator, MESSAGE_KEY_COMPLICATION_EIGHT);
 
+  Tuple *date_format_tuple = dict_find(iterator, MESSAGE_KEY_DATE_FORMAT);
+  Tuple *disconnect_vibrate_suppress_tuple =
+      dict_find(iterator, MESSAGE_KEY_DISCONNECT_VIBRATE_SUPPRESS);
+
   /* Colors are written as an int value, read, converted to a GColor, and then
      applied. Fonts are set here rather than somewhere else because the
      Conditions complication uses a dingbat icon font to display the current
@@ -640,9 +644,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     }
   }
 
-  // Retrieve, store, and read date formatting sent from Clay, write date to a
-  // buffer
-  Tuple *date_format_tuple = dict_find(iterator, MESSAGE_KEY_DATE_FORMAT);
+  // Store and read date formatting sent from Clay, write date to a buffer
   if (date_format_tuple) {
     persist_write_int(key_date_format, atoi(date_format_tuple->value->cstring));
     time_t temp = time(NULL);
@@ -675,6 +677,11 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
       strftime(s_date_buffer, sizeof(s_date_buffer),
                PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
     }
+  }
+
+  if (disconnect_vibrate_suppress_tuple) {
+    persist_write_bool(key_disconnect_vibrate_suppress,
+                       disconnect_vibrate_suppress_tuple->value);
   }
 
   // Read and store weather data sent from app.js
@@ -812,11 +819,17 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void bluetooth_callback(bool connected) {
-  // Hide icon when connected, vibrate on disconnect
+  // Hide icon when connected, vibrate on disconnect unless option suppressed
   layer_set_hidden(text_layer_get_layer(s_bluetooth_layer), connected);
-  if (!connected) {
-    // Issue a vibrating alert
-    vibes_double_pulse();
+  bool disconnect_vibrate_suppress =
+      persist_read_bool(key_disconnect_vibrate_suppress);
+  if (disconnect_vibrate_suppress == true) {
+    ;
+  } else {
+    if (!connected) {
+      // Issue a vibrating alert
+      vibes_double_pulse();
+    }
   }
 }
 

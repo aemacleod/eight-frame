@@ -834,57 +834,64 @@ module.exports = [{
 }, {
     "type": "section",
     "items": [{
-        "type": "heading",
-        "defaultValue": "Other settings"
-    }, {
-        "type": "input",
-        "messageKey": "API_KEY_DARK_SKY",
-        "label": "Dark Sky API Key",
-        "description": "A free API key from Dark Sky is required for weather functions. You can register for a key <A HREF='https://developer.forecast.io/register' TARGET='_blank'>here</A>. The API key looks like a string of about 25 letters and numbers.<BR>Trouble getting the weather to work? Try these steps: copy and paste your API key to help prevent copy errors. Check for and delete any spaces before or after the API key. Set the complication layers and make sure to hit 'send to watch' so that settings are saved. The weather should update by itself within a few minutes, but you can also go to your timeline or app list and then return to the watch face to ask the program to fetch the weather."
-    }, {
-        "type": "select",
-        "messageKey": "UNITS_DARK_SKY",
-        "label": "Weather units:",
-        "defaultValue": "si",
-        "description": "Details on the differences between the measurement systems are available <A HREF='https://developer.forecast.io/docs/v2#options' TARGET='_blank'>here</A>.",
-        "options": [{
-            "label": "Metric",
-            "value": "si"
+            "type": "heading",
+            "defaultValue": "Other settings"
         }, {
-            "label": "Imperial",
-            "value": "us"
+            "type": "input",
+            "messageKey": "API_KEY_DARK_SKY",
+            "label": "Dark Sky API Key",
+            "description": "A free API key from Dark Sky is required for weather functions. You can register for a key <A HREF='https://developer.forecast.io/register' TARGET='_blank'>here</A>. The API key looks like a string of about 25 letters and numbers.<BR>Trouble getting the weather to work? Try these steps: copy and paste your API key to help prevent copy errors. Check for and delete any spaces before or after the API key. Set the complication layers and make sure to hit 'send to watch' so that settings are saved. The weather should update by itself within a few minutes, but you can also go to your timeline or app list and then return to the watch face to ask the program to fetch the weather."
         }, {
-            "label": "Canadian",
-            "value": "ca"
+            "type": "select",
+            "messageKey": "UNITS_DARK_SKY",
+            "label": "Weather units:",
+            "defaultValue": "si",
+            "description": "Details on the differences between the measurement systems are available <A HREF='https://developer.forecast.io/docs/v2#options' TARGET='_blank'>here</A>.",
+            "options": [{
+                "label": "Metric",
+                "value": "si"
+            }, {
+                "label": "Imperial",
+                "value": "us"
+            }, {
+                "label": "Canadian",
+                "value": "ca"
+            }, {
+                "label": "UK",
+                "value": "uk2"
+            }, ],
         }, {
-            "label": "UK",
-            "value": "uk2"
-        }, ],
-    }, {
-        "type": "select",
-        "messageKey": "DATE_FORMAT",
-        "label": "Date format",
-        "defaultValue": "1",
-        "options": [{
-            "label": "Day XX",
-            "value": "1"
+            "type": "select",
+            "messageKey": "DATE_FORMAT",
+            "label": "Date format",
+            "defaultValue": "1",
+            "options": [{
+                "label": "Day XX",
+                "value": "1"
+            }, {
+                "label": "Month XX",
+                "value": "2"
+            }, {
+                "label": "XX Day",
+                "value": "3"
+            }, {
+                "label": "XX Month",
+                "value": "4"
+            }, {
+                "label": "Day",
+                "value": "5"
+            }, {
+                "label": "Month",
+                "value": "6"
+            }, ]
         }, {
-            "label": "Month XX",
-            "value": "2"
-        }, {
-            "label": "XX Day",
-            "value": "3"
-        }, {
-            "label": "XX Month",
-            "value": "4"
-        }, {
-            "label": "Day",
-            "value": "5"
-        }, {
-            "label": "Month",
-            "value": "6"
-        }, ]
-    }]
+            "type": "toggle",
+            "messageKey": "DISCONNECT_VIBRATE_SUPPRESS",
+            "label": "Don't vibrate on Bluetooth disconnect",
+            "defaultValue": false
+        }
+
+    ]
 }, {
     "type": "section",
     "items": [{
