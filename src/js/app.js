@@ -146,34 +146,36 @@ function locationSuccess(pos) {
             var windGauge = windSpeed + windBearingAbbreviation;
 
             var precipProbability = Math.round((json.daily.data[0].precipProbability) * 100);
-            var precipMax = (json.daily.data[0].precipIntensityMax) * 1000;
+            var precipMax = json.daily.data[0].precipIntensityMax;
+            console.log('precipMax is: ' + precipMax);
             var precipIntensity;
             if (UnitsDarkSky == 'us') {
-                if (0 < precipMax <= 5) {
+                if (0 < precipMax && precipMax <= .005) {
                     precipIntensity = '.';
-                } else if (5 < precipMax <= 35) {
+                } else if (.005 < precipMax && precipMax <= .035) {
                     precipIntensity = '!';
-                } else if (35 < precipMax <= 110) {
+                } else if (.035 < precipMax && precipMax <= .110) {
                     precipIntensity = '!!';
-                } else if (110 < precipMax) {
+                } else if (.110 < precipMax) {
                     precipIntensity = '!!!';
                 } else {
                     precipIntensity = '?';
                 }
             } else {
-                if (0 < precipMax <= 127) {
+                if (0 < precipMax && precipMax <= .127) {
                     precipIntensity = '.';
-                } else if (127 < precipMax <= 889) {
+                } else if (.127 < precipMax && precipMax <= .889) {
                     precipIntensity = '!';
-                } else if (889 < precipMax <= 2794) {
+                } else if (.889 < precipMax && precipMax <= 2.794) {
                     precipIntensity = '!!';
-                } else if (2794 < precipMax) {
+                } else if (2.794 < precipMax) {
                     precipIntensity = '!!!';
                 } else {
                     precipIntensity = '?';
                 }
             }
             var precipGauge = precipProbability + precipIntensity;
+            console.log('Precipitation gauge should be reading: ' + precipGauge)
 
 
             // OpenWeatherMap code, commented out until time to add multiple weather options
