@@ -42,12 +42,13 @@
             "COMPLICATION_EIGHT",
             "API_KEY_DARK_SKY",
             "UNITS_DARK_SKY",
+            "DATE_FORMAT",
             "TEMPERATURE",
             "MAX_MIN",
             "WEATHER_ICON",
             "WIND_GAUGE",
             "PRECIP_GAUGE",
-            "DATE_FORMAT"
+            "HUMIDITY"
         ],
         "projectType": "native",
         "resources": {

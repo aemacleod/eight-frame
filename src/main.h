@@ -96,6 +96,7 @@ uint32_t key_max_min = 27;
 uint32_t key_weather_icon = 28;
 uint32_t key_wind = 29;
 uint32_t key_rain = 30;
+uint32_t key_humidity = 33;
 
 uint32_t key_date_format = 31;
 int date_format_int;
@@ -111,6 +112,7 @@ static char max_min_buffer[10];
 static char weather_icon_buffer[2];
 static char wind_buffer[8];
 static char precip_buffer[8];
+static char humidity_buffer[8];
 
 // Create buffers for fitness data
 static char s_step_buffer[8];

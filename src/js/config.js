@@ -79,6 +79,9 @@ module.exports = [{
         }, {
             "label": "Active calories burned",
             "value": "10"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }, {
         "type": "select",
@@ -110,6 +113,9 @@ module.exports = [{
         }, {
             "label": "Precipitation gauge",
             "value": "7"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }]
 }, {
@@ -168,6 +174,9 @@ module.exports = [{
         }, {
             "label": "Active calories burned",
             "value": "10"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }, {
         "type": "select",
@@ -199,6 +208,9 @@ module.exports = [{
         }, {
             "label": "Precipitation gauge",
             "value": "7"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }]
 }, {
@@ -257,6 +269,9 @@ module.exports = [{
         }, {
             "label": "Active calories burned",
             "value": "10"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }, {
         "type": "select",
@@ -288,6 +303,9 @@ module.exports = [{
         }, {
             "label": "Precipitation gauge",
             "value": "7"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }]
 }, {
@@ -346,6 +364,9 @@ module.exports = [{
         }, {
             "label": "Active calories burned",
             "value": "10"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }, {
         "type": "select",
@@ -377,6 +398,9 @@ module.exports = [{
         }, {
             "label": "Precipitation gauge",
             "value": "7"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }]
 }, {
@@ -435,6 +459,9 @@ module.exports = [{
         }, {
             "label": "Active calories burned",
             "value": "10"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }, {
         "type": "select",
@@ -466,6 +493,9 @@ module.exports = [{
         }, {
             "label": "Precipitation gauge",
             "value": "7"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }]
 }, {
@@ -524,6 +554,9 @@ module.exports = [{
         }, {
             "label": "Active calories burned",
             "value": "10"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }, {
         "type": "select",
@@ -555,6 +588,9 @@ module.exports = [{
         }, {
             "label": "Precipitation gauge",
             "value": "7"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }]
 }, {
@@ -613,6 +649,9 @@ module.exports = [{
         }, {
             "label": "Active calories burned",
             "value": "10"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }, {
         "type": "select",
@@ -644,6 +683,9 @@ module.exports = [{
         }, {
             "label": "Precipitation gauge",
             "value": "7"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }]
 }, {
@@ -702,6 +744,9 @@ module.exports = [{
         }, {
             "label": "Active calories burned",
             "value": "10"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }, {
         "type": "select",
@@ -733,6 +778,9 @@ module.exports = [{
         }, {
             "label": "Precipitation gauge",
             "value": "7"
+        }, {
+            "label": "Relative humidity",
+            "value": "11"
         }]
     }]
 }, {

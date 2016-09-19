@@ -146,6 +146,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_one, s_complication_font);
       text_layer_set_text(s_complication_layer_one, calories_active_buffer);
+    case 11:
+      text_layer_set_font(s_complication_layer_one, s_complication_font);
+      text_layer_set_text(s_complication_layer_one, humidity_buffer);
     }
   }
 
@@ -208,6 +211,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_two, s_complication_font);
       text_layer_set_text(s_complication_layer_two, calories_active_buffer);
+    case 11:
+      text_layer_set_font(s_complication_layer_two, s_complication_font);
+      text_layer_set_text(s_complication_layer_two, humidity_buffer);
     }
   }
 
@@ -270,6 +276,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_three, s_complication_font);
       text_layer_set_text(s_complication_layer_three, calories_active_buffer);
+    case 11:
+      text_layer_set_font(s_complication_layer_three, s_complication_font);
+      text_layer_set_text(s_complication_layer_three, humidity_buffer);
     }
   }
 
@@ -332,6 +341,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_four, s_complication_font);
       text_layer_set_text(s_complication_layer_four, calories_active_buffer);
+    case 11:
+      text_layer_set_font(s_complication_layer_four, s_complication_font);
+      text_layer_set_text(s_complication_layer_four, humidity_buffer);
     }
   }
 
@@ -394,6 +406,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_five, s_complication_font);
       text_layer_set_text(s_complication_layer_five, calories_active_buffer);
+    case 11:
+      text_layer_set_font(s_complication_layer_five, s_complication_font);
+      text_layer_set_text(s_complication_layer_five, humidity_buffer);
     }
   }
 
@@ -456,6 +471,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_six, s_complication_font);
       text_layer_set_text(s_complication_layer_six, calories_active_buffer);
+    case 11:
+      text_layer_set_font(s_complication_layer_six, s_complication_font);
+      text_layer_set_text(s_complication_layer_six, humidity_buffer);
     }
   }
 
@@ -518,6 +536,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_seven, s_complication_font);
       text_layer_set_text(s_complication_layer_seven, calories_active_buffer);
+    case 11:
+      text_layer_set_font(s_complication_layer_seven, s_complication_font);
+      text_layer_set_text(s_complication_layer_seven, humidity_buffer);
     }
   }
 
@@ -580,6 +601,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     case 10:
       text_layer_set_font(s_complication_layer_eight, s_complication_font);
       text_layer_set_text(s_complication_layer_eight, calories_active_buffer);
+    case 11:
+      text_layer_set_font(s_complication_layer_eight, s_complication_font);
+      text_layer_set_text(s_complication_layer_eight, humidity_buffer);
     }
   }
 
@@ -626,6 +650,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   Tuple *weather_icon_tuple = dict_find(iterator, MESSAGE_KEY_WEATHER_ICON);
   Tuple *wind_gauge_tuple = dict_find(iterator, MESSAGE_KEY_WIND_GAUGE);
   Tuple *precip_gauge_tuple = dict_find(iterator, MESSAGE_KEY_PRECIP_GAUGE);
+  Tuple *humidity_tuple = dict_find(iterator, MESSAGE_KEY_HUMIDITY);
 
   if (temp_tuple) {
     persist_write_string(key_temperature, temp_tuple->value->cstring);
@@ -652,6 +677,11 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   if (precip_gauge_tuple) {
     persist_write_string(key_rain, precip_gauge_tuple->value->cstring);
     persist_read_string(key_rain, precip_buffer, sizeof(precip_buffer));
+  }
+
+  if (humidity_tuple) {
+    persist_write_string(key_humidity, humidity_tuple->value->cstring);
+    persist_read_string(key_humidity, humidity_buffer, sizeof(humidity_buffer));
   }
 }
 
@@ -1116,6 +1146,9 @@ static void main_window_load(Window *window) {
   if (persist_exists(key_rain)) {
     persist_read_string(key_rain, precip_buffer, sizeof(precip_buffer));
   }
+  if (persist_exists(key_humidity)) {
+    persist_read_string(key_humidity, humidity_buffer, sizeof(humidity_buffer));
+  }
 
   /* Create and set up time layer. On rectangular watches, it is in the upper
      half with one row above it, and on round watches, it is top and center.*/
@@ -1192,6 +1225,9 @@ static void main_window_load(Window *window) {
   case 10:
     text_layer_set_text(s_complication_layer_one, calories_active_buffer);
     break;
+  case 11:
+    text_layer_set_text(s_complication_layer_one, humidity_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_one, "");
   }
@@ -1244,6 +1280,9 @@ static void main_window_load(Window *window) {
   case 10:
     text_layer_set_text(s_complication_layer_two, calories_active_buffer);
     break;
+  case 11:
+    text_layer_set_text(s_complication_layer_two, humidity_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_two, "");
   }
@@ -1295,6 +1334,9 @@ static void main_window_load(Window *window) {
     break;
   case 10:
     text_layer_set_text(s_complication_layer_three, calories_active_buffer);
+    break;
+  case 11:
+    text_layer_set_text(s_complication_layer_three, humidity_buffer);
     break;
   default:
     text_layer_set_text(s_complication_layer_three, "");
@@ -1350,6 +1392,9 @@ static void main_window_load(Window *window) {
   case 10:
     text_layer_set_text(s_complication_layer_four, calories_active_buffer);
     break;
+  case 11:
+    text_layer_set_text(s_complication_layer_four, humidity_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_four, "");
   }
@@ -1403,6 +1448,9 @@ static void main_window_load(Window *window) {
     break;
   case 10:
     text_layer_set_text(s_complication_layer_five, calories_active_buffer);
+    break;
+  case 11:
+    text_layer_set_text(s_complication_layer_five, humidity_buffer);
     break;
   default:
     text_layer_set_text(s_complication_layer_five, "");
@@ -1458,6 +1506,9 @@ static void main_window_load(Window *window) {
   case 10:
     text_layer_set_text(s_complication_layer_six, calories_active_buffer);
     break;
+  case 11:
+    text_layer_set_text(s_complication_layer_six, humidity_buffer);
+    break;
   default:
     text_layer_set_text(s_complication_layer_six, "");
   }
@@ -1509,6 +1560,9 @@ static void main_window_load(Window *window) {
     break;
   case 10:
     text_layer_set_text(s_complication_layer_seven, calories_active_buffer);
+    break;
+  case 11:
+    text_layer_set_text(s_complication_layer_seven, humidity_buffer);
     break;
   default:
     text_layer_set_text(s_complication_layer_seven, "");
@@ -1563,6 +1617,9 @@ static void main_window_load(Window *window) {
     break;
   case 10:
     text_layer_set_text(s_complication_layer_eight, calories_active_buffer);
+    break;
+  case 11:
+    text_layer_set_text(s_complication_layer_eight, humidity_buffer);
     break;
   default:
     text_layer_set_text(s_complication_layer_eight, "");

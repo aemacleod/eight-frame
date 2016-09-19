@@ -147,7 +147,6 @@ function locationSuccess(pos) {
 
             var precipProbability = Math.round((json.daily.data[0].precipProbability) * 100);
             var precipMax = json.daily.data[0].precipIntensityMax;
-            console.log('precipMax is: ' + precipMax);
             var precipIntensity;
             if (UnitsDarkSky == 'us') {
                 if (0 < precipMax && precipMax <= .005) {
@@ -175,8 +174,8 @@ function locationSuccess(pos) {
                 }
             }
             var precipGauge = precipProbability + precipIntensity;
-            console.log('Precipitation gauge should be reading: ' + precipGauge)
 
+            var relativeHumidity = ((json.currently.humidity) * 100) + '%rh';
 
             // OpenWeatherMap code, commented out until time to add multiple weather options
             // Construct URL for weather data, add modifier for Imperial units
@@ -203,6 +202,7 @@ function locationSuccess(pos) {
                 'MAX_MIN': maxMin,
                 'WIND_GAUGE': windGauge,
                 'PRECIP_GAUGE': precipGauge,
+                'HUMIDITY': relativeHumidity
             };
 
             // Send to Pebble
