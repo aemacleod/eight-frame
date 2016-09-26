@@ -887,7 +887,7 @@ module.exports = [{
         }, {
             "type": "toggle",
             "messageKey": "DISCONNECT_VIBRATE_SUPPRESS",
-            "label": "Don't vibrate on Bluetooth disconnect",
+            "label": "Disable vibrate on Bluetooth disconnect",
             "defaultValue": false
         }
 

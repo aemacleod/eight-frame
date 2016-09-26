@@ -149,7 +149,7 @@ function locationSuccess(pos) {
             var precipMax = json.daily.data[0].precipIntensityMax;
             var precipIntensity;
             if (UnitsDarkSky == 'us') {
-                if (0 < precipMax && precipMax <= .005) {
+                if (0 <= precipMax && precipMax <= .005) {
                     precipIntensity = '.';
                 } else if (.005 < precipMax && precipMax <= .035) {
                     precipIntensity = '!';
@@ -161,7 +161,7 @@ function locationSuccess(pos) {
                     precipIntensity = '?';
                 }
             } else {
-                if (0 < precipMax && precipMax <= .127) {
+                if (0 <= precipMax && precipMax <= .127) {
                     precipIntensity = '.';
                 } else if (.127 < precipMax && precipMax <= .889) {
                     precipIntensity = '!';

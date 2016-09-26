@@ -7,8 +7,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 
   /*This AppMessage callback function has two sections. The first section saves
      settings data sent from the Clay-generated configuration page in the Pebble
-     app to persistent storage, reads the values from storage, and then applies
-     them to the watch face. Each complication has settings for text color,
+     app to persistent storage. Each complication has settings for text color,
      background color, and complication.
 
      The second section retrieves weather complication information from Dark
@@ -72,42 +71,35 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   Tuple *disconnect_vibrate_suppress_tuple =
       dict_find(iterator, MESSAGE_KEY_DISCONNECT_VIBRATE_SUPPRESS);
 
-  /* Colors are written as an int value, read, converted to a GColor, and then
-     applied. Fonts are set here rather than somewhere else because the
-     Conditions complication uses a dingbat icon font to display the current
-     conditions.*/
+  // Read and store weather data sent from app.js
+  Tuple *temp_tuple = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
+  Tuple *max_min_tuple = dict_find(iterator, MESSAGE_KEY_MAX_MIN);
+  Tuple *weather_icon_tuple = dict_find(iterator, MESSAGE_KEY_WEATHER_ICON);
+  Tuple *wind_gauge_tuple = dict_find(iterator, MESSAGE_KEY_WIND_GAUGE);
+  Tuple *precip_gauge_tuple = dict_find(iterator, MESSAGE_KEY_PRECIP_GAUGE);
+  Tuple *humidity_tuple = dict_find(iterator, MESSAGE_KEY_HUMIDITY);
+
+  // Apply settings sent from settings page to watch face
   if (time_text_tuple) {
-    persist_write_int(key_time_text, time_text_tuple->value->int32);
-    time_text_int = persist_read_int(key_time_text);
-    time_text = GColorFromHEX(time_text_int);
+    time_text = GColorFromHEX(time_text_tuple->value->int32);
     text_layer_set_text_color(s_time_layer, time_text);
   }
   if (time_background_tuple) {
-    persist_write_int(key_time_background, time_background_tuple->value->int32);
-    time_background_int = persist_read_int(key_time_background);
-    time_background = GColorFromHEX(time_background_int);
+    time_background = GColorFromHEX(time_background_tuple->value->int32);
     text_layer_set_background_color(s_time_layer, time_background);
-    window_set_background_color(s_main_window,
-                                PBL_IF_RECT_ELSE(GColorWhite, time_background));
   }
 
   if (text1_tuple) {
-    persist_write_int(key_text1, text1_tuple->value->int32);
-    text1_int = persist_read_int(key_text1);
-    text1 = GColorFromHEX(text1_int);
+    text1 = GColorFromHEX(text1_tuple->value->int32);
     text_layer_set_text_color(s_complication_layer_one, text1);
   }
   if (background1_tuple) {
-    persist_write_int(key_background1, background1_tuple->value->int32);
-    background1_int = persist_read_int(key_background1);
-    background1 = GColorFromHEX(background1_int);
+    background1 = GColorFromHEX(background1_tuple->value->int32);
     text_layer_set_background_color(s_complication_layer_one, background1);
   }
   if (complication1_tuple) {
-    persist_write_int(key_complication1,
-                      atoi(complication1_tuple->value->cstring));
-    complication1_int = persist_read_int(key_complication1);
-    switch (complication1_int) {
+    complication1 = atoi(complication1_tuple->value->cstring);
+    switch (complication1) {
     case 0:
       text_layer_set_text(s_complication_layer_one, "");
       break;
@@ -162,22 +154,16 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (text2_tuple) {
-    persist_write_int(key_text2, text2_tuple->value->int32);
-    text2_int = persist_read_int(key_text2);
-    text2 = GColorFromHEX(text2_int);
+    text2 = GColorFromHEX(text2_tuple->value->int32);
     text_layer_set_text_color(s_complication_layer_two, text2);
   }
   if (background2_tuple) {
-    persist_write_int(key_background2, background2_tuple->value->int32);
-    background2_int = persist_read_int(key_background2);
-    background2 = GColorFromHEX(background2_int);
+    background2 = GColorFromHEX(background2_tuple->value->int32);
     text_layer_set_background_color(s_complication_layer_two, background2);
   }
   if (complication2_tuple) {
-    persist_write_int(key_complication2,
-                      atoi(complication2_tuple->value->cstring));
-    complication2_int = persist_read_int(key_complication2);
-    switch (complication2_int) {
+    complication2 = atoi(complication2_tuple->value->cstring);
+    switch (complication2) {
     case 0:
       text_layer_set_text(s_complication_layer_two, "");
       break;
@@ -231,22 +217,16 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (text3_tuple) {
-    persist_write_int(key_text3, text3_tuple->value->int32);
-    text3_int = persist_read_int(key_text3);
-    text3 = GColorFromHEX(text3_int);
+    text3 = GColorFromHEX(text3_tuple->value->int32);
     text_layer_set_text_color(s_complication_layer_three, text3);
   }
   if (background3_tuple) {
-    persist_write_int(key_background3, background3_tuple->value->int32);
-    background3_int = persist_read_int(key_background3);
-    background3 = GColorFromHEX(background3_int);
+    background3 = GColorFromHEX(background3_tuple->value->int32);
     text_layer_set_background_color(s_complication_layer_three, background3);
   }
   if (complication3_tuple) {
-    persist_write_int(key_complication3,
-                      atoi(complication3_tuple->value->cstring));
-    complication3_int = persist_read_int(key_complication3);
-    switch (complication3_int) {
+    complication3 = atoi(complication3_tuple->value->cstring);
+    switch (complication3) {
     case 0:
       text_layer_set_text(s_complication_layer_three, "");
       break;
@@ -300,22 +280,16 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (text4_tuple) {
-    persist_write_int(key_text4, text4_tuple->value->int32);
-    text4_int = persist_read_int(key_text4);
-    text4 = GColorFromHEX(text4_int);
+    text4 = GColorFromHEX(text4_tuple->value->int32);
     text_layer_set_text_color(s_complication_layer_four, text4);
   }
   if (background4_tuple) {
-    persist_write_int(key_background4, background4_tuple->value->int32);
-    background4_int = persist_read_int(key_background4);
-    background4 = GColorFromHEX(background4_int);
+    background4 = GColorFromHEX(background4_tuple->value->int32);
     text_layer_set_background_color(s_complication_layer_four, background4);
   }
   if (complication4_tuple) {
-    persist_write_int(key_complication4,
-                      atoi(complication4_tuple->value->cstring));
-    complication4_int = persist_read_int(key_complication4);
-    switch (complication4_int) {
+    complication4 = atoi(complication4_tuple->value->cstring);
+    switch (complication4) {
     case 0:
       text_layer_set_text(s_complication_layer_four, "");
       break;
@@ -369,22 +343,16 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (text5_tuple) {
-    persist_write_int(key_text5, text5_tuple->value->int32);
-    text5_int = persist_read_int(key_text5);
-    text5 = GColorFromHEX(text5_int);
+    text5 = GColorFromHEX(text5_tuple->value->int32);
     text_layer_set_text_color(s_complication_layer_five, text5);
   }
   if (background5_tuple) {
-    persist_write_int(key_background5, background5_tuple->value->int32);
-    background5_int = persist_read_int(key_background5);
-    background5 = GColorFromHEX(background5_int);
+    background5 = GColorFromHEX(background5_tuple->value->int32);
     text_layer_set_background_color(s_complication_layer_five, background5);
   }
   if (complication5_tuple) {
-    persist_write_int(key_complication5,
-                      atoi(complication5_tuple->value->cstring));
-    complication5_int = persist_read_int(key_complication5);
-    switch (complication5_int) {
+    complication5 = atoi(complication5_tuple->value->cstring);
+    switch (complication5) {
     case 0:
       text_layer_set_text(s_complication_layer_five, "");
       break;
@@ -438,22 +406,16 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (text6_tuple) {
-    persist_write_int(key_text6, text6_tuple->value->int32);
-    text6_int = persist_read_int(key_text6);
-    text6 = GColorFromHEX(text6_int);
+    text6 = GColorFromHEX(text6_tuple->value->int32);
     text_layer_set_text_color(s_complication_layer_six, text6);
   }
   if (background6_tuple) {
-    persist_write_int(key_background6, background6_tuple->value->int32);
-    background6_int = persist_read_int(key_background6);
-    background6 = GColorFromHEX(background6_int);
+    background6 = GColorFromHEX(background6_tuple->value->int32);
     text_layer_set_background_color(s_complication_layer_six, background6);
   }
   if (complication6_tuple) {
-    persist_write_int(key_complication6,
-                      atoi(complication6_tuple->value->cstring));
-    complication6_int = persist_read_int(key_complication6);
-    switch (complication6_int) {
+    complication6 = atoi(complication6_tuple->value->cstring);
+    switch (complication6) {
     case 0:
       text_layer_set_text(s_complication_layer_six, "");
       break;
@@ -507,22 +469,16 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (text7_tuple) {
-    persist_write_int(key_text7, text7_tuple->value->int32);
-    text7_int = persist_read_int(key_text7);
-    text7 = GColorFromHEX(text7_int);
+    text7 = GColorFromHEX(text7_tuple->value->int32);
     text_layer_set_text_color(s_complication_layer_seven, text7);
   }
   if (background7_tuple) {
-    persist_write_int(key_background7, background7_tuple->value->int32);
-    background7_int = persist_read_int(key_background7);
-    background7 = GColorFromHEX(background7_int);
+    background7 = GColorFromHEX(background7_tuple->value->int32);
     text_layer_set_background_color(s_complication_layer_seven, background7);
   }
   if (complication7_tuple) {
-    persist_write_int(key_complication7,
-                      atoi(complication7_tuple->value->cstring));
-    complication7_int = persist_read_int(key_complication7);
-    switch (complication7_int) {
+    complication7 = atoi(complication7_tuple->value->cstring);
+    switch (complication7) {
     case 0:
       text_layer_set_text(s_complication_layer_seven, "");
       break;
@@ -576,22 +532,16 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (text8_tuple) {
-    persist_write_int(key_text8, text8_tuple->value->int32);
-    text8_int = persist_read_int(key_text8);
-    text8 = GColorFromHEX(text8_int);
+    text8 = GColorFromHEX(text8_tuple->value->int32);
     text_layer_set_text_color(s_complication_layer_eight, text8);
   }
   if (background8_tuple) {
-    persist_write_int(key_background8, background8_tuple->value->int32);
-    background8_int = persist_read_int(key_background8);
-    background8 = GColorFromHEX(background8_int);
+    background8 = GColorFromHEX(background8_tuple->value->int32);
     text_layer_set_background_color(s_complication_layer_eight, background8);
   }
   if (complication8_tuple) {
-    persist_write_int(key_complication8,
-                      atoi(complication8_tuple->value->cstring));
-    complication8_int = persist_read_int(key_complication8);
-    switch (complication8_int) {
+    complication8 = atoi(complication8_tuple->value->cstring);
+    switch (complication8) {
     case 0:
       text_layer_set_text(s_complication_layer_eight, "");
       break;
@@ -644,12 +594,10 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
     }
   }
 
-  // Store and read date formatting sent from Clay, write date to a buffer
   if (date_format_tuple) {
-    persist_write_int(key_date_format, atoi(date_format_tuple->value->cstring));
     time_t temp = time(NULL);
     struct tm *tick_time = localtime(&temp);
-    date_format_int = persist_read_int(key_date_format);
+    date_format_int = atoi(date_format_tuple->value->cstring);
     switch (date_format_int) {
     case 1:
       strftime(s_date_buffer, sizeof(s_date_buffer),
@@ -680,17 +628,40 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (disconnect_vibrate_suppress_tuple) {
-    persist_write_bool(key_disconnect_vibrate_suppress,
-                       disconnect_vibrate_suppress_tuple->value);
+    disconnect_vibrate_suppress = disconnect_vibrate_suppress_tuple->value;
   }
 
-  // Read and store weather data sent from app.js
-  Tuple *temp_tuple = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
-  Tuple *max_min_tuple = dict_find(iterator, MESSAGE_KEY_MAX_MIN);
-  Tuple *weather_icon_tuple = dict_find(iterator, MESSAGE_KEY_WEATHER_ICON);
-  Tuple *wind_gauge_tuple = dict_find(iterator, MESSAGE_KEY_WIND_GAUGE);
-  Tuple *precip_gauge_tuple = dict_find(iterator, MESSAGE_KEY_PRECIP_GAUGE);
-  Tuple *humidity_tuple = dict_find(iterator, MESSAGE_KEY_HUMIDITY);
+  // Save settings to a Settings struct and write to persistent storage
+  Settings settings =
+      (Settings){._time_text = time_text,
+                 ._time_background = time_background,
+                 ._text1 = text1,
+                 ._background1 = background1,
+                 ._complication1 = complication1,
+                 ._text2 = text2,
+                 ._background2 = background2,
+                 ._complication2 = complication2,
+                 ._text3 = text3,
+                 ._background3 = background3,
+                 ._complication3 = complication3,
+                 ._text4 = text4,
+                 ._background4 = background4,
+                 ._complication4 = complication4,
+                 ._text5 = text5,
+                 ._background5 = background5,
+                 ._complication5 = complication5,
+                 ._text6 = text6,
+                 ._background6 = background6,
+                 ._complication6 = complication6,
+                 ._text7 = text7,
+                 ._background7 = background7,
+                 ._complication7 = complication7,
+                 ._text8 = text8,
+                 ._background8 = background8,
+                 ._complication8 = complication8,
+                 ._date_format = date_format_int,
+                 ._disconnect_vibrate_suppress = disconnect_vibrate_suppress};
+  persist_write_data(key_settings, &settings, sizeof(Settings));
 
   if (temp_tuple) {
     persist_write_string(key_temperature, temp_tuple->value->cstring);
@@ -763,10 +734,10 @@ static void update_time() {
   // Write seconds into a buffer for display on the watchface
   strftime(s_seconds_buffer, sizeof(s_seconds_buffer), ":%S", tick_time);
 
-  /* Write date to a buffer, formatting it based on stored settings option. If
-     none, set default */
-  if (persist_exists(key_date_format)) {
-    date_format_int = persist_read_int(key_date_format);
+  /* Write date to a buffer, formatting it based on stored settings option.*/
+  persist_read_data(key_settings, &settings, sizeof(Settings));
+  if (persist_exists(key_settings)) {
+    date_format_int = settings._date_format;
     switch (date_format_int) {
     case 1:
       strftime(s_date_buffer, sizeof(s_date_buffer),
@@ -794,10 +765,6 @@ static void update_time() {
       strftime(s_date_buffer, sizeof(s_date_buffer),
                PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
     }
-  } else {
-    persist_write_int(key_date_format, 1);
-    strftime(s_date_buffer, sizeof(s_date_buffer),
-             PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
   }
 }
 
@@ -821,8 +788,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 static void bluetooth_callback(bool connected) {
   // Hide icon when connected, vibrate on disconnect unless option suppressed
   layer_set_hidden(text_layer_get_layer(s_bluetooth_layer), connected);
-  bool disconnect_vibrate_suppress =
-      persist_read_bool(key_disconnect_vibrate_suppress);
+  persist_read_data(key_settings, &settings, sizeof(Settings));
+  disconnect_vibrate_suppress = settings._disconnect_vibrate_suppress;
   if (disconnect_vibrate_suppress == true) {
     ;
   } else {
@@ -959,223 +926,35 @@ static void main_window_load(Window *window) {
 
   /* Retrieve settings data, set defaults if none, convert int values to GColor
    * values*/
-  if (persist_exists(key_time_text)) {
-    time_text_int = persist_read_int(key_time_text);
-    time_text = GColorFromHEX(time_text_int);
-  } else {
-    time_text_int = 0x000000;
-    persist_write_int(key_time_text, time_text_int);
-    time_text = GColorFromHEX(time_text_int);
-  }
-
-  if (persist_exists(key_time_background)) {
-    time_background_int = persist_read_int(key_time_background);
-    time_background = GColorFromHEX(time_background_int);
-  } else {
-    time_background_int = 0xFFFFFF;
-    persist_write_int(key_time_background, time_background_int);
-    time_background = GColorFromHEX(time_background_int);
-  }
-
-  if (persist_exists(key_text1)) {
-    text1_int = persist_read_int(key_text1);
-    text1 = GColorFromHEX(text1_int);
-  } else {
-    text1_int = 0x000000;
-    persist_write_int(key_text1, text1_int);
-    text1 = GColorFromHEX(text1_int);
-  }
-
-  if (persist_exists(key_background1)) {
-    background1_int = persist_read_int(key_background1);
-    background1 = GColorFromHEX(background1_int);
-  } else {
-    background1_int = 0xFFFFFF;
-    persist_write_int(key_background1, background1_int);
-    background1 = GColorFromHEX(background1_int);
-  }
-
-  if (persist_exists(key_complication1)) {
-    complication1_int = persist_read_int(key_complication1);
-  } else {
-    persist_write_int(key_complication1, 0);
-    complication1_int = persist_read_int(key_complication1);
-  }
-
-  if (persist_exists(key_text2)) {
-    text2_int = persist_read_int(key_text2);
-    text2 = GColorFromHEX(text2_int);
-  } else {
-    text2_int = 0x000000;
-    persist_write_int(key_text2, text2_int);
-    text2 = GColorFromHEX(text2_int);
-  }
-
-  if (persist_exists(key_background2)) {
-    background2_int = persist_read_int(key_background2);
-    background2 = GColorFromHEX(background2_int);
-  } else {
-    background2_int = 0xFFFFFF;
-    persist_write_int(key_background2, background2_int);
-    background2 = GColorFromHEX(background2_int);
-  }
-
-  if (persist_exists(key_complication2)) {
-    complication2_int = persist_read_int(key_complication2);
-  } else {
-    persist_write_int(key_complication2, 0);
-    complication2_int = persist_read_int(key_complication2);
-  }
-
-  if (persist_exists(key_text3)) {
-    text3_int = persist_read_int(key_text3);
-    text3 = GColorFromHEX(text3_int);
-  } else {
-    text3_int = 0x000000;
-    persist_write_int(key_text3, text3_int);
-    text3 = GColorFromHEX(text3_int);
-  }
-
-  if (persist_exists(key_background3)) {
-    background3_int = persist_read_int(key_background3);
-    background3 = GColorFromHEX(background3_int);
-  } else {
-    background3_int = 0xFFFFFF;
-    persist_write_int(key_background3, background3_int);
-    background3 = GColorFromHEX(background3_int);
-  }
-
-  if (persist_exists(key_complication3)) {
-    complication3_int = persist_read_int(key_complication3);
-  } else {
-    persist_write_int(key_complication3, 0);
-    complication3_int = persist_read_int(key_complication3);
-  }
-
-  if (persist_exists(key_text4)) {
-    text4_int = persist_read_int(key_text4);
-    text4 = GColorFromHEX(text4_int);
-  } else {
-    text4_int = 0x000000;
-    persist_write_int(key_text4, text4_int);
-    text4 = GColorFromHEX(text4_int);
-  }
-
-  if (persist_exists(key_background4)) {
-    background4_int = persist_read_int(key_background4);
-    background4 = GColorFromHEX(background4_int);
-  } else {
-    background4_int = 0xFFFFFF;
-    persist_write_int(key_background4, background4_int);
-    background4 = GColorFromHEX(background4_int);
-  }
-
-  if (persist_exists(key_complication4)) {
-    complication4_int = persist_read_int(key_complication4);
-  } else {
-    persist_write_int(key_complication4, 0);
-    complication4_int = persist_read_int(key_complication4);
-  }
-
-  if (persist_exists(key_text5)) {
-    text5_int = persist_read_int(key_text5);
-    text5 = GColorFromHEX(text5_int);
-  } else {
-    text5_int = 0x000000;
-    persist_write_int(key_text5, text5_int);
-    text5 = GColorFromHEX(text5_int);
-  }
-
-  if (persist_exists(key_background5)) {
-    background5_int = persist_read_int(key_background5);
-    background5 = GColorFromHEX(background5_int);
-  } else {
-    background5_int = 0xFFFFFF;
-    persist_write_int(key_background5, background5_int);
-    background5 = GColorFromHEX(background5_int);
-  }
-
-  if (persist_exists(key_complication5)) {
-    complication5_int = persist_read_int(key_complication5);
-  } else {
-    persist_write_int(key_complication5, 0);
-    complication5_int = persist_read_int(key_complication5);
-  }
-
-  if (persist_exists(key_text6)) {
-    text6_int = persist_read_int(key_text6);
-    text6 = GColorFromHEX(text6_int);
-  } else {
-    text6_int = 0x000000;
-    persist_write_int(key_text6, text6_int);
-    text6 = GColorFromHEX(text6_int);
-  }
-
-  if (persist_exists(key_background6)) {
-    background6_int = persist_read_int(key_background6);
-    background6 = GColorFromHEX(background6_int);
-  } else {
-    background6_int = 0xFFFFFF;
-    persist_write_int(key_background6, background6_int);
-    background6 = GColorFromHEX(background6_int);
-  }
-
-  if (persist_exists(key_complication6)) {
-    complication6_int = persist_read_int(key_complication6);
-  } else {
-    persist_write_int(key_complication6, 0);
-    complication6_int = persist_read_int(key_complication6);
-  }
-
-  if (persist_exists(key_text7)) {
-    text7_int = persist_read_int(key_text7);
-    text7 = GColorFromHEX(text7_int);
-  } else {
-    text7_int = 0x000000;
-    persist_write_int(key_text7, text7_int);
-    text7 = GColorFromHEX(text7_int);
-  }
-
-  if (persist_exists(key_background7)) {
-    background7_int = persist_read_int(key_background7);
-    background7 = GColorFromHEX(background7_int);
-  } else {
-    background7_int = 0xFFFFFF;
-    persist_write_int(key_background7, background7_int);
-    background7 = GColorFromHEX(background7_int);
-  }
-
-  if (persist_exists(key_complication7)) {
-    complication7_int = persist_read_int(key_complication7);
-  } else {
-    persist_write_int(key_complication7, 0);
-    complication7_int = persist_read_int(key_complication7);
-  }
-
-  if (persist_exists(key_text8)) {
-    text8_int = persist_read_int(key_text8);
-    text8 = GColorFromHEX(text8_int);
-  } else {
-    text8_int = 0x000000;
-    persist_write_int(key_text8, text8_int);
-    text8 = GColorFromHEX(text8_int);
-  }
-
-  if (persist_exists(key_background8)) {
-    background8_int = persist_read_int(key_background8);
-    background8 = GColorFromHEX(background8_int);
-  } else {
-    background8_int = 0xFFFFFF;
-    persist_write_int(key_background8, background8_int);
-    background8 = GColorFromHEX(background8_int);
-  }
-
-  if (persist_exists(key_complication8)) {
-    complication8_int = persist_read_int(key_complication8);
-  } else {
-    persist_write_int(key_complication8, 0);
-    complication8_int = persist_read_int(key_complication8);
-  }
+  persist_read_data(key_settings, &settings, sizeof(Settings));
+  if (persist_exists(key_settings)) {
+    time_text = settings._time_text;
+    time_background = settings._time_background;
+    text1 = settings._text1;
+    background1 = settings._background1;
+    complication1 = settings._complication1;
+    text2 = settings._text2;
+    background2 = settings._background2;
+    complication2 = settings._complication2;
+    text3 = settings._text3;
+    background3 = settings._background3;
+    complication3 = settings._complication3;
+    text4 = settings._text4;
+    background4 = settings._background4;
+    complication4 = settings._complication4;
+    text5 = settings._text5;
+    background5 = settings._background5;
+    complication5 = settings._complication5;
+    text6 = settings._text6;
+    background6 = settings._background6;
+    complication6 = settings._complication6;
+    text7 = settings._text7;
+    background7 = settings._background7;
+    complication7 = settings._complication7;
+    text8 = settings._text8;
+    background8 = settings._background8;
+    complication8 = settings._complication8;
+  };
 
   // Read persistent storage for weather items
   if (persist_exists(key_temperature)) {
@@ -1238,12 +1017,12 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 0), ((bounds.size.h / 6) * 2)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication1_int == 5) {
+  if (complication1 == 5) {
     text_layer_set_font(s_complication_layer_one, s_icon_font);
   } else {
     text_layer_set_font(s_complication_layer_one, s_complication_font);
   }
-  switch (complication1_int) {
+  switch (complication1) {
   case 1:
     text_layer_set_text(s_complication_layer_one, s_date_buffer);
     break;
@@ -1296,12 +1075,12 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 0), ((bounds.size.h / 6) * 2)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication2_int == 5) {
+  if (complication2 == 5) {
     text_layer_set_font(s_complication_layer_two, s_icon_font);
   } else {
     text_layer_set_font(s_complication_layer_two, s_complication_font);
   }
-  switch (complication2_int) {
+  switch (complication2) {
   case 1:
     text_layer_set_text(s_complication_layer_two, s_date_buffer);
     break;
@@ -1354,12 +1133,12 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 3), ((bounds.size.h / 6) * 2)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication3_int == 5) {
+  if (complication3 == 5) {
     text_layer_set_font(s_complication_layer_three, s_icon_font);
   } else {
     text_layer_set_font(s_complication_layer_three, s_complication_font);
   }
-  switch (complication3_int) {
+  switch (complication3) {
   case 1:
     text_layer_set_text(s_complication_layer_three, s_date_buffer);
     break;
@@ -1414,12 +1193,12 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 3), ((bounds.size.h / 6) * 3)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication4_int == 5) {
+  if (complication4 == 5) {
     text_layer_set_font(s_complication_layer_four, s_icon_font);
   } else {
     text_layer_set_font(s_complication_layer_four, s_complication_font);
   }
-  switch (complication4_int) {
+  switch (complication4) {
   case 1:
     text_layer_set_text(s_complication_layer_four, s_date_buffer);
     break;
@@ -1474,12 +1253,12 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 4), ((bounds.size.h / 6) * 3)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication5_int == 5) {
+  if (complication5 == 5) {
     text_layer_set_font(s_complication_layer_five, s_icon_font);
   } else {
     text_layer_set_font(s_complication_layer_five, s_complication_font);
   }
-  switch (complication5_int) {
+  switch (complication5) {
   case 1:
     text_layer_set_text(s_complication_layer_five, s_date_buffer);
     break;
@@ -1534,12 +1313,12 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 4), ((bounds.size.h / 6) * 3)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication6_int == 5) {
+  if (complication6 == 5) {
     text_layer_set_font(s_complication_layer_six, s_icon_font);
   } else {
     text_layer_set_font(s_complication_layer_six, s_complication_font);
   }
-  switch (complication6_int) {
+  switch (complication6) {
   case 1:
     text_layer_set_text(s_complication_layer_six, s_date_buffer);
     break;
@@ -1592,12 +1371,12 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 5), ((bounds.size.h / 6) * 4)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), bounds.size.w),
       (bounds.size.h / 6)));
-  if (complication7_int == 5) {
+  if (complication7 == 5) {
     text_layer_set_font(s_complication_layer_seven, s_icon_font);
   } else {
     text_layer_set_font(s_complication_layer_seven, s_complication_font);
   }
-  switch (complication7_int) {
+  switch (complication7) {
   case 1:
     text_layer_set_text(s_complication_layer_seven, s_date_buffer);
     break;
@@ -1652,12 +1431,12 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 5), ((bounds.size.h / 6) * 5)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), bounds.size.w),
       (bounds.size.h / 6)));
-  if (complication8_int == 5) {
+  if (complication8 == 5) {
     text_layer_set_font(s_complication_layer_eight, s_icon_font);
   } else {
     text_layer_set_font(s_complication_layer_eight, s_complication_font);
   }
-  switch (complication8_int) {
+  switch (complication8) {
   case 1:
     text_layer_set_text(s_complication_layer_eight, s_date_buffer);
     break;
