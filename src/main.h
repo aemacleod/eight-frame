@@ -63,12 +63,12 @@ int complication8;
 int date_format_int;
 bool disconnect_vibrate_suppress;
 
-uint32_t key_temperature = 1;
-uint32_t key_max_min = 2;
-uint32_t key_weather_icon = 3;
-uint32_t key_wind = 4;
-uint32_t key_rain = 5;
-uint32_t key_humidity = 6;
+uint32_t key_temperature = 2;
+uint32_t key_max_min = 3;
+uint32_t key_weather_icon = 4;
+uint32_t key_wind = 5;
+uint32_t key_rain = 6;
+uint32_t key_humidity = 7;
 
 // Create buffers for time, date, and battery level.
 static char s_time_buffer[8];

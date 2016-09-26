@@ -954,6 +954,25 @@ static void main_window_load(Window *window) {
     text8 = settings._text8;
     background8 = settings._background8;
     complication8 = settings._complication8;
+  } else {
+    time_text = GColorFromHEX(0x000000);
+    time_background = GColorFromHEX(0xFFFFFF);
+    text1 = GColorFromHEX(0x000000);
+    background1 = GColorFromHEX(0xFFFFFF);
+    text2 = GColorFromHEX(0x000000);
+    background2 = GColorFromHEX(0xFFFFFF);
+    text3 = GColorFromHEX(0x000000);
+    background3 = GColorFromHEX(0xFFFFFF);
+    text4 = GColorFromHEX(0x000000);
+    background4 = GColorFromHEX(0xFFFFFF);
+    text5 = GColorFromHEX(0x000000);
+    background5 = GColorFromHEX(0xFFFFFF);
+    text6 = GColorFromHEX(0x000000);
+    background6 = GColorFromHEX(0xFFFFFF);
+    text7 = GColorFromHEX(0x000000);
+    background7 = GColorFromHEX(0xFFFFFF);
+    text8 = GColorFromHEX(0x000000);
+    background8 = GColorFromHEX(0xFFFFFF);
   };
 
   // Read persistent storage for weather items
