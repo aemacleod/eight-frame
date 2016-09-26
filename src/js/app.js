@@ -50,7 +50,7 @@ function locationSuccess(pos) {
     var UnitsDarkSky = localStorage.getItem('StoredUnitsDarkSky');
 
     // Construct URL for weather
-    var url = 'https://api.forecast.io/forecast/' + ApiKeyDarkSky +
+    var url = 'https://api.darksky.net/forecast/' + ApiKeyDarkSky +
         '/' + pos.coords.latitude + ',' + pos.coords.longitude + '?units=' + UnitsDarkSky +
         '&exclude=minutely,hourly,alerts,flags';
     console.log('URL entered is ' + url);
@@ -176,24 +176,6 @@ function locationSuccess(pos) {
             var precipGauge = precipProbability + precipIntensity;
 
             var relativeHumidity = ((json.currently.humidity) * 100) + '%rh';
-
-            // OpenWeatherMap code, commented out until time to add multiple weather options
-            // Construct URL for weather data, add modifier for Imperial units
-            //   var url = 'http://api.openweathermap.org/data/2.5/weather?lat=' +
-            //       pos.coords.latitude + '&lon=' + pos.coords.longitude + '&appid=' + openWeatherAPIKey +
-            //         '&units=imperial';
-
-            // Request weather data
-            //   xhrRequest(url, 'GET',
-            //     function(responseText) {
-            // responseText contains a JSON object with weather info
-            //       var json = JSON.parse(responseText);
-            //
-            // Assemble weather items into variables
-            //       var temperature = json.main.temp;
-            //       console.log('Temperature is ' + temperature);
-            //       var conditions = json.weather[0].main;
-            //       console.log('Conditions are ' + conditions);
 
             // Assemble dictionary using keys
             var dictionary = {

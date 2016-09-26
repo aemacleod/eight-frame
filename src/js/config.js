@@ -840,13 +840,13 @@ module.exports = [{
             "type": "input",
             "messageKey": "API_KEY_DARK_SKY",
             "label": "Dark Sky API Key",
-            "description": "A free API key from Dark Sky is required for weather functions. You can register for a key <A HREF='https://developer.forecast.io/register' TARGET='_blank'>here</A>. The API key looks like a string of about 25 letters and numbers.<BR>Trouble getting the weather to work? Try these steps: copy and paste your API key to help prevent copy errors. Check for and delete any spaces before or after the API key. Set the complication layers and make sure to hit 'send to watch' so that settings are saved. The weather should update by itself within a few minutes, but you can also go to your timeline or app list and then return to the watch face to ask the program to fetch the weather."
+            "description": "A free API key from Dark Sky is required for weather functions. You can register for a key <A HREF='https://darksky.net/dev/' TARGET='_blank'>here</A>. The API key looks like a string of about 25 letters and numbers.<BR>Trouble getting the weather to work? Try these steps: copy and paste your API key to help prevent copy errors. Check for and delete any spaces before or after the API key. Set the complication layers and make sure to hit 'send to watch' so that settings are saved. The weather should update by itself within a few minutes, but you can also go to your timeline or app list and then return to the watch face to ask the program to fetch the weather."
         }, {
             "type": "select",
             "messageKey": "UNITS_DARK_SKY",
             "label": "Weather units:",
             "defaultValue": "si",
-            "description": "Details on the differences between the measurement systems are available <A HREF='https://developer.forecast.io/docs/v2#options' TARGET='_blank'>here</A>.",
+            "description": "Details on the differences between the measurement systems are available <A HREF='https://darksky.net/dev/docs/forecast' TARGET='_blank'>here</A> in the section titled 'units' near the bottom of the page.",
             "options": [{
                 "label": "Metric",
                 "value": "si"
@@ -899,7 +899,7 @@ module.exports = [{
         "defaultValue": "Other information"
     }, {
         "type": "text",
-        "defaultValue": "<A HREF='http://font.ubuntu.com/ufl/ubuntu-font-licence-1.0.txt' TARGET='_blank'>Licensing information</A> for Ubuntu typeface. <BR> <A HREF='http://sm-artists.com/?page_id=925' TARGET='_blank'>Licensing information</A> for weather icons. <BR><A HREF='https://docs.google.com/document/d/1k3A2Q6M7C5J3NGaCxFMCvGmfKwuAR2kitl_qXa5lBhI' TARGET='_blank'>Link</A> to project's to do list. Feel free to leave any suggestions, requests, or bug reports."
+        "defaultValue": "<A HREF='http://font.ubuntu.com/ufl/ubuntu-font-licence-1.0.txt' TARGET='_blank'>Licensing information</A> for Ubuntu typeface. <BR> <A HREF='http://sm-artists.com/?page_id=925' TARGET='_blank'>Licensing information</A> for weather icons. <BR> Weather is <A HREF='https://darksky.net/poweredby'>powered by Dark Sky</A>. <BR> <A HREF='https://docs.google.com/document/d/1k3A2Q6M7C5J3NGaCxFMCvGmfKwuAR2kitl_qXa5lBhI' TARGET='_blank'>Link</A> to project's to do list. Feel free to leave any suggestions, requests, or bug reports."
     }, ]
 }, {
     "type": "submit",
