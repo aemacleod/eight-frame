@@ -175,7 +175,7 @@ function locationSuccess(pos) {
             }
             var precipGauge = precipProbability + precipIntensity;
 
-            var relativeHumidity = ((json.currently.humidity) * 100) + '%rh';
+            var relativeHumidity = Math.round(json.currently.humidity * 100) + '%rh';
 
             // Assemble dictionary using keys
             var dictionary = {
