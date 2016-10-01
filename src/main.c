@@ -70,6 +70,8 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   Tuple *date_format_tuple = dict_find(iterator, MESSAGE_KEY_DATE_FORMAT);
   Tuple *disconnect_vibrate_suppress_tuple =
       dict_find(iterator, MESSAGE_KEY_DISCONNECT_VIBRATE_SUPPRESS);
+  Tuple *suppress_seconds_tuple =
+      dict_find(iterator, MESSAGE_KEY_SUPPRESS_SECONDS);
 
   // Read and store weather data sent from app.js
   Tuple *temp_tuple = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
@@ -630,6 +632,9 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   if (disconnect_vibrate_suppress_tuple) {
     disconnect_vibrate_suppress = disconnect_vibrate_suppress_tuple->value;
   }
+  if (suppress_seconds_tuple) {
+    suppress_seconds = suppress_seconds_tuple->value;
+  }
 
   // Save settings to a Settings struct and write to persistent storage
   Settings settings =
@@ -660,7 +665,8 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
                  ._background8 = background8,
                  ._complication8 = complication8,
                  ._date_format = date_format_int,
-                 ._disconnect_vibrate_suppress = disconnect_vibrate_suppress};
+                 ._disconnect_vibrate_suppress = disconnect_vibrate_suppress,
+                 ._suppress_seconds = suppress_seconds};
   persist_write_data(key_settings, &settings, sizeof(Settings));
 
   if (temp_tuple) {
@@ -732,9 +738,9 @@ static void update_time() {
   text_layer_set_text(s_time_layer, s_time_buffer);
 
   // Write seconds into a buffer for display on the watchface
-  strftime(s_seconds_buffer, sizeof(s_seconds_buffer), ":%S", tick_time);
 
-  /* Write date to a buffer, formatting it based on stored settings option.*/
+  /* Write date and seconds into their respective buffers. Formatting based on
+   * stored settings. If none, create defaults. */
   persist_read_data(key_settings, &settings, sizeof(Settings));
   if (persist_exists(key_settings)) {
     date_format_int = settings._date_format;
@@ -765,6 +771,15 @@ static void update_time() {
       strftime(s_date_buffer, sizeof(s_date_buffer),
                PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
     }
+
+    suppress_seconds = settings._suppress_seconds;
+    if (suppress_seconds == false) {
+      strftime(s_seconds_buffer, sizeof(s_seconds_buffer), ":%S", tick_time);
+    }
+
+  } else {
+    strftime(s_date_buffer, sizeof(s_date_buffer),
+             PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
   }
 }
 

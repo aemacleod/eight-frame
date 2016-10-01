@@ -44,6 +44,7 @@
             "UNITS_DARK_SKY",
             "DATE_FORMAT",
             "DISCONNECT_VIBRATE_SUPPRESS",
+            "SUPPRESS_SECONDS",
             "TEMPERATURE",
             "MAX_MIN",
             "WEATHER_ICON",
