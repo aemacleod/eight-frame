@@ -28,8 +28,8 @@ typedef struct {
   GColor _background8;
   int _complication8;
   int _date_format;
-  bool _disconnect_vibrate_suppress;
-  bool _suppress_seconds;
+  int _disconnect_vibrate_suppress;
+  int _suppress_seconds;
 } Settings;
 
 // Create variables for settings
@@ -62,8 +62,8 @@ GColor text8;
 GColor background8;
 int complication8;
 int date_format_int;
-bool disconnect_vibrate_suppress;
-bool suppress_seconds;
+int disconnect_vibrate_suppress;
+int suppress_seconds;
 
 uint32_t key_temperature = 2;
 uint32_t key_max_min = 3;

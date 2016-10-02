@@ -630,10 +630,11 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
 
   if (disconnect_vibrate_suppress_tuple) {
-    disconnect_vibrate_suppress = disconnect_vibrate_suppress_tuple->value;
+    disconnect_vibrate_suppress =
+        (int)disconnect_vibrate_suppress_tuple->value->int32;
   }
   if (suppress_seconds_tuple) {
-    suppress_seconds = suppress_seconds_tuple->value;
+    suppress_seconds = (int)suppress_seconds_tuple->value->int32;
   }
 
   // Save settings to a Settings struct and write to persistent storage
@@ -737,47 +738,40 @@ static void update_time() {
            clock_is_24h_style() ? "%H:%M" : "%I:%M", tick_time);
   text_layer_set_text(s_time_layer, s_time_buffer);
 
-  // Write seconds into a buffer for display on the watchface
-
-  /* Write date and seconds into their respective buffers. Formatting based on
-   * stored settings. If none, create defaults. */
   persist_read_data(key_settings, &settings, sizeof(Settings));
-  if (persist_exists(key_settings)) {
-    date_format_int = settings._date_format;
-    switch (date_format_int) {
-    case 1:
-      strftime(s_date_buffer, sizeof(s_date_buffer),
-               PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
-      break;
-    case 2:
-      strftime(s_date_buffer, sizeof(s_date_buffer),
-               PBL_IF_RECT_ELSE("%b %d", "%b%d"), tick_time);
-      break;
-    case 3:
-      strftime(s_date_buffer, sizeof(s_date_buffer),
-               PBL_IF_RECT_ELSE("%d %a", "%d%a"), tick_time);
-      break;
-    case 4:
-      strftime(s_date_buffer, sizeof(s_date_buffer),
-               PBL_IF_RECT_ELSE("%d %b", "%d%b"), tick_time);
-      break;
-    case 5:
-      strftime(s_date_buffer, sizeof(s_date_buffer), "%a", tick_time);
-      break;
-    case 6:
-      strftime(s_date_buffer, sizeof(s_date_buffer), "%b", tick_time);
-      break;
-    default:
-      strftime(s_date_buffer, sizeof(s_date_buffer),
-               PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
-    }
 
-    suppress_seconds = settings._suppress_seconds;
-    if (suppress_seconds == false) {
-      strftime(s_seconds_buffer, sizeof(s_seconds_buffer), ":%S", tick_time);
-    }
-
+  suppress_seconds = settings._suppress_seconds;
+  if (suppress_seconds == 0) {
+    strftime(s_seconds_buffer, sizeof(s_seconds_buffer), ":%S", tick_time);
   } else {
+    ;
+  }
+
+  date_format_int = settings._date_format;
+  switch (date_format_int) {
+  case 1:
+    strftime(s_date_buffer, sizeof(s_date_buffer),
+             PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
+    break;
+  case 2:
+    strftime(s_date_buffer, sizeof(s_date_buffer),
+             PBL_IF_RECT_ELSE("%b %d", "%b%d"), tick_time);
+    break;
+  case 3:
+    strftime(s_date_buffer, sizeof(s_date_buffer),
+             PBL_IF_RECT_ELSE("%d %a", "%d%a"), tick_time);
+    break;
+  case 4:
+    strftime(s_date_buffer, sizeof(s_date_buffer),
+             PBL_IF_RECT_ELSE("%d %b", "%d%b"), tick_time);
+    break;
+  case 5:
+    strftime(s_date_buffer, sizeof(s_date_buffer), "%a", tick_time);
+    break;
+  case 6:
+    strftime(s_date_buffer, sizeof(s_date_buffer), "%b", tick_time);
+    break;
+  default:
     strftime(s_date_buffer, sizeof(s_date_buffer),
              PBL_IF_RECT_ELSE("%a %d", "%a%d"), tick_time);
   }
@@ -805,7 +799,7 @@ static void bluetooth_callback(bool connected) {
   layer_set_hidden(text_layer_get_layer(s_bluetooth_layer), connected);
   persist_read_data(key_settings, &settings, sizeof(Settings));
   disconnect_vibrate_suppress = settings._disconnect_vibrate_suppress;
-  if (disconnect_vibrate_suppress == true) {
+  if (disconnect_vibrate_suppress == 1) {
     ;
   } else {
     if (!connected) {

@@ -888,12 +888,12 @@ module.exports = [{
         "type": "toggle",
         "messageKey": "DISCONNECT_VIBRATE_SUPPRESS",
         "label": "Disable vibrate on Bluetooth disconnect",
-        "defaultValue": false
+        "defaultValue": "false"
     }, {
         "type": "toggle",
         "messageKey": "SUPPRESS_SECONDS",
         "label": "Disable seconds complication",
-        "defaultValue": true,
+        "defaultValue": "true",
         "description": "The seconds complication greatly increases battery drain. If you are not actively using it, it is a good idea to enable this option."
     }]
 }, {
