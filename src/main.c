@@ -1,4 +1,4 @@
-#include <main.h>
+#include "src/main.h"
 #include <math.h>
 #include <pebble.h>
 
