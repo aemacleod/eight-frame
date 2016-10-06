@@ -738,13 +738,13 @@ static void update_time() {
            clock_is_24h_style() ? "%H:%M" : "%I:%M", tick_time);
   text_layer_set_text(s_time_layer, s_time_buffer);
 
-  persist_read_data(key_settings, &settings, sizeof(Settings));
-
-  suppress_seconds = settings._suppress_seconds;
-  if (suppress_seconds == 0) {
-    strftime(s_seconds_buffer, sizeof(s_seconds_buffer), ":%S", tick_time);
-  } else {
-    ;
+  if (persist_exists(key_settings)) {
+    suppress_seconds = settings._suppress_seconds;
+    if (suppress_seconds == 0) {
+      strftime(s_seconds_buffer, sizeof(s_seconds_buffer), ":%S", tick_time);
+    } else {
+      ;
+    }
   }
 
   date_format_int = settings._date_format;
@@ -797,14 +797,15 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 static void bluetooth_callback(bool connected) {
   // Hide icon when connected, vibrate on disconnect unless option suppressed
   layer_set_hidden(text_layer_get_layer(s_bluetooth_layer), connected);
-  persist_read_data(key_settings, &settings, sizeof(Settings));
-  disconnect_vibrate_suppress = settings._disconnect_vibrate_suppress;
-  if (disconnect_vibrate_suppress == 1) {
-    ;
-  } else {
-    if (!connected) {
-      // Issue a vibrating alert
-      vibes_double_pulse();
+  if (persist_exists(key_settings)) {
+    disconnect_vibrate_suppress = settings._disconnect_vibrate_suppress;
+    if (disconnect_vibrate_suppress == 1) {
+      ;
+    } else {
+      if (!connected) {
+        // Issue a vibrating alert
+        vibes_double_pulse();
+      }
     }
   }
 }
@@ -933,9 +934,7 @@ static void main_window_load(Window *window) {
   s_icon_font =
       fonts_load_custom_font(resource_get_handle(RESOURCE_ID_WEATHER_ICONS_24));
 
-  /* Retrieve settings data, set defaults if none, convert int values to GColor
-   * values*/
-  persist_read_data(key_settings, &settings, sizeof(Settings));
+  /* Apply settings data, set defaults if no settings exist */
   if (persist_exists(key_settings)) {
     time_text = settings._time_text;
     time_background = settings._time_background;
@@ -1544,6 +1543,11 @@ static void init() {
   window_stack_push(s_main_window, true);
   window_set_background_color(s_main_window,
                               PBL_IF_RECT_ELSE(GColorWhite, time_background));
+
+  // Read settings data, if available
+  if (persist_exists(key_settings)) {
+    persist_read_data(key_settings, &settings, sizeof(Settings));
+  }
 
   // Make sure the time is displayed from the start
   update_time();
