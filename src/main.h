@@ -73,31 +73,30 @@ uint32_t key_rain = 6;
 uint32_t key_humidity = 7;
 
 // Create buffers for time, date, and battery level.
-static char s_time_buffer[8];
-static char s_date_buffer[11];
-static char s_battery_buffer[8];
-static char s_seconds_buffer[8];
+char time_buffer[8];
+char date_buffer[11];
+char battery_buffer[8];
+char seconds_buffer[8];
 
 // Create buffers for weather data
-static char temperature_buffer[8];
-static char max_min_buffer[10];
-static char weather_icon_buffer[2];
-static char wind_buffer[8];
-static char precip_buffer[8];
-static char humidity_buffer[8];
+char temperature_buffer[8];
+char max_min_buffer[10];
+char weather_icon_buffer[2];
+char wind_buffer[8];
+char precip_buffer[8];
+char humidity_buffer[8];
 
 // Create buffers for fitness data
-static char s_step_buffer[8];
-static char distance_walked_buffer[10];
-static char calories_active_buffer[10];
+char step_buffer[8];
+char distance_walked_buffer[10];
+char calories_active_buffer[10];
 
 /* Create window assets. There are eight text layers for the display of
    complications and a ninth text layer for displaying the time.*/
-static Window *s_main_window;
-static TextLayer *s_time_layer, *s_bluetooth_layer, *s_complication_layer_one,
-    *s_complication_layer_two, *s_complication_layer_three,
-    *s_complication_layer_four, *s_complication_layer_five,
-    *s_complication_layer_six, *s_complication_layer_seven,
-    *s_complication_layer_eight;
-static GFont s_time_font, s_complication_font, s_icon_font;
-static int s_battery_level;
+Window *s_main_window;
+TextLayer *time_layer, *bluetooth_layer, *complication_layer_one,
+    *complication_layer_two, *complication_layer_three,
+    *complication_layer_four, *complication_layer_five, *complication_layer_six,
+    *complication_layer_seven, *complication_layer_eight;
+GFont s_time_font, complication_font, icon_font;
+int battery_level;
