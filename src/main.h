@@ -1,5 +1,6 @@
 #include <pebble.h>
 
+// struct for storing settings data
 typedef struct {
   GColor _time_text;
   GColor _time_background;
@@ -32,7 +33,11 @@ typedef struct {
   int _suppress_seconds;
 } Settings;
 
-// Create variables for settings
+/* This function takes a layer and complication int as arguments and applies the
+ * complication to the layer specified. */
+void set_complication(TextLayer *layer, int complication);
+
+// Create variables to be used for applying settings in the watchface
 Settings settings;
 uint32_t key_settings = 1;
 GColor time_text;
@@ -65,6 +70,7 @@ int date_format_int;
 int disconnect_vibrate_suppress;
 int suppress_seconds;
 
+// Create keys for storing weather data
 uint32_t key_temperature = 2;
 uint32_t key_max_min = 3;
 uint32_t key_weather_icon = 4;
@@ -72,7 +78,7 @@ uint32_t key_wind = 5;
 uint32_t key_rain = 6;
 uint32_t key_humidity = 7;
 
-// Create buffers for time, date, and battery level.
+// Create buffers for time, date, and battery level
 char time_buffer[8];
 char date_buffer[11];
 char battery_buffer[8];

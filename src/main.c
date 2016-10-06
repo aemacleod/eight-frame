@@ -101,58 +101,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
   if (complication1_tuple) {
     complication1 = atoi(complication1_tuple->value->cstring);
-    switch (complication1) {
-    case 0:
-      text_layer_set_text(complication_layer_one, "");
-      break;
-    case 1:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, date_buffer);
-      break;
-    case 2:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, battery_buffer);
-      break;
-    case 3:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, temperature_buffer);
-      break;
-    case 4:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, max_min_buffer);
-      break;
-    case 5:
-      text_layer_set_font(complication_layer_one, icon_font);
-      text_layer_set_text(complication_layer_one, weather_icon_buffer);
-      break;
-    case 6:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, wind_buffer);
-      break;
-    case 7:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, precip_buffer);
-      break;
-    case 8:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, step_buffer);
-      break;
-    case 9:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, distance_walked_buffer);
-      break;
-    case 10:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, calories_active_buffer);
-      break;
-    case 11:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, humidity_buffer);
-      break;
-    case 12:
-      text_layer_set_font(complication_layer_one, complication_font);
-      text_layer_set_text(complication_layer_one, seconds_buffer);
-    }
+    set_complication(complication_layer_one, complication1);
   }
 
   if (text2_tuple) {
@@ -165,57 +114,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
   if (complication2_tuple) {
     complication2 = atoi(complication2_tuple->value->cstring);
-    switch (complication2) {
-    case 0:
-      text_layer_set_text(complication_layer_two, "");
-      break;
-    case 1:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, date_buffer);
-      break;
-    case 2:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, battery_buffer);
-      break;
-    case 3:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, temperature_buffer);
-      break;
-    case 4:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, max_min_buffer);
-      break;
-    case 5:
-      text_layer_set_font(complication_layer_two, icon_font);
-      text_layer_set_text(complication_layer_two, weather_icon_buffer);
-      break;
-    case 6:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, wind_buffer);
-      break;
-    case 7:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, precip_buffer);
-      break;
-    case 8:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, step_buffer);
-      break;
-    case 9:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, distance_walked_buffer);
-      break;
-    case 10:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, calories_active_buffer);
-    case 11:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, humidity_buffer);
-      break;
-    case 12:
-      text_layer_set_font(complication_layer_two, complication_font);
-      text_layer_set_text(complication_layer_two, seconds_buffer);
-    }
+    set_complication(complication_layer_two, complication2);
   }
 
   if (text3_tuple) {
@@ -228,57 +127,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
   if (complication3_tuple) {
     complication3 = atoi(complication3_tuple->value->cstring);
-    switch (complication3) {
-    case 0:
-      text_layer_set_text(complication_layer_three, "");
-      break;
-    case 1:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, date_buffer);
-      break;
-    case 2:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, battery_buffer);
-      break;
-    case 3:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, temperature_buffer);
-      break;
-    case 4:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, max_min_buffer);
-      break;
-    case 5:
-      text_layer_set_font(complication_layer_three, icon_font);
-      text_layer_set_text(complication_layer_three, weather_icon_buffer);
-      break;
-    case 6:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, wind_buffer);
-      break;
-    case 7:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, precip_buffer);
-      break;
-    case 8:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, step_buffer);
-      break;
-    case 9:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, distance_walked_buffer);
-      break;
-    case 10:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, calories_active_buffer);
-    case 11:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, humidity_buffer);
-      break;
-    case 12:
-      text_layer_set_font(complication_layer_three, complication_font);
-      text_layer_set_text(complication_layer_three, seconds_buffer);
-    }
+    set_complication(complication_layer_three, complication3);
   }
 
   if (text4_tuple) {
@@ -291,57 +140,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
   if (complication4_tuple) {
     complication4 = atoi(complication4_tuple->value->cstring);
-    switch (complication4) {
-    case 0:
-      text_layer_set_text(complication_layer_four, "");
-      break;
-    case 1:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, date_buffer);
-      break;
-    case 2:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, battery_buffer);
-      break;
-    case 3:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, temperature_buffer);
-      break;
-    case 4:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, max_min_buffer);
-      break;
-    case 5:
-      text_layer_set_font(complication_layer_four, icon_font);
-      text_layer_set_text(complication_layer_four, weather_icon_buffer);
-      break;
-    case 6:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, wind_buffer);
-      break;
-    case 7:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, precip_buffer);
-      break;
-    case 8:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, step_buffer);
-      break;
-    case 9:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, distance_walked_buffer);
-      break;
-    case 10:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, calories_active_buffer);
-    case 11:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, humidity_buffer);
-      break;
-    case 12:
-      text_layer_set_font(complication_layer_four, complication_font);
-      text_layer_set_text(complication_layer_four, seconds_buffer);
-    }
+    set_complication(complication_layer_four, complication4);
   }
 
   if (text5_tuple) {
@@ -354,57 +153,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
   if (complication5_tuple) {
     complication5 = atoi(complication5_tuple->value->cstring);
-    switch (complication5) {
-    case 0:
-      text_layer_set_text(complication_layer_five, "");
-      break;
-    case 1:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, date_buffer);
-      break;
-    case 2:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, battery_buffer);
-      break;
-    case 3:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, temperature_buffer);
-      break;
-    case 4:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, max_min_buffer);
-      break;
-    case 5:
-      text_layer_set_font(complication_layer_five, icon_font);
-      text_layer_set_text(complication_layer_five, weather_icon_buffer);
-      break;
-    case 6:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, wind_buffer);
-      break;
-    case 7:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, precip_buffer);
-      break;
-    case 8:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, step_buffer);
-      break;
-    case 9:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, distance_walked_buffer);
-      break;
-    case 10:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, calories_active_buffer);
-    case 11:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, humidity_buffer);
-      break;
-    case 12:
-      text_layer_set_font(complication_layer_five, complication_font);
-      text_layer_set_text(complication_layer_five, seconds_buffer);
-    }
+    set_complication(complication_layer_five, complication5);
   }
 
   if (text6_tuple) {
@@ -417,57 +166,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
   if (complication6_tuple) {
     complication6 = atoi(complication6_tuple->value->cstring);
-    switch (complication6) {
-    case 0:
-      text_layer_set_text(complication_layer_six, "");
-      break;
-    case 1:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, date_buffer);
-      break;
-    case 2:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, battery_buffer);
-      break;
-    case 3:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, temperature_buffer);
-      break;
-    case 4:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, max_min_buffer);
-      break;
-    case 5:
-      text_layer_set_font(complication_layer_six, icon_font);
-      text_layer_set_text(complication_layer_six, weather_icon_buffer);
-      break;
-    case 6:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, wind_buffer);
-      break;
-    case 7:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, precip_buffer);
-      break;
-    case 8:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, step_buffer);
-      break;
-    case 9:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, distance_walked_buffer);
-      break;
-    case 10:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, calories_active_buffer);
-    case 11:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, humidity_buffer);
-      break;
-    case 12:
-      text_layer_set_font(complication_layer_six, complication_font);
-      text_layer_set_text(complication_layer_six, seconds_buffer);
-    }
+    set_complication(complication_layer_six, complication6);
   }
 
   if (text7_tuple) {
@@ -480,57 +179,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
   if (complication7_tuple) {
     complication7 = atoi(complication7_tuple->value->cstring);
-    switch (complication7) {
-    case 0:
-      text_layer_set_text(complication_layer_seven, "");
-      break;
-    case 1:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, date_buffer);
-      break;
-    case 2:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, battery_buffer);
-      break;
-    case 3:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, temperature_buffer);
-      break;
-    case 4:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, max_min_buffer);
-      break;
-    case 5:
-      text_layer_set_font(complication_layer_seven, icon_font);
-      text_layer_set_text(complication_layer_seven, weather_icon_buffer);
-      break;
-    case 6:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, wind_buffer);
-      break;
-    case 7:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, precip_buffer);
-      break;
-    case 8:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, step_buffer);
-      break;
-    case 9:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, distance_walked_buffer);
-      break;
-    case 10:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, calories_active_buffer);
-    case 11:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, humidity_buffer);
-      break;
-    case 12:
-      text_layer_set_font(complication_layer_seven, complication_font);
-      text_layer_set_text(complication_layer_seven, seconds_buffer);
-    }
+    set_complication(complication_layer_seven, complication7);
   }
 
   if (text8_tuple) {
@@ -543,57 +192,7 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   }
   if (complication8_tuple) {
     complication8 = atoi(complication8_tuple->value->cstring);
-    switch (complication8) {
-    case 0:
-      text_layer_set_text(complication_layer_eight, "");
-      break;
-    case 1:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, date_buffer);
-      break;
-    case 2:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, battery_buffer);
-      break;
-    case 3:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, temperature_buffer);
-      break;
-    case 4:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, max_min_buffer);
-      break;
-    case 5:
-      text_layer_set_font(complication_layer_eight, icon_font);
-      text_layer_set_text(complication_layer_eight, weather_icon_buffer);
-      break;
-    case 6:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, wind_buffer);
-      break;
-    case 7:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, precip_buffer);
-      break;
-    case 8:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, step_buffer);
-      break;
-    case 9:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, distance_walked_buffer);
-      break;
-    case 10:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, calories_active_buffer);
-    case 11:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, humidity_buffer);
-      break;
-    case 12:
-      text_layer_set_font(complication_layer_eight, complication_font);
-      text_layer_set_text(complication_layer_eight, seconds_buffer);
-    }
+    set_complication(complication_layer_eight, complication8);
   }
 
   if (date_format_tuple) {
@@ -920,6 +519,60 @@ static void health_handler(HealthEventType event, void *context) {
   }
 }
 
+void set_complication(TextLayer *layer, int complication) {
+  switch (complication) {
+  case 0:
+    text_layer_set_text(layer, "");
+    break;
+  case 1:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, date_buffer);
+    break;
+  case 2:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, battery_buffer);
+    break;
+  case 3:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, temperature_buffer);
+    break;
+  case 4:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, max_min_buffer);
+    break;
+  case 5:
+    text_layer_set_font(layer, icon_font);
+    text_layer_set_text(layer, weather_icon_buffer);
+    break;
+  case 6:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, wind_buffer);
+    break;
+  case 7:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, precip_buffer);
+    break;
+  case 8:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, step_buffer);
+    break;
+  case 9:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, distance_walked_buffer);
+    break;
+  case 10:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, calories_active_buffer);
+  case 11:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, humidity_buffer);
+    break;
+  case 12:
+    text_layer_set_font(layer, complication_font);
+    text_layer_set_text(layer, seconds_buffer);
+  }
+}
+
 static void main_window_load(Window *window) {
   // Get information about the Window and identify boundaries
   Layer *window_layer = window_get_root_layer(window);
@@ -935,6 +588,7 @@ static void main_window_load(Window *window) {
 
   /* Apply settings data, set defaults if no settings exist */
   if (persist_exists(key_settings)) {
+    persist_read_data(key_settings, &settings, sizeof(Settings));
     time_text = settings._time_text;
     time_background = settings._time_background;
     text1 = settings._text1;
@@ -1043,51 +697,7 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 0), ((bounds.size.h / 6) * 2)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication1 == 5) {
-    text_layer_set_font(complication_layer_one, icon_font);
-  } else {
-    text_layer_set_font(complication_layer_one, complication_font);
-  }
-  switch (complication1) {
-  case 1:
-    text_layer_set_text(complication_layer_one, date_buffer);
-    break;
-  case 2:
-    text_layer_set_text(complication_layer_one, battery_buffer);
-    break;
-  case 3:
-    text_layer_set_text(complication_layer_one, temperature_buffer);
-    break;
-  case 4:
-    text_layer_set_text(complication_layer_one, max_min_buffer);
-    break;
-  case 5:
-    text_layer_set_text(complication_layer_one, weather_icon_buffer);
-    break;
-  case 6:
-    text_layer_set_text(complication_layer_one, wind_buffer);
-    break;
-  case 7:
-    text_layer_set_text(complication_layer_one, precip_buffer);
-    break;
-  case 8:
-    text_layer_set_text(complication_layer_one, step_buffer);
-    break;
-  case 9:
-    text_layer_set_text(complication_layer_one, distance_walked_buffer);
-    break;
-  case 10:
-    text_layer_set_text(complication_layer_one, calories_active_buffer);
-    break;
-  case 11:
-    text_layer_set_text(complication_layer_one, humidity_buffer);
-    break;
-  case 12:
-    text_layer_set_text(complication_layer_one, seconds_buffer);
-    break;
-  default:
-    text_layer_set_text(complication_layer_one, "");
-  }
+  set_complication(complication_layer_one, complication1);
   text_layer_set_text_color(complication_layer_one, text1);
   text_layer_set_background_color(complication_layer_one, background1);
   text_layer_set_text_alignment(complication_layer_one, GTextAlignmentCenter);
@@ -1101,51 +711,7 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 0), ((bounds.size.h / 6) * 2)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication2 == 5) {
-    text_layer_set_font(complication_layer_two, icon_font);
-  } else {
-    text_layer_set_font(complication_layer_two, complication_font);
-  }
-  switch (complication2) {
-  case 1:
-    text_layer_set_text(complication_layer_two, date_buffer);
-    break;
-  case 2:
-    text_layer_set_text(complication_layer_two, battery_buffer);
-    break;
-  case 3:
-    text_layer_set_text(complication_layer_two, temperature_buffer);
-    break;
-  case 4:
-    text_layer_set_text(complication_layer_two, max_min_buffer);
-    break;
-  case 5:
-    text_layer_set_text(complication_layer_two, weather_icon_buffer);
-    break;
-  case 6:
-    text_layer_set_text(complication_layer_two, wind_buffer);
-    break;
-  case 7:
-    text_layer_set_text(complication_layer_two, precip_buffer);
-    break;
-  case 8:
-    text_layer_set_text(complication_layer_two, step_buffer);
-    break;
-  case 9:
-    text_layer_set_text(complication_layer_two, distance_walked_buffer);
-    break;
-  case 10:
-    text_layer_set_text(complication_layer_two, calories_active_buffer);
-    break;
-  case 11:
-    text_layer_set_text(complication_layer_two, humidity_buffer);
-    break;
-  case 12:
-    text_layer_set_text(complication_layer_two, seconds_buffer);
-    break;
-  default:
-    text_layer_set_text(complication_layer_two, "");
-  }
+  set_complication(complication_layer_two, complication2);
   text_layer_set_text_color(complication_layer_two, text2);
   text_layer_set_background_color(complication_layer_two, background2);
   text_layer_set_text_alignment(complication_layer_two, GTextAlignmentCenter);
@@ -1159,51 +725,7 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 3), ((bounds.size.h / 6) * 2)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication3 == 5) {
-    text_layer_set_font(complication_layer_three, icon_font);
-  } else {
-    text_layer_set_font(complication_layer_three, complication_font);
-  }
-  switch (complication3) {
-  case 1:
-    text_layer_set_text(complication_layer_three, date_buffer);
-    break;
-  case 2:
-    text_layer_set_text(complication_layer_three, battery_buffer);
-    break;
-  case 3:
-    text_layer_set_text(complication_layer_three, temperature_buffer);
-    break;
-  case 4:
-    text_layer_set_text(complication_layer_three, max_min_buffer);
-    break;
-  case 5:
-    text_layer_set_text(complication_layer_three, weather_icon_buffer);
-    break;
-  case 6:
-    text_layer_set_text(complication_layer_three, wind_buffer);
-    break;
-  case 7:
-    text_layer_set_text(complication_layer_three, precip_buffer);
-    break;
-  case 8:
-    text_layer_set_text(complication_layer_three, step_buffer);
-    break;
-  case 9:
-    text_layer_set_text(complication_layer_three, distance_walked_buffer);
-    break;
-  case 10:
-    text_layer_set_text(complication_layer_three, calories_active_buffer);
-    break;
-  case 11:
-    text_layer_set_text(complication_layer_three, humidity_buffer);
-    break;
-  case 12:
-    text_layer_set_text(complication_layer_three, seconds_buffer);
-    break;
-  default:
-    text_layer_set_text(complication_layer_three, "");
-  }
+  set_complication(complication_layer_three, complication3);
   text_layer_set_text_color(complication_layer_three, text3);
   text_layer_set_background_color(complication_layer_three, background3);
   text_layer_set_text_alignment(complication_layer_three, GTextAlignmentCenter);
@@ -1217,51 +739,7 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 3), ((bounds.size.h / 6) * 3)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication4 == 5) {
-    text_layer_set_font(complication_layer_four, icon_font);
-  } else {
-    text_layer_set_font(complication_layer_four, complication_font);
-  }
-  switch (complication4) {
-  case 1:
-    text_layer_set_text(complication_layer_four, date_buffer);
-    break;
-  case 2:
-    text_layer_set_text(complication_layer_four, battery_buffer);
-    break;
-  case 3:
-    text_layer_set_text(complication_layer_four, temperature_buffer);
-    break;
-  case 4:
-    text_layer_set_text(complication_layer_four, max_min_buffer);
-    break;
-  case 5:
-    text_layer_set_text(complication_layer_four, weather_icon_buffer);
-    break;
-  case 6:
-    text_layer_set_text(complication_layer_four, wind_buffer);
-    break;
-  case 7:
-    text_layer_set_text(complication_layer_four, precip_buffer);
-    break;
-  case 8:
-    text_layer_set_text(complication_layer_four, step_buffer);
-    break;
-  case 9:
-    text_layer_set_text(complication_layer_four, distance_walked_buffer);
-    break;
-  case 10:
-    text_layer_set_text(complication_layer_four, calories_active_buffer);
-    break;
-  case 11:
-    text_layer_set_text(complication_layer_four, humidity_buffer);
-    break;
-  case 12:
-    text_layer_set_text(complication_layer_four, seconds_buffer);
-    break;
-  default:
-    text_layer_set_text(complication_layer_four, "");
-  }
+  set_complication(complication_layer_four, complication4);
   text_layer_set_text_color(complication_layer_four, text4);
   text_layer_set_background_color(complication_layer_four, background4);
   text_layer_set_text_alignment(complication_layer_four, GTextAlignmentCenter);
@@ -1275,51 +753,7 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 4), ((bounds.size.h / 6) * 3)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication5 == 5) {
-    text_layer_set_font(complication_layer_five, icon_font);
-  } else {
-    text_layer_set_font(complication_layer_five, complication_font);
-  }
-  switch (complication5) {
-  case 1:
-    text_layer_set_text(complication_layer_five, date_buffer);
-    break;
-  case 2:
-    text_layer_set_text(complication_layer_five, battery_buffer);
-    break;
-  case 3:
-    text_layer_set_text(complication_layer_five, temperature_buffer);
-    break;
-  case 4:
-    text_layer_set_text(complication_layer_five, max_min_buffer);
-    break;
-  case 5:
-    text_layer_set_text(complication_layer_five, weather_icon_buffer);
-    break;
-  case 6:
-    text_layer_set_text(complication_layer_five, wind_buffer);
-    break;
-  case 7:
-    text_layer_set_text(complication_layer_five, precip_buffer);
-    break;
-  case 8:
-    text_layer_set_text(complication_layer_five, step_buffer);
-    break;
-  case 9:
-    text_layer_set_text(complication_layer_five, distance_walked_buffer);
-    break;
-  case 10:
-    text_layer_set_text(complication_layer_five, calories_active_buffer);
-    break;
-  case 11:
-    text_layer_set_text(complication_layer_five, humidity_buffer);
-    break;
-  case 12:
-    text_layer_set_text(complication_layer_five, seconds_buffer);
-    break;
-  default:
-    text_layer_set_text(complication_layer_five, "");
-  }
+  set_complication(complication_layer_five, complication5);
   text_layer_set_text_color(complication_layer_five, text5);
   text_layer_set_background_color(complication_layer_five, background5);
   text_layer_set_text_alignment(complication_layer_five, GTextAlignmentCenter);
@@ -1333,51 +767,7 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 4), ((bounds.size.h / 6) * 3)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
       (bounds.size.h / 6)));
-  if (complication6 == 5) {
-    text_layer_set_font(complication_layer_six, icon_font);
-  } else {
-    text_layer_set_font(complication_layer_six, complication_font);
-  }
-  switch (complication6) {
-  case 1:
-    text_layer_set_text(complication_layer_six, date_buffer);
-    break;
-  case 2:
-    text_layer_set_text(complication_layer_six, battery_buffer);
-    break;
-  case 3:
-    text_layer_set_text(complication_layer_six, temperature_buffer);
-    break;
-  case 4:
-    text_layer_set_text(complication_layer_six, max_min_buffer);
-    break;
-  case 5:
-    text_layer_set_text(complication_layer_six, weather_icon_buffer);
-    break;
-  case 6:
-    text_layer_set_text(complication_layer_six, wind_buffer);
-    break;
-  case 7:
-    text_layer_set_text(complication_layer_six, precip_buffer);
-    break;
-  case 8:
-    text_layer_set_text(complication_layer_six, step_buffer);
-    break;
-  case 9:
-    text_layer_set_text(complication_layer_six, distance_walked_buffer);
-    break;
-  case 10:
-    text_layer_set_text(complication_layer_six, calories_active_buffer);
-    break;
-  case 11:
-    text_layer_set_text(complication_layer_six, humidity_buffer);
-    break;
-  case 12:
-    text_layer_set_text(complication_layer_six, seconds_buffer);
-    break;
-  default:
-    text_layer_set_text(complication_layer_six, "");
-  }
+  set_complication(complication_layer_six, complication6);
   text_layer_set_text_color(complication_layer_six, text6);
   text_layer_set_background_color(complication_layer_six, background6);
   text_layer_set_text_alignment(complication_layer_six, GTextAlignmentCenter);
@@ -1391,51 +781,7 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 5), ((bounds.size.h / 6) * 4)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), bounds.size.w),
       (bounds.size.h / 6)));
-  if (complication7 == 5) {
-    text_layer_set_font(complication_layer_seven, icon_font);
-  } else {
-    text_layer_set_font(complication_layer_seven, complication_font);
-  }
-  switch (complication7) {
-  case 1:
-    text_layer_set_text(complication_layer_seven, date_buffer);
-    break;
-  case 2:
-    text_layer_set_text(complication_layer_seven, battery_buffer);
-    break;
-  case 3:
-    text_layer_set_text(complication_layer_seven, temperature_buffer);
-    break;
-  case 4:
-    text_layer_set_text(complication_layer_seven, max_min_buffer);
-    break;
-  case 5:
-    text_layer_set_text(complication_layer_seven, weather_icon_buffer);
-    break;
-  case 6:
-    text_layer_set_text(complication_layer_seven, wind_buffer);
-    break;
-  case 7:
-    text_layer_set_text(complication_layer_seven, precip_buffer);
-    break;
-  case 8:
-    text_layer_set_text(complication_layer_seven, step_buffer);
-    break;
-  case 9:
-    text_layer_set_text(complication_layer_seven, distance_walked_buffer);
-    break;
-  case 10:
-    text_layer_set_text(complication_layer_seven, calories_active_buffer);
-    break;
-  case 11:
-    text_layer_set_text(complication_layer_seven, humidity_buffer);
-    break;
-  case 12:
-    text_layer_set_text(complication_layer_seven, seconds_buffer);
-    break;
-  default:
-    text_layer_set_text(complication_layer_seven, "");
-  }
+  set_complication(complication_layer_seven, complication7);
   text_layer_set_text_color(complication_layer_seven, text7);
   text_layer_set_background_color(complication_layer_seven, background7);
   text_layer_set_text_alignment(complication_layer_seven, GTextAlignmentCenter);
@@ -1449,51 +795,7 @@ static void main_window_load(Window *window) {
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 5), ((bounds.size.h / 6) * 5)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), bounds.size.w),
       (bounds.size.h / 6)));
-  if (complication8 == 5) {
-    text_layer_set_font(complication_layer_eight, icon_font);
-  } else {
-    text_layer_set_font(complication_layer_eight, complication_font);
-  }
-  switch (complication8) {
-  case 1:
-    text_layer_set_text(complication_layer_eight, date_buffer);
-    break;
-  case 2:
-    text_layer_set_text(complication_layer_eight, battery_buffer);
-    break;
-  case 3:
-    text_layer_set_text(complication_layer_eight, temperature_buffer);
-    break;
-  case 4:
-    text_layer_set_text(complication_layer_eight, max_min_buffer);
-    break;
-  case 5:
-    text_layer_set_text(complication_layer_eight, weather_icon_buffer);
-    break;
-  case 6:
-    text_layer_set_text(complication_layer_eight, wind_buffer);
-    break;
-  case 7:
-    text_layer_set_text(complication_layer_eight, precip_buffer);
-    break;
-  case 8:
-    text_layer_set_text(complication_layer_eight, step_buffer);
-    break;
-  case 9:
-    text_layer_set_text(complication_layer_eight, distance_walked_buffer);
-    break;
-  case 10:
-    text_layer_set_text(complication_layer_eight, calories_active_buffer);
-    break;
-  case 11:
-    text_layer_set_text(complication_layer_eight, humidity_buffer);
-    break;
-  case 12:
-    text_layer_set_text(complication_layer_eight, seconds_buffer);
-    break;
-  default:
-    text_layer_set_text(complication_layer_eight, "");
-  }
+  set_complication(complication_layer_eight, complication8);
   text_layer_set_text_color(complication_layer_eight, text8);
   text_layer_set_background_color(complication_layer_eight, background8);
   text_layer_set_text_alignment(complication_layer_eight, GTextAlignmentCenter);
