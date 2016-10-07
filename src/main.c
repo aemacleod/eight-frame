@@ -563,6 +563,7 @@ void set_complication(TextLayer *layer, int complication) {
   case 10:
     text_layer_set_font(layer, complication_font);
     text_layer_set_text(layer, calories_active_buffer);
+    break;
   case 11:
     text_layer_set_font(layer, complication_font);
     text_layer_set_text(layer, humidity_buffer);
