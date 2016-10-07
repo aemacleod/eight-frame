@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+#endif
 #include <pebble.h>
 
 // struct for storing settings data
