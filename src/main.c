@@ -89,6 +89,8 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   if (time_background_tuple) {
     time_background = GColorFromHEX(time_background_tuple->value->int32);
     text_layer_set_background_color(time_layer, time_background);
+    window_set_background_color(s_main_window,
+                                PBL_IF_RECT_ELSE(GColorWhite, time_background));
   }
 
   if (text1_tuple) {
