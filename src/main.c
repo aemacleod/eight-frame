@@ -380,17 +380,25 @@ static void update_time() {
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   update_time();
 
-  // Get weather update every 20 minutes
-  if (tick_time->tm_min % 20 == 0) {
-    // Begin dictionary
-    DictionaryIterator *iter;
-    app_message_outbox_begin(&iter);
+  // Only update weather if user is awake
+  HealthActivityMask activities = health_service_peek_current_activities();
+  if (activities & HealthActivitySleep) {
+    ;
+  } else if (activities & HealthActivityRestfulSleep) {
+    ;
+  } else {
+    // Get weather update every 20 minutes
+    if (tick_time->tm_min % 20 == 0) {
+      // Begin dictionary
+      DictionaryIterator *iter;
+      app_message_outbox_begin(&iter);
 
-    // Add a key-value pair
-    dict_write_uint8(iter, 0, 0);
+      // Add a key-value pair
+      dict_write_uint8(iter, 0, 0);
 
-    // Send the message
-    app_message_outbox_send();
+      // Send the message
+      app_message_outbox_send();
+    }
   }
 }
 
@@ -490,34 +498,43 @@ static void display_active_calories_burned() {
 }
 
 static void health_handler(HealthEventType event, void *context) {
-  // Which type of event occurred?
-  switch (event) {
-  case HealthEventSignificantUpdate:
-    APP_LOG(APP_LOG_LEVEL_INFO,
-            "New HealthService HealthEventSignificantUpdate event");
-    display_steps();
-    display_distance_walked();
-    display_active_calories_burned();
-    break;
 
-  case HealthEventMovementUpdate:
-    APP_LOG(APP_LOG_LEVEL_INFO,
-            "New HealthService HealthEventMovementUpdate event");
-    display_steps();
-    display_distance_walked();
-    display_active_calories_burned();
-    break;
+  // Only update activities when user is awake
+  HealthActivityMask activities = health_service_peek_current_activities();
+  if (activities & HealthActivitySleep) {
+    ;
+  } else if (activities & HealthActivityRestfulSleep) {
+    ;
+  } else {
+    // Which type of event occurred?
+    switch (event) {
+    case HealthEventSignificantUpdate:
+      APP_LOG(APP_LOG_LEVEL_INFO,
+              "New HealthService HealthEventSignificantUpdate event");
+      display_steps();
+      display_distance_walked();
+      display_active_calories_burned();
+      break;
 
-  case HealthEventMetricAlert:
-    break;
+    case HealthEventMovementUpdate:
+      APP_LOG(APP_LOG_LEVEL_INFO,
+              "New HealthService HealthEventMovementUpdate event");
+      display_steps();
+      display_distance_walked();
+      display_active_calories_burned();
+      break;
 
-  case HealthEventHeartRateUpdate:
-    break;
+    case HealthEventMetricAlert:
+      break;
 
-  case HealthEventSleepUpdate:
-    APP_LOG(APP_LOG_LEVEL_INFO,
-            "New HealthService HealthEventSleepUpdate event");
-    break;
+    case HealthEventHeartRateUpdate:
+      break;
+
+    case HealthEventSleepUpdate:
+      APP_LOG(APP_LOG_LEVEL_INFO,
+              "New HealthService HealthEventSleepUpdate event");
+      break;
+    }
   }
 }
 
