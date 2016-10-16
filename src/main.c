@@ -503,18 +503,24 @@ static void health_handler(HealthEventType event, void *context) {
       complication4 == 8 || complication5 == 8 || complication6 == 8 ||
       complication7 == 8 || complication8 == 8) {
     step_suppression = 0;
+  } else {
+    step_suppression = 1;
   }
 
   if (complication1 == 9 || complication2 == 9 || complication3 == 9 ||
       complication4 == 9 || complication5 == 9 || complication6 == 9 ||
       complication7 == 9 || complication8 == 9) {
     distance_walked_suppression = 0;
+  } else {
+    distance_walked_suppression = 1;
   }
 
   if (complication1 == 10 || complication2 == 10 || complication3 == 10 ||
       complication4 == 10 || complication5 == 10 || complication6 == 10 ||
       complication7 == 10 || complication8 == 10) {
     calories_active_suppression = 0;
+  } else {
+    calories_active_suppression = 1;
   }
 
   // Only update activities when user is awake
@@ -775,14 +781,11 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(complication_layer_three, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(complication_layer_three));
 
-  /* Create and set up complication layer four. On rectangular watches, it is on
-     the left below the middle of the watch, and on round watches, it is on the
-     left below the midpoint line.*/
-  complication_layer_four = text_layer_create(GRect(
-      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 1), ((bounds.size.w / 3) * 0)),
-      PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 3), ((bounds.size.h / 6) * 3)),
-      PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
-      (bounds.size.h / 6)));
+  /* Create and set up complication layer four. On both rectangular and round
+     watches, it is on the left below the midpoint line.*/
+  complication_layer_four = text_layer_create(
+      GRect(((bounds.size.w / 2) * 1), ((bounds.size.h / 6) * 3),
+            (bounds.size.w / 2), (bounds.size.h / 6)));
   set_complication(complication_layer_four, complication4);
   text_layer_set_text_color(complication_layer_four, text4);
   text_layer_set_background_color(complication_layer_four, background4);
@@ -790,13 +793,12 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(complication_layer_four));
 
   /* Create and set up complication layer five. On rectangular watches, it is on
-     the middle left side in the bottom half, and on round watches, it is in
-     the middle below the midpoint line.*/
+     the middle left side in the bottom half, and on round watches, it is on the
+     right half below the midpoint line.*/
   complication_layer_five = text_layer_create(GRect(
-      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 0), ((bounds.size.w / 3) * 1)),
+      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 0), ((bounds.size.w / 2) * 1)),
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 4), ((bounds.size.h / 6) * 3)),
-      PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
-      (bounds.size.h / 6)));
+      (bounds.size.w / 2), (bounds.size.h / 6)));
   set_complication(complication_layer_five, complication5);
   text_layer_set_text_color(complication_layer_five, text5);
   text_layer_set_background_color(complication_layer_five, background5);
@@ -804,13 +806,11 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(complication_layer_five));
 
   /* Create and set up complication layer six. On rectangular watches, it is in
-     the middle right side, in the bottom half, and on round watches, it is on
-     the right below the midpoint line.*/
+     the middle right side, in the bottom half, and on round watches, it is in
+     the left half of the second row from the bottom.*/
   complication_layer_six = text_layer_create(GRect(
-      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 1), ((bounds.size.w / 3) * 2)),
-      PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 4), ((bounds.size.h / 6) * 3)),
-      PBL_IF_RECT_ELSE((bounds.size.w / 2), (bounds.size.w / 3)),
-      (bounds.size.h / 6)));
+      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 1), ((bounds.size.w / 2) * 0)),
+      ((bounds.size.h / 6) * 4), (bounds.size.w / 2), (bounds.size.h / 6)));
   set_complication(complication_layer_six, complication6);
   text_layer_set_text_color(complication_layer_six, text6);
   text_layer_set_background_color(complication_layer_six, background6);
@@ -818,13 +818,12 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(complication_layer_six));
 
   /* Create and set up complication layer seven. On rectangular watches, it is
-     in the bottom row, left side, and on round watches, it is centered, second
-     row from the bottom.*/
+     in the bottom row, left side, and on round watches, it is in the right
+     half of the second row from the bottom.*/
   complication_layer_seven = text_layer_create(GRect(
-      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 0), ((bounds.size.w / 4) * 0)),
+      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 0), ((bounds.size.w / 2) * 1)),
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 5), ((bounds.size.h / 6) * 4)),
-      PBL_IF_RECT_ELSE((bounds.size.w / 2), bounds.size.w),
-      (bounds.size.h / 6)));
+      (bounds.size.w / 2), (bounds.size.h / 6)));
   set_complication(complication_layer_seven, complication7);
   text_layer_set_text_color(complication_layer_seven, text7);
   text_layer_set_background_color(complication_layer_seven, background7);
@@ -835,7 +834,7 @@ static void main_window_load(Window *window) {
      in the bottom row on the right. On round watches, it is centered at the
      bottom.*/
   complication_layer_eight = text_layer_create(GRect(
-      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 1), ((bounds.size.w / 4) * 0)),
+      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 1), ((bounds.size.w / 2) * 0)),
       PBL_IF_RECT_ELSE(((bounds.size.h / 6) * 5), ((bounds.size.h / 6) * 5)),
       PBL_IF_RECT_ELSE((bounds.size.w / 2), bounds.size.w),
       (bounds.size.h / 6)));
