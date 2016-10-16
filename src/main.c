@@ -498,6 +498,24 @@ static void display_active_calories_burned() {
 }
 
 static void health_handler(HealthEventType event, void *context) {
+  /* Set suppression integers to zero if relevant complication is being used */
+  if (complication1 == 8 || complication2 == 8 || complication3 == 8 ||
+      complication4 == 8 || complication5 == 8 || complication6 == 8 ||
+      complication7 == 8 || complication8 == 8) {
+    step_suppression = 0;
+  }
+
+  if (complication1 == 9 || complication2 == 9 || complication3 == 9 ||
+      complication4 == 9 || complication5 == 9 || complication6 == 9 ||
+      complication7 == 9 || complication8 == 9) {
+    distance_walked_suppression = 0;
+  }
+
+  if (complication1 == 10 || complication2 == 10 || complication3 == 10 ||
+      complication4 == 10 || complication5 == 10 || complication6 == 10 ||
+      complication7 == 10 || complication8 == 10) {
+    calories_active_suppression = 0;
+  }
 
   // Only update activities when user is awake
   HealthActivityMask activities = health_service_peek_current_activities();
@@ -509,19 +527,27 @@ static void health_handler(HealthEventType event, void *context) {
     // Which type of event occurred?
     switch (event) {
     case HealthEventSignificantUpdate:
-      APP_LOG(APP_LOG_LEVEL_INFO,
-              "New HealthService HealthEventSignificantUpdate event");
-      display_steps();
-      display_distance_walked();
-      display_active_calories_burned();
+      if (step_suppression == 0) {
+        display_steps();
+      }
+      if (distance_walked_suppression == 0) {
+        display_distance_walked();
+      }
+      if (calories_active_suppression == 0) {
+        display_active_calories_burned();
+      }
       break;
 
     case HealthEventMovementUpdate:
-      APP_LOG(APP_LOG_LEVEL_INFO,
-              "New HealthService HealthEventMovementUpdate event");
-      display_steps();
-      display_distance_walked();
-      display_active_calories_burned();
+      if (step_suppression == 0) {
+        display_steps();
+      }
+      if (distance_walked_suppression == 0) {
+        display_distance_walked();
+      }
+      if (calories_active_suppression == 0) {
+        display_active_calories_burned();
+      }
       break;
 
     case HealthEventMetricAlert:
@@ -531,8 +557,6 @@ static void health_handler(HealthEventType event, void *context) {
       break;
 
     case HealthEventSleepUpdate:
-      APP_LOG(APP_LOG_LEVEL_INFO,
-              "New HealthService HealthEventSleepUpdate event");
       break;
     }
   }

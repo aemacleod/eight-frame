@@ -73,7 +73,10 @@ int date_format_int;
 int disconnect_vibrate_suppress;
 int suppress_seconds;
 
-// Create keys for storing weather data
+/* Create keys for storing weather data. Weather data is persisted so that when
+ * the user reloads the watchface, there is no delay while fetching new data
+ * from the internet, and so that there will not be a blank spot if there is no
+ * internet connection available.*/
 uint32_t key_temperature = 2;
 uint32_t key_max_min = 3;
 uint32_t key_weather_icon = 4;
@@ -95,10 +98,15 @@ char wind_buffer[8];
 char precip_buffer[8];
 char humidity_buffer[8];
 
-// Create buffers for fitness data
+/* Create buffers for fitness data with corresponding suppression integers.
+* Because HealthEventMovementUpdate runs so frequently, we will only calculate
+* fitness buffers if they are actively being displayed on the watchface. */
 char step_buffer[8];
+int step_suppression;
 char distance_walked_buffer[10];
+int distance_walked_suppression;
 char calories_active_buffer[10];
+int calories_active_suppression;
 
 /* Create window assets. There are eight text layers for the display of
    complications and a ninth text layer for displaying the time.*/
