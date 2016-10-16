@@ -783,9 +783,9 @@ static void main_window_load(Window *window) {
 
   /* Create and set up complication layer four. On both rectangular and round
      watches, it is on the left below the midpoint line.*/
-  complication_layer_four = text_layer_create(
-      GRect(((bounds.size.w / 2) * 1), ((bounds.size.h / 6) * 3),
-            (bounds.size.w / 2), (bounds.size.h / 6)));
+  complication_layer_four = text_layer_create(GRect(
+      PBL_IF_RECT_ELSE(((bounds.size.w / 2) * 1), ((bounds.size.w / 2) * 0)),
+      ((bounds.size.h / 6) * 3), (bounds.size.w / 2), (bounds.size.h / 6)));
   set_complication(complication_layer_four, complication4);
   text_layer_set_text_color(complication_layer_four, text4);
   text_layer_set_background_color(complication_layer_four, background4);
