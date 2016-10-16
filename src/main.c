@@ -387,8 +387,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   } else if (activities & HealthActivityRestfulSleep) {
     ;
   } else {
-    // Get weather update every 20 minutes
-    if (tick_time->tm_min % 20 == 0) {
+    // Get weather update every 30 minutes
+    if (tick_time->tm_min % 30 == 0) {
       // Begin dictionary
       DictionaryIterator *iter;
       app_message_outbox_begin(&iter);
